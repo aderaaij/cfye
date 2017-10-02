@@ -56,10 +56,8 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "barba.js": "^1.0.0",
-    "blazy": "^1.8.2",
     "flickity": "^2.0.10",
     "gulp-composer": "^0.4.2",
-    "headroom.js": "^0.9.4",
-    "lozad": "^1.0.6"
+    "headroom.js": "^0.9.4"
   }
 }
