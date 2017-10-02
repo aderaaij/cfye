@@ -1,0 +1,39 @@
+%e-scaleLoader {
+    &::before,
+    &::after {
+        content: '';
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #ec008c;
+        opacity: 0.6;
+        transform-origin: 50% 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        animation: scale 2.0s infinite ease-in-out;
+    }
+
+    &::after {
+        animation-delay: -1.0s;
+    }
+
+    &.is-loaded {
+        &::before,
+        &::after {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}
+
+@keyframes scale {
+    0%, 100% { 
+        transform: translateX(-50%) translateY(-50%) scale(0.0);
+    
+    } 50% { 
+        transform: translateX(-50%) translateY(-50%) scale(1.0);
+    }
+}

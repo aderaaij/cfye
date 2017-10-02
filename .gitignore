@@ -1,0 +1,31 @@
+# Package managers #
+######################
+/node_modules
+/bower_components
+/vendor
+npm-debug.log
+
+# WordPress #
+######################
+/app/www/
+/app/www/wp/
+/app/www/local-config.php
+/app/www/production-config.php
+/app/www/.htaccess
+/app/www/content/uploads/
+/app/www/content/plugins/
+
+# Sensitive #
+######################
+.ftppass.json
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini

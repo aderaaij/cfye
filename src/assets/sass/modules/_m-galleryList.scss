@@ -1,0 +1,23 @@
+.m-galleryList {
+
+    & {
+        width: 100%;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 0.5em;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+        max-height: 90vh;
+        margin: 0 auto;
+    }
+}

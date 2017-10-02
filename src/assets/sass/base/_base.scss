@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    width: 100%;
+    font-family: $fontBody;
+}
+
+.barba-container {
+    transition: opacity 0.3s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $fontHeader;
+}
+
+h1 {
+    font-size: 1.5em;
+    letter-spacing: 1px;
+
+    @include breakpoint($bpSmall) {
+        font-size: 3em;
+    }
+}
+
+h2 {
+    font-size: 1.375em;
+    letter-spacing: 1px;
+
+    @include breakpoint($bpSmall) {
+        font-size: 2.125em;
+    }
+}

@@ -1,0 +1,14 @@
+.e-fluidVideo {
+
+    & {
+        width: 100%;
+        padding-bottom: 56.25%;
+        position: relative;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+}

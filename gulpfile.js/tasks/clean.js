@@ -1,0 +1,8 @@
+const gulp = require('gulp');
+const del = require('del');
+const config = require('../config/index');
+
+const cleanTask = cb => del(config.themeAssets, cb);
+
+gulp.task('clean', cleanTask);
+module.exports = cleanTask;

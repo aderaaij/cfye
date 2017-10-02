@@ -1,0 +1,65 @@
+{
+  "name": "cfye",
+  "version": "1.0",
+  "description": "A WordPress for CFYE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aderaaij/cfye"
+  },
+  "keywords": [
+    "gulp",
+    "WordPress",
+    "starter theme"
+  ],
+  "author": "Arden de Raaij <mail@arden.nl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aderaaij/cfye/issues/"
+  },
+  "homepage": "https://github.com/aderaaij/cfye",
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^7.1.1",
+    "babel-polyfill": "^6.16.0",
+    "breakpoint-sass": "^2.7.0",
+    "browser-sync": "^2.17.3",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-cached": "^1.1.0",
+    "gulp-changed": "^3.1.0",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-if": "^2.0.1",
+    "gulp-imagemin": "^3.0.3",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-notify": "^3.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sequence": "^0.4.0",
+    "gulp-sftp": "^0.1.5",
+    "gulp-sourcemaps": "^2.4.0",
+    "gulp-svgstore": "^6.0.0",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.3.10",
+    "imagemin-gifsicle": "^5.0.0",
+    "imagemin-jpegtran": "^5.0.0",
+    "imagemin-optipng": "^5.1.0",
+    "imagemin-svgo": "^5.1.0",
+    "normalize-scss": "^7.0.0",
+    "require-dir": "^0.3.2",
+    "susy": "^3.0.0",
+    "vinyl-ftp": "^0.6.0",
+    "webpack": "^3.*"
+  },
+  "dependencies": {
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "barba.js": "^1.0.0",
+    "blazy": "^1.8.2",
+    "flickity": "^2.0.10",
+    "gulp-composer": "^0.4.2",
+    "headroom.js": "^0.9.4",
+    "lozad": "^1.0.6"
+  }
+}

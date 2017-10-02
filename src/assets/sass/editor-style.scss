@@ -1,0 +1,44 @@
+// Import fonts
+@import url("https://use.typekit.net/nqe6umn.css");
+
+@import 'settings/fonts';
+@import 'settings/colors';
+@import 'settings/breakpoints';
+
+@import 'elements/e-fluidVideo';
+
+body {
+    
+    &#tinymce {
+        color: #000;
+        font-family: $fontBody;
+
+        p {
+            font-size: 1.25em;
+            max-width: 60ch;
+            margin: 1em auto;
+        }
+
+        a {
+            color: $colorPrimary;
+        }
+
+        h1,h2,h3,h4,h5,h6 {
+            font-family: $fontHeader;
+        }
+
+        .alignnone {
+            margin: 0 auto;
+            max-width: 80%;
+        }
+
+        .m-article__iframe {
+            @extend .e-fluidVideo;
+        }
+
+        .wpview {
+            max-width: 80%;
+            margin: 3rem auto;
+        }
+    }
+}

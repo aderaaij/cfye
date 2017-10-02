@@ -1,0 +1,45 @@
+%e-blockquote {
+    font-size: 1.75rem;
+    font-style: italic;
+    position: relative;
+    margin: 2rem 0;
+    padding: 0.25rem 0 0.25rem 2em;
+    text-align: center;
+
+    // .no-js & {
+    //     opacity: 1;
+    //     transform: translate(0);
+    // }
+    
+    p {
+        margin: 0.5rem 0 0.75rem;
+        transform: translateY(25%);
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 4px;
+        background-color: $colorPrimary;
+        transform: scale(0);
+        transform-origin: top center;
+        transition: all 0.3s ease-out;
+    }
+
+    &.is-active,
+    .no-js & {
+        p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        &::before {
+            transform: scale(1);
+        }
+    }
+}

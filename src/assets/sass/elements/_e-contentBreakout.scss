@@ -1,0 +1,12 @@
+%e-contentBreakout {
+    
+    & {
+        width: 100vw;
+        left: calc(-50vw + 50%);
+
+        @include breakpoint($bpDesktop) {
+            width: 72vw;
+            left: calc(-36vw + 50%);
+        }
+    }
+}
