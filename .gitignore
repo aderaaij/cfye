@@ -12,7 +12,6 @@ npm-debug.log
 /app/www/production-config.php
 /app/www/.htaccess
 /app/www/content/uploads/
-/app/www/content/plugins/
 /app/www/content/mu-plugins/
 
 # Sensitive #

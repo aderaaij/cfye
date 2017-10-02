@@ -1,0 +1,26 @@
+# Copyright (C) 2013 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/nextpage-buttons\n"
+"POT-Creation-Date: 2013-11-28 21:16:57+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-12-11 11:50+0100\n"
+"Last-Translator: jelena kovacevic <jecajeca260@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.5.5\n"
+
+#: spnp-nextpage.php:72
+msgid "Insert Next Page Tag (Alt+Shift+P)"
+msgstr "Insertar Etiqueta de Próxima Página (Alt+Shift+P)"
+
+#: spnp-nextpage.php:139
+msgid "next page"
+msgstr "próxima página"
+
+#: spnp-nextpage.php:140
+msgid "Insert Next Page Tag"
+msgstr "Insertar Etiqueta de Próxima Página"
