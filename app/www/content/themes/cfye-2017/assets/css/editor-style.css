@@ -1,0 +1,30 @@
+@import url("https://use.typekit.net/nqe6umn.css");
+.e-fluidVideo, body#tinymce .m-article__iframe {
+  width: 100%;
+  padding-bottom: 56.25%;
+  position: relative; }
+
+.e-fluidVideo iframe, body#tinymce .m-article__iframe iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute; }
+
+body#tinymce {
+  color: #000;
+  font-family: "freight-text-pro", serif; }
+  body#tinymce p {
+    font-size: 1.25em;
+    max-width: 60ch;
+    margin: 1em auto; }
+  body#tinymce a {
+    color: #ec008c; }
+  body#tinymce h1, body#tinymce h2, body#tinymce h3, body#tinymce h4, body#tinymce h5, body#tinymce h6 {
+    font-family: "jaf-bernino-sans-condensed", sans-serif; }
+  body#tinymce .alignnone {
+    margin: 0 auto;
+    max-width: 80%; }
+  body#tinymce .wpview {
+    max-width: 80%;
+    margin: 3rem auto; }
+
+/*# sourceMappingURL=editor-style.css.map */

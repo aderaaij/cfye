@@ -1,0 +1,88 @@
+.sites-we-like { 
+	width:100%;  		
+	-webkit-transform:translate3d(0,0,0);
+	-moz-transform:translateX(0,0,0);
+	-ms-transform:translateX(0,0,0);
+	transform: translateX(0,0,0);   
+	@include transition(transform .3s ease);
+}
+
+.active-menu {
+	.sites-we-like {		
+	-webkit-transform:translate3d(-64px,0,0);
+	-moz-transform:translateX(-64px,0,0);
+	-ms-transform:translateX(-64px,0,0);
+	transform: translateX(-64px,0,0);   
+	}
+}
+	.swl-grid {
+		@include nobullet;
+		margin:0;
+		padding:0;
+	}
+
+	.site-we-like {
+	  	width:100%;
+	  	height:360px;  
+	  	float:left;
+	  	overflow:hidden;
+	  	position:relative;
+	  	a {
+	  		display:block;
+	  		width:100%;
+	  		height:100%;
+	  	}
+	  	&:hover .swl-info {
+	  		@include opacity(1);
+	  		
+	  	}
+	}
+		.swl-thumb {
+			width:100%;
+			height:100%;
+			@include background-size(cover);
+			background-position:center;
+		}
+		.swl-info {
+			width:100%;
+			height:100%;
+			position:absolute;
+			text-align:center;
+			display:table;
+			top:0;
+			left:0;			
+			background-color:rgba(0,0,0,0.8);
+			@include opacity(0);
+			@include transition(opacity .2s ease);
+
+		}
+		.swl-link {
+			display:table-cell;
+			vertical-align:middle;			
+		}
+			.swl-title {
+				color:white;
+				margin:0;
+				@include opacity(.99);
+				text-shadow:-1px -1px #000;
+				text-align:center;
+				text-transform:uppercase;
+			}
+@include at-breakpoint($break-tablet) {	
+	.site-we-like {
+		width:50%;
+		height:300px;
+	}
+}
+
+@include at-breakpoint($break-desktop) {	
+	.site-we-like {
+		width:33.333336%;
+	}
+}
+
+@include at-breakpoint($break-large) {	
+	.site-we-like {
+		width:25%;
+	}
+}

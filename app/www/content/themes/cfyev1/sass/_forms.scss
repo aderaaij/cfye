@@ -1,0 +1,270 @@
+
+.gform_fields {
+	@include nobullet;
+	margin:0;
+}
+
+.validation_message {
+	color:darken(red,5%);
+	@include rem(font-size,14px);
+}
+
+.validation_error {
+	@include rem(font-size,14px);
+	color:darken(red,5%);
+	padding:1em;
+	background-color:lighten(red,40%);
+	display:block;
+	margin:1.5em 0;
+	border-left:2px solid darken(red,5%);
+}
+.gfield_error {
+	background-color:lighten(red,40%);
+	padding:.8em .5em .5em .5em;
+	border-left:2px solid darken(red,5%);
+}
+
+/***** Checkbox list *****/
+
+.gfield_checkbox {
+	@include nobullet;
+}
+input[type="radio"],
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type='checkbox'] + label:before,
+input[type='radio'] + label:before {
+	font-family: 'cfye-icons';
+	margin-right:1em;
+	color:$cfye;	
+}
+
+input[type="radio"] + label:before {
+  content: "\e028"; /* Radio Button Unchecked */
+}
+
+input[type="radio"]:checked + label:before {
+  content: "\e027"; /* Radio Button Checked */
+}
+
+input[type="checkbox"] + label:before {
+  content: "\e02c"; /* Checkbox Unchecked */
+}
+
+input[type="checkbox"]:checked + label:before {
+  content: "\e02b"; /* Checkbox Checked */
+}
+
+/* ::Contact form*/
+/* ------------------------------------------------------------ */
+
+
+.contact-wrapper {
+
+	.gform_description {
+		margin:1em 0;
+		display:block;
+	}
+
+	.gform_fields {
+		list-style:none;
+		margin:0;
+		padding:0;
+		@include rem(font-size,16px);
+	}
+
+	.gfield {
+		display:inline-block;
+		margin-right:1em;
+	}
+
+	.gfield_label { 	
+		display:inline-block;
+		margin-right:1em;
+	}
+	input[type=text],
+	input[type=email],
+	input[type=url] {
+		border:none;
+
+		border-bottom:2px dashed $cfye;
+	} 	
+
+	.ginput_container {
+		display:inline-block;
+
+		.gfield_select {
+			border:none;
+			border-bottom:2px dashed $cfye;
+		}
+	}
+
+	.gfield_required {
+		display:none;
+	} 
+}
+
+/* ::Page newsletter*/
+/* ------------------------------------------------------------ */
+
+
+.content-newsletter {
+	
+	/*list item*/
+	.gfield {
+		margin:1em 0;
+		width:100%;
+	}
+	/* input left (like first name, etc.)*/
+	.ginput_left {
+		margin-right:1em;
+	}
+	.ginput_left,
+	.ginput_right {
+		margin-bottom:1em;
+	}
+	/*labels*/
+	.gfield_label {
+		
+	}
+	/*container for all input fields */
+	.ginput_container {
+		display:inline-block;
+	}
+	input[type=text],
+	input[type=email] {
+		font-weight:normal;		
+		padding:0.5em;
+		
+		&:focus {
+			
+		}
+	}
+		select {
+			padding:0.5em;
+			color:#ccc;
+		}
+	.button {		
+		display:block;
+		border:none;
+		background-color:$cfye;
+		color:white;
+		font-family:$header-font;
+		font-weight:300;
+		padding:.5em 3em .5em 1em;				
+		text-transform:uppercase;
+		display:inline-block;
+		@include transition(background-color .15s ease);
+		&:hover {
+			background-color: darken($cfye,10%);
+		}
+	}
+
+	.gform_footer {
+		&:after {
+			font-family: 'cfye-icons';
+			content:'\e029';
+			width:30px;
+			@include rem(font-size,22px);
+			height:30px;
+			margin-left:-44px;
+			color:white;
+			pointer-events:none;			
+			display:inline-block;
+		}
+	}
+}
+
+/* ::Footer newsletter*/
+/* ------------------------------------------------------------ */
+
+.footer-newsletter {
+	width:60%;	
+	.gform_body {
+		display:inline-block;
+		width:100%;
+		height:42px;		
+	}
+	.gform_description {
+		display:block;
+		@include rem(font-size,18px);
+		margin:.8em 0 1.2em;
+	}
+	.gform_fields {	
+		margin-bottom:.5em;
+		@include clearfix;
+	}
+		.gfield {		
+			width:100%
+		}
+			.ginput_container {				
+				width:100%;				
+			}
+				input[type=email] {
+					font-family: Open Sans;
+				    font-size: 14px;
+				   	width:100%;
+				    padding: 15px;
+				    border: none;
+				  	border-bottom: 1px solid darken(#ececec,15%);				    
+				    -moz-border-radius: 3px;
+				    border-radius: 3px;
+					background-color:#ececec;
+				}
+
+	.gform_footer {
+		width:100%;
+		position:relative;
+		height:42px;		
+	}
+		.button {
+			display:block;
+			background-color:$cfye;
+			color:white;
+			font-family: $header-font;
+			@include rem(font-size,24px);			
+			width:100%;
+			line-height:1.2;
+			padding:0.5em;
+			border:none;			
+			margin:0;
+			text-transform:uppercase;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+			@include transition(background-color .2s ease);
+			&:hover {
+				background-color:darken($cfye,10%);
+			}
+		}
+
+	.gform_title {
+		color:#aaa;
+		@include rem(font-size, 38px);
+		border-bottom:1px solid #aaa;		
+		text-align:left;
+		margin:0;
+	}
+	
+	::-webkit-input-placeholder {
+	   color: #464c4c;
+	   transition: color 0.3s ease;
+	}
+
+	:focus::-webkit-input-placeholder {
+	   color: transparent;
+	   transition: color 0.3s ease;
+	}
+}
+
+input::-moz-focus-inner { 
+	border: 0; 
+	padding: 0; 
+	margin-top:-2px; 
+	margin-bottom: -2px; 
+}
+
+.footer-newsletter {
+	margin-bottom:2em;
+}

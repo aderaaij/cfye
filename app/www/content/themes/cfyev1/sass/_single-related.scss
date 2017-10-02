@@ -1,0 +1,53 @@
+.related-article {
+	width:100%;
+	height:55%;
+	min-height:540px;
+	@include clearfix;
+	background-color:black;
+	@include transition(all 450ms cubic-bezier(0.165, 0.840, 0.440, 1.000));
+	position:relative;
+}
+	.related-thumbnail {
+		@include background-size(cover);
+		width:100%;
+		height:100%;
+		background-position: center;
+		@include opacity(.1);		
+		@include transition(all .9s ease);
+		position:absolute;
+		bottom:0;
+		left:0;
+		z-index:998;
+	}
+	.related-overlay {
+		width:100%;
+		height:100%;
+		position:relative;
+		z-index:999;
+		text-align:center;
+	}
+	.in-focus .related-thumbnail {
+		@include opacity(.7);
+	}
+		.related-meta-wrap {
+			@include clearfix;
+			padding:2em 1em 1em;
+		}
+			.read-next {
+				font-style:italic;
+				@include opacity(.99);
+				text-shadow: -1px -1px #000;
+				color:white;
+				@include rem(font-size,24px);
+				padding-top:1em;
+				@include clearfix;
+			}
+			.related-title {
+				color:white;
+				@include opacity(.99);
+				text-shadow: -1px -1px #000;
+				@include rem(font-size,66px);
+				margin-top:0;
+				padding-top:0;
+				z-index:999;
+			}

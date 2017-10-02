@@ -1,0 +1,324 @@
+/* ::Slideshow - top image */
+/* ------------------------------------------------------------ */
+
+@import "single-top-content";
+
+/* ::Article content */
+/* ------------------------------------------------------------ */
+.single article {
+	position:relative;
+}
+.article-container-wrap {
+	width:100%;
+	float:left;
+	margin:0 auto;
+	position:relative;
+	@include transition(all .3s ease);
+}
+
+.single-entry-header {
+	@include rem(margin-bottom,16px);
+}
+	.page-title {
+		color:$cfye;
+		font-weight:$header-font-weight;	
+		margin-top:50px;
+		margin-bottom:.3em;
+		text-align:left;
+		line-height:1;
+		@include rem(font-size,52px);
+	}
+
+	.top-meta {
+		color:#999;	
+		text-align:left;
+		margin:0;	
+		@include clearfix;
+		.short-meta-item {
+			margin-right:2em;
+		}
+		a {
+			color:$cfye;
+		}
+	}
+		
+
+.article-entry-content {
+	blockquote {
+		margin-top:30px;
+		@include clearfix;
+		p {
+			visibility:hidden;
+			margin:0;
+			@include opacity(0);
+			@include transition(all .5s $easeOutQuad);
+			-webkit-transform:translate3d(10%,0,0);
+		}
+		p.blockloaded {
+			visibility:visible;
+			@include opacity(1);
+			-webkit-transform:translate3d(0,0,0);
+		}
+	}
+}
+
+.content-anchor {
+	display: block;	
+	@include clearfix;
+}
+
+.article-wrap {
+	padding-bottom:4em;	
+}
+
+pre {
+	width:100%;
+	max-height:100%;
+	@include clearfix;	
+	img {
+		width:100%;
+		height:auto;
+		display:block;	
+		margin:40px 0;	
+	}
+	.landscape {
+		width:100%!important;
+		height:auto!important;
+	}
+	.portrait {		
+		width:50%;
+		padding:0 8px;
+		height:auto;
+		float:left;
+	}
+}
+
+
+/*photo item */
+.single-item {
+	background: #000;
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	float: left;
+}
+
+/* ::Paginated post links*/
+/* ------------------------------------------------------------ */
+.page-links {
+	float:right;	
+	width:64px;
+	margin-left:-64px; //offset
+	height:auto;
+	z-index:1;
+	text-align:center;	
+	&:hover {
+		opacity:1.0;
+	}
+	i {
+		color:white;
+		@include rem(font-size,32px);
+		line-height:2;
+		display:block;
+		height:64px;
+		cursor:pointer;
+		background-color:$cfye;
+	}
+}
+	
+	.pageLinksToggle {
+		z-index:999;
+	}
+		.subpage-list {
+			list-style:none;		
+			padding:0;
+			background-color:$cfye;
+			z-index:-1;
+			display:block;
+			position:absolute;
+			right:-64px;
+			width:64px;
+			overflow:hidden;
+			@include transition(all .2s $easeOutQuad);
+			border-top:1px solid white;
+			margin:0;
+			li {			
+				color:white;
+				border-bottom:1px solid white;
+				b {
+					padding:0.5em 0;
+					display:block;
+				}
+				a {
+					color:white;
+					display:block;
+					background-color:$cfye;
+					padding:0.5em 0;
+					&:hover {
+						background-color:darken($cfye,10%);
+					}
+				}
+			}
+		}
+.single-prev-next {
+	display:none;
+}
+
+	/* ::Next/Previous */
+	/* ------------------------------------------------------------ */
+	.paginated-post-links {
+		a {
+			color:$cfye;
+			text-transform:uppercase;
+		}
+	}
+	.next-paginated {
+		float:right;
+	}
+	.prev-paginated {
+		float:left;	
+	}
+
+/* ::Social links*/
+/* ------------------------------------------------------------ */
+.single-share-buttons {
+	border-bottom:1px solid #999;
+	padding-bottom:2em;
+	@include clearfix;
+	ul {
+		float:right;
+		margin:0 0 4px 0;
+		padding:0;
+	}
+	li {
+		margin-left:1em;
+		margin-right:0;
+	}
+}
+.share-this {	
+	float:right;
+	line-height:2;
+	color:#999;
+	i {
+		margin-right:10px;
+	}
+}
+
+/* ::Related articles*/
+/* ------------------------------------------------------------ */
+
+@import "single-related";
+
+/* ::Break tablet styles */
+/* ------------------------------------------------------------ */
+@include at-breakpoint($break-tablet) {	
+	.single-prev-next {
+		display:block;
+		position:fixed;		
+		top:50%;	
+		margin-top:-140px;
+		z-index:1;
+		width:60px;		
+		&:hover .linktext {
+			@include opacity(.8);
+			visibility:visible;
+		}		
+		i {
+			display:block;
+			@include rem(font-size,160px);
+			color:#ccc;
+			@include transition(color .15s ease);
+			&:hover {
+				color:darken(#ccc,10%);
+			}
+		}
+	}
+
+	.single-nav-prev {
+		left:15px;			
+		text-align:left;
+		@include transition(left .2s $easeOutQuad);
+		.linktext{
+			float:left;
+			&:before {
+				left:40px;
+			}
+		}
+	}
+
+	.single-nav-next {
+		right:15px;
+		text-align:right;
+		@include transition(right .2s $easeOutQuad);
+		.linktext {
+			float:right;
+			&:before {
+				right:40px;
+			}
+		}
+	}
+	
+		.linktext {
+			@include border-radius(3px);
+			width:200px;
+			@include rem(font-size,14px);
+			background-color:black;
+			text-align:center;		
+			color:white;
+			padding:0.5em;
+			position:relative;
+			visibility:hidden;
+			@include opacity(0);
+			@include transition(opacity 0.2s $easeOutQuad);
+			&:before {
+				content:'';
+				position:absolute; 
+				bottom:-10px; 			
+				@include arrow(bottom, #000, 10px);   
+			}
+		}
+
+	.slideOutLeft {left:-60px;}
+	.slideOutRight {right:-60px;}
+	
+}
+
+/* ::Author Information */
+/* ------------------------------------------------------------ */
+
+.author-info {	
+	padding-bottom:2em;
+}
+
+.author-avatar {
+	display:block;
+	float:left;
+	width:150px;
+	height:150px;
+	margin-right:0.5em;
+}
+
+.avatar {
+	width:150px;
+	height:150px;
+}
+
+.author-description {
+	text-align:center;
+	p {
+		display:block;		
+		@include rem(font-size,16px);
+	}
+}
+	
+footer.entry-meta {	
+	padding:0;
+	@include clearfix;
+	width:100%;
+	float:left;
+}
+
+/* ::Artist information box */
+/* ------------------------------------------------------------ */
+
+@import "single-about-artist";

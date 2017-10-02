@@ -1,0 +1,135 @@
+
+.page-images-wrap {
+	width:100%;
+	height:66%;
+	min-height:350px;
+	@include clearfix;
+	@include transition(left 0.3s  $easeOutQuad);
+}
+	.page-thumb {
+		width:100%;
+		height:100%;
+		@include background-size(cover);
+		background-position: center;		
+	}
+
+.page-content {
+	width:100%;
+	height:auto;
+	float:right;	
+	padding:0 2em;
+	.entry-content {
+		padding-bottom:2em;
+	}
+}
+
+
+/* ::404 / Search results page */
+/* ------------------------------------------------------------ */
+.thumb-404 {
+	@include background-size(contain);
+	background-repeat:no-repeat;
+}
+.content-404 {
+	#searchform {
+		width:100%;
+		@include clearfix;
+		margin-bottom:1em;
+	}	
+	#s {
+		font-family: Open Sans;
+		font-size: 14px;
+		width:50%;
+		padding: 15px;
+		border: none;
+		border-bottom: 1px solid darken(#ececec,15%);				    
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+		background-color:#ececec;
+		float:left;
+	}
+	#searchsubmit {
+		border:none;
+		background-color:transparent;		
+		float:left;
+		color:#666;
+		height:50px;
+		margin-left:-44px;
+		overflow:hidden;
+		@include rem(font-size,22px);
+		padding:0.5em;
+		&:hover {
+			color:#000;
+		}
+	}
+}
+
+.recent-post-list {
+	@include nobullet;
+	margin:0;
+	h3 {
+		display:inline-block;
+		margin:0;
+		line-height:1;
+	}
+	
+}
+	.recent-post-item {
+		
+		margin-bottom:.5em;
+		a {
+			color:#666;
+		}
+	}
+.recent-post-content {
+	@include rem(font-size,16px);
+	margin-left:2em;
+	border-bottom:1px solid #999;
+	p {
+		margin-top:0;
+	}
+}
+ .list-meta {
+	color:#999;
+	display:block;
+	width:100%;
+	@include rem(font-size,14px);
+}
+/* ::at-breakpoint*/
+/* ------------------------------------------------------------ */
+@include at-breakpoint($break-landscape) {
+	
+}
+
+@include at-breakpoint($break-tablet) {
+	.page-content {
+		padding: 0 5em;
+	}
+}
+
+@include at-breakpoint($break-desktop) {
+	.page-images-wrap {
+		width:50%;
+		height:100%;
+		position:fixed;
+		top:0;
+		left:0;
+	}
+	.page-content {
+		width:50%;
+		height:100%;
+		padding:0 3em;
+	}
+}
+
+@include at-breakpoint($break-large) {
+	.page-content {
+		padding: 0 5em;
+	}
+	.page-images-wrap {
+		width:55%;
+	}
+	.page-content {
+		width:45%;
+	}
+}

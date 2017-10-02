@@ -7,13 +7,13 @@ npm-debug.log
 
 # WordPress #
 ######################
-/app/www/
 /app/www/wp/
 /app/www/local-config.php
 /app/www/production-config.php
 /app/www/.htaccess
 /app/www/content/uploads/
 /app/www/content/plugins/
+/app/www/content/mu-plugins/
 
 # Sensitive #
 ######################

@@ -1,0 +1,145 @@
+a img {
+	border: none;
+}
+
+p img {
+	margin-bottom: 0.25em; /* a small bottom margin prevents content floating under images */
+}
+
+.entry-content img,
+.comment-content img,
+.widget img {	
+	max-width: 100%; /* Fluid images for posts, comments, and widgets */
+}
+
+img[class*="align"],
+img[class*="wp-image-"],
+img[class*="attachment-"] {
+	height: auto; /* Make sure images with WordPress-added height and width attributes are scaled correctly */
+}
+
+
+/* Make sure videos and embeds fit their containers */
+
+embed,
+iframe,
+object,
+video {
+	max-width: 100%;
+}
+
+
+img.alignleft {
+	margin-right: 1em;
+	height:auto;
+}
+
+.wp-caption {	
+	overflow:hidden;
+	position:relative;
+	height:auto!important;
+	&:hover .wp-caption-text {
+		-webkit-transform:translate3d(0,0,0);
+		-moz-transform:translate3d(0,0,0);
+		transform:translate3d(0,0,0);
+		@include opacity(1);
+	}
+}
+
+.collection {
+	overflow:hidden;	
+	margin:60px 0;
+	position:relative;	
+	img {}
+}
+.content-grid {
+	margin-bottom:0!important;
+	
+}
+.content-grid-last {
+	margin-top:30px!important;
+}
+.alignleft,
+.alignright {
+	background-color:#000;
+	margin-bottom:2em;
+		img {
+		height:auto;
+		display:block;
+		margin:0;
+		width:100%!important
+	}
+}
+
+	.wp-caption-text {
+		position:absolute;
+		bottom:0;
+		left:0;	
+		-webkit-transform:translate3d(0,100%,0);
+		-moz-transform:translate3d(0,100%,0);
+		transform:translate3d(0,100%,0);
+		line-height:2;
+		color:black;
+		background-color:white;
+		background-color:rgba(255,255,255,0.9);
+		width:100%;	
+		margin:0 !important;
+		padding:1em 0;	
+		@include opacity(0);
+		@include rem(font-size,16px);
+		@include transition(all 0.15s $easeOutQuad);
+		p {
+			display:none;
+		}
+	}
+
+
+
+div.alignnone {
+	width:auto!important;
+	img {
+		display:block;
+		width:100%;
+		height:auto;
+		z-index:990;
+
+		
+	}
+}
+
+
+.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wp-caption {
+	max-width: 100%; /* Keep wide captions from overflowing their container. */
+	padding: 0;
+	text-align: center;
+}
+
+.gallery-caption,
+.entry-caption {
+	font-style: italic;
+	font-size: 12px;
+	font-size: 0.857142857rem;
+	line-height: 2;
+	color: #757575;
+}
+img.wp-smiley,
+.rsswidget img {
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	margin-bottom: 0;
+	margin-top: 0;
+	padding: 0;
+}
+
+@include at-breakpoint($break-desktop) {
+	.alignleft,.alignright {
+		margin:0;
+	}
+}

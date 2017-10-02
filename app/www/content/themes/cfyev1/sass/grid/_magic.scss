@@ -1,0 +1,181 @@
+// Magic (Responsive) Susy Grid System
+
+// $show-grid-backgrounds: true;
+// Define mobile-first grid constants.
+
+$total-columns      : 6;
+
+// You can use ems, px or % to define the grid.
+$column-width       : 64px;
+$gutter-width       : 20px;
+$grid-padding       : $gutter-width / 2;
+
+// Uncomment to make the grid fluid (w/ a max-width)
+// $container-style: fluid
+// .container
+//   max-width: 1380px
+
+// Define breakpoints, in this case when there's room for the specified columns.
+$break-landscape: 6;
+$break-tablet:   8;
+$break-desktop: 12;
+$break-large: 16;
+
+.container {
+	// Include `container` if this element will contain a grid system.
+	@include container($total-columns);
+	// Apply our grid background stripes for development.
+	// @include susy-grid-background;
+}
+
+// Automatically reset the grid width & re-apply the grid background
+// to responsive layouts.
+$layouts: 
+	$break-landscape, 
+	$break-tablet, 
+	$break-desktop,
+	$break-large;	
+@each $layout in $layouts {
+	@include at-breakpoint($layout) {
+		.container {
+			@include set-container-width;
+			//@include susy-grid-background;
+		}
+	}
+}
+
+.alignleft, 
+.alignright {
+	@include span-columns(6,6);
+}
+.article-entry-content {
+	blockquote {
+		margin:0 0 30px;
+		padding:0 1em;
+	}
+}
+@include at-breakpoint($break-landscape) {
+	.artist-outer-wrap {
+		margin:0 auto;
+		width:100%;
+		@include clearfix;
+	}
+		.artist-thumb-wrap {
+			margin:0 auto;
+			float:none;
+		}
+}
+
+
+@include at-breakpoint($break-tablet) {
+	.artist-outer-wrap {
+		@include span-columns(4,8);
+	}
+	.artist-meta{
+		@include span-columns(4 omega, 8);
+	}	
+}
+
+@include at-breakpoint($break-desktop) {
+	//Article layout
+	.article-wrap {
+		@include span-columns(12,12);
+		//Squish paragraphs, etc
+		.single-entry-header,
+		h2,h3,h4,h5,
+		ul,ol, 
+		.article-entry-content > p,
+		.aligncenter{
+			@include squish(2,2);			
+		}	
+		ul,ol, 		
+		.aligncenter{
+			margin-bottom:60px;
+		}				
+	}
+	blockquote {
+		margin:0 0 50px 0;		
+		padding:0 3em;
+		> p {
+			margin:0;
+			padding:.3em 0;
+		}
+	}	
+	// Artist information
+	.artist-info {		
+		@include squish(2,2);	
+		@include span-columns(8,12);	
+	}
+	.artist-outer-wrap {
+		@include span-columns(4,8);
+	}
+	.artist-meta{
+		@include span-columns(4 omega, 8);
+	}
+	// Wrapper for the share buttons
+	.single-share-wrap {
+		@include squish(2,2);		
+	}
+	// Author information
+	.author-info {
+		@include span-columns(8,12);		
+	}	
+	.alignleft {
+		@include span-columns(6,12);
+	}
+	.alignright {
+		@include span-columns(6 omega,12);
+	}
+	.one-third {
+		@include span-columns(4,12);
+	}
+	.two-third {
+		@include span-columns(8,12);
+	}
+	.last {
+		@include omega;
+	}
+}
+
+@include at-breakpoint($break-large) {
+	.article-wrap {
+		@include span-columns(16,16);
+		.single-entry-header,
+		h2,h3,h4,h5,
+		ul,ol, 
+		.article-entry-content > p,
+		.aligncenter {
+			@include squish(3,3);
+			padding: 0 54px;			
+		}
+				
+		ul,ol,		
+		.aligncenter {			
+			margin-bottom:60px;
+		}
+		.single-share-wrap {
+			@include squish(3,3);
+			padding: 0 54px;
+		}		
+		blockquote {
+			margin-bottom:50px;
+			@include squish(1,1);
+			padding:0 80px;
+			> p {
+				margin:0;
+				padding:.3em 0;
+			}
+		}		
+	}
+	.artist-info {
+		@include span-columns(10,16);
+		@include squish(3,3);
+		padding:0 54px;
+	}
+	.artist-outer-wrap {
+		@include span-columns(4,10);
+	}	
+	.artist-meta{
+		@include span-columns(6 omega, 10);
+	}
+}

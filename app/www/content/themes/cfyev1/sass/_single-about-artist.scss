@@ -1,0 +1,283 @@
+.artist-info {
+	padding-bottom:3em;
+}
+	.artist-title {
+		color:#666;
+		@include rem(font-size, 28px);
+		border-bottom:1px solid #ccc;
+		padding-bottom:0.2em;
+		text-align:left;
+		margin-top:0;
+		margin-bottom:5px;
+	}
+
+	/* ::Thumbnail and social icons */
+	/* ------------------------------------------------------------ */
+
+	.artist-thumb-wrap {
+		margin:0 auto;		
+		padding:0;
+		position:relative;
+		width:250px;
+		height:250px;
+		z-index:10;
+		img {
+			@include border-radius(75px);
+			-webkit-backface-visibility: hidden;
+			-moz-backface-visibility: hidden; 
+			-ms-backface-visibility: hidden; 
+			backface-visibility: hidden; 
+
+		}
+	}
+
+		/* flipping animation: http://davidwalsh.name/css-flip*/
+		.no-touch .flip-container:hover .flipper, 
+		.flip-container.hover .flipper {
+			-webkit-transform: rotateY(180deg);
+			-moz-transform: rotateY(180deg);
+			-ms-transform: rotateY(180deg);
+			transform: rotateY(180deg);
+		}
+		
+		.flip-container {
+			z-index:10;
+			margin:auto;
+			position:absolute;
+			top:50px; left:0; right:0; bottom:0;
+		}
+
+		.flip-container,.front,.back {
+			width:150px;
+			height:150px;
+			position:absolute;
+			top:0;
+			left:0;
+		}
+
+			/* flip speed goes here */
+			.flipper {
+				@include transition( 0.6s);
+				-webkit-transform-style: preserve-3d;
+				-moz-transform-style: preserve-3d;
+				-ms-transform-style: preserve-3d;
+				transform-style: preserve-3d;	
+			}
+
+			.front, .back {
+				-webkit-backface-visibility: hidden;
+				-moz-backface-visibility: hidden; 
+				-ms-backface-visibility: hidden; 
+				backface-visibility: hidden; 
+			}
+
+			.front {
+			  z-index:3;
+			}
+
+			.back {
+				-webkit-transform: rotateY(180deg);
+				-moz-transform: rotateY(180deg);
+				-ms-transform: rotateY(180deg);
+				transform: rotateY(180deg);					
+			}
+
+				.circle {
+					width:150px;
+					height:150px;
+					background-color:#ec008c;
+					@include border-radius(75px);
+					text-align:center;				
+					
+				}
+					.big-icon {
+						@include rem(font-size,75px);
+						color:white;
+						line-height:2;	
+					}
+
+		$offsethv: 30px;
+		$offsetcenter: 105px;
+
+		.social-list {
+			list-style:none;
+			padding:0;			
+			@include clearfix;					
+			a {
+				color:white;
+			}
+			i {
+				@include rem(font-size,20px);
+			}
+		}			
+			
+			.social-icon{
+				display:block;
+				text-align:center;
+				background-color:#ec008c;
+				position:absolute;
+				width:40px;
+				height:40px;
+				@include border-radius(20px); 
+				text-align:center;
+				line-height:2.5;				
+				@include transition(all 0.3s ease);
+				z-index:1;
+				cursor:pointer;
+				&:hover{
+					background-color:#333;
+				}
+				a {
+					display:block;
+				}
+			}
+			.artist-facebook {background-color:$facebook;}
+			.artist-twitter {background-color:$twitter;}
+			.artist-linkedin {background-color:$linkedin;}
+			.artist-web {background-color:#000;}
+			.artist-e-mail {background-color:darken(red,10%);}
+			.artist-flickr {background-color:$flickr;}
+			.artist-tumblr {background-color:$tumblr;}
+			.artist-instagram {background-color:$instagram;}
+			.upperright,.right,.top {
+				right:$offsetcenter;
+				top:$offsetcenter;
+			}
+			.bottomright,.bottom {
+				right:$offsetcenter;
+				bottom:$offsetcenter;
+			}			
+			.upperleft,.left {
+				left:$offsetcenter;
+				top:$offsetcenter;
+			}
+			.bottomleft {
+				bottom:$offsetcenter;
+				left:$offsetcenter;
+			}
+
+			.upperright.active {
+				top:$offsethv;
+				right:$offsethv;
+			}
+			.right.active {
+				right:0;
+			}
+			.top.active {
+				top:0;
+			}
+			.bottomright.active {
+				bottom:$offsethv;
+				right:$offsethv;
+			}
+			.bottom.active {
+				bottom:0;
+			}
+			.bottomleft.active {
+				bottom:$offsethv;
+				left:$offsethv;
+			}
+			.left.active {
+				left:0;
+			}
+			.upperleft.active {
+				top:$offsethv;
+				left:$offsethv;
+			}
+
+/* ::Artist  Description */
+/* ------------------------------------------------------------ */
+
+.artist-description {
+	@include rem(font-size,16px);	
+	padding-bottom:1em;
+	border-bottom:1px solid #ccc;	
+	p {		
+		padding:0!important;
+		text-align:left;
+	}
+}
+
+.related-artist-items {
+	@include nobullet;	
+	
+	
+}
+.related-icon {
+	display:inline-block;
+}
+.teaser {	
+	@include rem(font-size,16px);
+	display:block;
+	@include clearfix;
+	p {
+		margin:0;
+	}
+}
+.related-article-artist {
+	border-bottom:1px solid #999;
+	padding-bottom:1em;
+	@include clearfix;		
+	margin-bottom:1em;
+	position:relative;
+
+	h3 {		
+		@include clearfix;
+		@include rem(font-size,18px);
+		font-family: $body-font;
+		margin:0;		
+		text-align:left;
+		display:inline-block;
+	}
+	.entry-meta {
+		@include rem(font-size,14px);		
+		
+		
+		float:right;
+	}
+	a {
+		color:#999;
+		@include transition(color 0.2s ease);
+	}
+	&:hover a {
+		color:#333;
+	}
+	&:hover .related-thumb-overlay {
+			top:0;
+		}
+}
+	
+	
+	.related-article-wrap {
+		padding:0.5em;
+	}
+@include at-breakpoint($break-tablet) {
+	.artist-description {
+		p {
+			@include pad(1,1);
+		}
+	}
+	
+	.artist-thumb-wrap {
+		float:right;
+	}
+}
+@include at-breakpoint($break-desktop) {
+	.artist-description {
+		text-align: left;
+	}
+	.artist-meta {	
+		@include clearfix;
+	}
+	
+}
+@include at-breakpoint($break-large) {
+	
+	.artist-meta {
+		padding-left:0;
+	}
+}
+
+.author-thumb-column {
+	@include span-columns(3,12);
+}
