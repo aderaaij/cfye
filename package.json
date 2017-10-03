@@ -19,11 +19,11 @@
   "homepage": "https://github.com/aderaaij/cfye",
   "devDependencies": {
     "babel-core": "^6.17.0",
-    "babel-loader": "^7.1.1",
-    "babel-polyfill": "^6.16.0",
     "babel-eslint": "^8.0.1",
+    "babel-loader": "^7.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.16.0",
     "babel-preset-env": "^1.6.0",
     "breakpoint-sass": "^2.7.0",
     "browser-sync": "^2.17.3",
@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "barba.js": "^1.0.0",
+    "gulp-plumber": "^1.1.0",
     "headroom.js": "^0.9.4"
   }
 }

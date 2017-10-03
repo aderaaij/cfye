@@ -707,7 +707,7 @@ h2 {
 
 .m-article__content {
   max-width: 75ch;
-  margin: 0 auto;
+  margin: 0 auto 3em;
   padding: 2em 1em; }
 
 .m-article__titleWrap {
@@ -789,6 +789,10 @@ h2 {
   margin: 2em 0;
   padding: 0 0 0 1.5em; }
 
+.m-article__entryContent h2 {
+  font-size: 2em;
+  margin-bottom: 0.5em; }
+
 .m-article__entryContent h1, .m-article__entryContent h2, .m-article__entryContent h3, .m-article__entryContent h4, .m-article__entryContent h5, .m-article__entryContent h6 {
   color: #616161; }
 
@@ -865,6 +869,12 @@ h2 {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin: 1rem 0; }
+  .m-article .m-contentCollection .alignleft img,
+  .m-article .m-contentCollection .alignright img {
+    -o-object-fit: cover;
+       object-fit: cover;
+    width: 100%;
+    height: 100%; }
   .m-article .m-contentCollection + p {
     margin-top: 3rem; }
   @media (min-width: 768px) {
@@ -1250,5 +1260,69 @@ h2 {
     visibility: visible;
     -webkit-transform: scaleX(1);
             transform: scaleX(1); }
+
+.m-profileExcerpt {
+  max-width: 700px;
+  margin: 0 auto 300px;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.m-profileExcerpt__thumbnail img {
+  display: block;
+  border-radius: 150px;
+  border: 8px solid #E0E0E0;
+  margin: 0 auto; }
+
+.m-profileExcerpt__title {
+  margin-bottom: 0; }
+
+.m-profileExcerpt__contentWrap {
+  text-align: left;
+  padding: 0 0 0 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+
+.m-profileExcerpt__content h3 {
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+  font-size: 1.375em;
+  color: #424242;
+  letter-spacing: 1px; }
+
+.m-profileExcerpt__content p {
+  font-size: 18px;
+  margin: 0 0 1.25em 0;
+  text-align: left;
+  line-height: 1.55;
+  color: #424242; }
+  .m-profileExcerpt__content p a {
+    color: #ec008c; }
+
+.m-profileExcerpt__socialList {
+  list-style: none;
+  margin: auto 0 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+  .m-profileExcerpt__socialList li {
+    width: 22px;
+    height: 22px;
+    margin: 0 2.5em 0 0; }
+  .m-profileExcerpt__socialList a {
+    color: #9E9E9E; }
+    .m-profileExcerpt__socialList a:hover svg {
+      fill: #ec008c; }
+  .m-profileExcerpt__socialList svg {
+    fill: #9E9E9E;
+    -webkit-transition: fill 0.3s ease-out;
+    transition: fill 0.3s ease-out; }
 
 /*# sourceMappingURL=screen.css.map */

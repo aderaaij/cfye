@@ -29,7 +29,7 @@
 
     &__content {
         max-width: 75ch;
-        margin: 0 auto;
+        margin: 0 auto 3em;
         padding: 2em 1em;        
     }
 
@@ -130,6 +130,11 @@
             padding: 0 0 0 1.5em;
         }
 
+        h2 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+
         h1,h2,h3,h4,h5,h6 {
             color: $colorGrey700;
         }
@@ -163,6 +168,7 @@
                     opacity: 0;
                     transform: scale(0.9);
                 }
+
                 &[data-loaded=true],
                 .no-js & {
                     opacity: 1;
@@ -229,6 +235,15 @@
         justify-content: space-between;
         margin: 1rem 0;
         @extend %e-contentBreakout;
+
+        .alignleft,
+        .alignright {
+            img {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+        }
 
         + p {
             margin-top: 3rem;
