@@ -3038,9 +3038,7 @@ exports.default = function () {
 
     return {
         observe: function observe() {
-            console.log('observe!');
             var elements = Array.from(document.querySelectorAll(selector));
-            console.log(elements);
             for (var i = 0; i < elements.length; i++) {
                 if (isLoaded(elements[i])) {
                     continue;
@@ -3060,8 +3058,6 @@ var defaultConfig = {
     rootMargin: '0px',
     threshold: 0,
     load: function load(element) {
-        // console.log(element);
-        // console.log(element.dataset);
         if (element.tagName === 'IMG') {
             if (element.dataset.src) {
                 element.src = element.dataset.src;

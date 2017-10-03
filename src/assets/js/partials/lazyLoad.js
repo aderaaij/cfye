@@ -2,8 +2,6 @@ const defaultConfig = {
     rootMargin: '0px',
     threshold: 0,
     load(element) {
-        // console.log(element);
-        // console.log(element.dataset);
         if (element.tagName === 'IMG') {
             if (element.dataset.src) {
                 element.src = element.dataset.src;
@@ -52,9 +50,7 @@ export default function (selector = '.lozad', options = {}) {
 
     return {
         observe() {
-            console.log('observe!');
             const elements = Array.from(document.querySelectorAll(selector));
-            console.log(elements);
             for (let i = 0; i < elements.length; i++) {
                 if (isLoaded(elements[i])) {
                     continue;
