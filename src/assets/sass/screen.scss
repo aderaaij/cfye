@@ -1,5 +1,5 @@
 // Import fonts
-@import url("https://use.typekit.net/nqe6umn.css");
+@import url('https://use.typekit.net/nqe6umn.css');
 
 // General imports
 @import 'normalize/import-now';
@@ -15,7 +15,6 @@
     --headerHeight: 50px;
 }
 
-$headerHeight: 50px;
 //Layout
 @import 'layout/l-site';
 
@@ -40,5 +39,6 @@ $headerHeight: 50px;
 @import 'modules/m-lightbox';
 @import 'modules/m-siteNav';
 @import 'modules/m-profileExcerpt';
+@import 'modules/m-aboutPage';
 
 // State

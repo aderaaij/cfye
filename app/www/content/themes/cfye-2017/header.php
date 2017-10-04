@@ -19,7 +19,6 @@
         </script>
 
         <div class='l-site'>
-            
             <div class='l-site__header'>
                 <div class="m-siteHeader">
                     <div class="m-siteHeader__title">

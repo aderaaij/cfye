@@ -3,7 +3,7 @@
     & {
         width: 100%;
         background-color: $colorPrimary;
-        height: $headerHeight;
+        height: var(--headerHeight);
         overflow: hidden;
         z-index: 501;
         display: flex;
@@ -25,8 +25,8 @@
     }
 
     &__title {
-        width: $headerHeight;
-        height: $headerHeight;
+        width: var(--headerHeight);
+        height: var(--headerHeight);
 
         svg {
             display: block;

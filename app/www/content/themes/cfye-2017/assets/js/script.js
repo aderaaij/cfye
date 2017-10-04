@@ -93,6 +93,15 @@ var headroom = new _headroom2.default(header, {
 });
 headroom.init();
 
+// const observer = new IntersectionObserver((entry) => {
+//     console.log
+//     if (entry.intersectionRatio > 0) {
+//         entry.target.classList.add('fancy');
+//     } else {
+//         entry.target.classList.remove('fancy');
+//     }
+// });
+
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -685,16 +694,11 @@ _barba2.default.Dispatcher.on('transitionCompleted', function (currentStatus, pr
     setTimeout(function () {
         header.classList.remove('headroom--autoscroll');
     }, 300);
-    var observer = (0, _lazyLoad2.default)('.b-lazy', {
+    var observer = (0, _lazyLoad2.default)('img[data-src], .b-lazy', {
         threshold: 0.1,
         rootMargin: '100% 0%'
     });
     observer.observe();
-    var observer2 = (0, _lazyLoad2.default)('img[data-src]', {
-        threshold: 0.1,
-        rootMargin: '150% 0%'
-    });
-    observer2.observe();
 });
 
 _barba2.default.Pjax.originalPreventCheck = _barba2.default.Pjax.preventCheck;

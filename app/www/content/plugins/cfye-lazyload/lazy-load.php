@@ -67,11 +67,13 @@ class LazyLoad_Images {
 		}
 
 		if ( empty( $old_attributes['srcset'] ) ) {
-			return $matches[0];
+			$image_srcset = '';
+		} else {
+			$image_srcset = $old_attributes['srcset']['value'];
 		}
 
 		$image_src = $old_attributes['src']['value'];
-		$image_srcset = $old_attributes['srcset']['value'];
+		
 		// Remove src and lazy-src since we manually add them
 		$new_attributes = $old_attributes;
 		unset( $new_attributes['src'], $new_attributes['data-src'], $new_attributes['srcset'], $new_attributes['data-srcset'] );

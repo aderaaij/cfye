@@ -25,7 +25,8 @@
         overflow: hidden;
         @extend %e-scaleLoader;
 
-        .no-js & {
+        .no-js &,
+        .is-loaded {
             &::before,
             &::after {
                 display: none;

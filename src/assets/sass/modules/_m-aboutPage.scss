@@ -1,0 +1,62 @@
+.m-aboutPage {
+    & {
+
+    }
+
+    &__about {
+        width: 100%;
+       
+
+        @include breakpoint($bpDesktopSmall) {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        &--first {
+            height: calc(100vh - var(--headerHeight));
+        }
+    }
+
+    &__image {
+        height: 100%;
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+        height: 90%;
+        
+        @include breakpoint($bpDesktopSmall) {
+            width: 50%;
+        }
+    }
+
+    &__content {
+        width: 100%;        
+        padding: 1.5rem;
+
+        @include breakpoint($bpDesktopSmall) {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 100%;
+            width: 50%;
+            padding: 3rem;
+        }
+    }
+
+    &__title {
+        margin: 0 0 1rem 0;
+        border-bottom: 2px solid $colorPrimary;
+    }
+
+    &__entryContent {
+        font-size: 18px;
+        color: $colorGrey700;
+        line-height: 1.55;
+
+        @include breakpoint($bpDesktopSmall) {
+            font-size: 22px;
+        }
+    }
+    
+}

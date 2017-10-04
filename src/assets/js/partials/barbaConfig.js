@@ -95,16 +95,11 @@ Barba.Dispatcher.on('transitionCompleted', (currentStatus, prevStatus, HTMLEleme
     setTimeout(() => {
         header.classList.remove('headroom--autoscroll');
     }, 300);
-    const observer = lazyLoad('.b-lazy', {
+    const observer = lazyLoad('img[data-src], .b-lazy', {
         threshold: 0.1,
         rootMargin: '100% 0%',
     });
     observer.observe();
-    const observer2 = lazyLoad('img[data-src]', {
-        threshold: 0.1,
-        rootMargin: '150% 0%',
-    });
-    observer2.observe();
 });
 
 Barba.Pjax.originalPreventCheck = Barba.Pjax.preventCheck;
