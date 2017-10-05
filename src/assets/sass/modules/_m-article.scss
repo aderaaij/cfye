@@ -2,7 +2,7 @@
 
     &__hero {
         width: 100%;
-        height: calc(100vh - var(--headerHeight));
+        height: calc(100vh - #{$headerHeight});
         display: flex;
         position: relative;
     }
@@ -30,7 +30,7 @@
     &__content {
         max-width: 75ch;
         margin: 0 auto 3em;
-        padding: 2em 1em;        
+        padding: 4em 1.5em 2em;        
     }
 
     &__titleWrap {
@@ -108,6 +108,12 @@
             }
         }
 
+        p {
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+
         a {
             color: $colorPrimary;
         }
@@ -143,6 +149,7 @@
             position: relative;
             overflow: hidden;
             margin: 1rem 0;
+            @extend %e-scaleLoader;
 
             + p {
                 margin-top: 3rem;
@@ -155,6 +162,13 @@
             &.alignnone {
                 position: relative;
                 @extend %e-contentBreakout;
+            }
+
+            &.is-loaded {
+                &::before,
+                &::after {
+                    display: none;
+                }
             }
 
             img {
@@ -173,12 +187,16 @@
                 .no-js & {
                     opacity: 1;
                     transform: scale(1);
+                    position: relative;
+                    z-index: 101;
                 }
             }
 
             &:hover {
                 .wp-caption-text {
                     transform: translateY(0);
+                    visibility: visible;
+                    z-index: 102;
                 }
             }
 
@@ -198,6 +216,7 @@
             font-size: 1rem;
             transform: translateY(100%);
             transition: transform 0.3s ease-out;
+            visibility: hidden;
         }
 
         blockquote {
@@ -238,6 +257,7 @@
 
         .alignleft,
         .alignright {
+            
             img {
                 object-fit: cover;
                 width: 100%;
@@ -254,7 +274,7 @@
         }
 
         div.wp-caption {
-            margin: 0;
+            margin-bottom: 1em;
             
             @include breakpoint($bpSmall) {
                 width: calc(50% - 0.5rem);

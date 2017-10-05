@@ -16,7 +16,7 @@
 			<ul class="m-profileExcerpt__socialList">
 				<?php if(get_field('_slt_website')):?>
 				<li>
-					<a href="<?php the_field('_slt_website');?>" title="Visit <?php echo $artistname;?> Website" target="_blank">
+					<a href="<?php the_field('_slt_website');?>" title="Visit <?php echo $artistname;?> Website" target="_blank" rel="noopener">
 						<svg class="m-social__icon" viewbox="0 0 32 32">
 							<use xlink:href="<?php echo get_template_directory_uri() ?>/assets/img/sprite.svg#icon-link"></use>
 						</svg>
@@ -25,7 +25,7 @@
 				<?php endif;?>	
 				<?php if(get_field('_slt_facebookid')):?>
 				<li>
-					<a href="<?php the_field('_slt_facebookid');?>" title="Like <?php echo $artistname;?> on Facebook" target="_blank">
+					<a href="<?php the_field('_slt_facebookid');?>" title="Like <?php echo $artistname;?> on Facebook" target="_blank" rel="noopener">
 						<svg class="m-social__icon" viewbox="0 0 32 32">
 							<use xlink:href="<?php echo get_template_directory_uri() ?>/assets/img/sprite.svg#icon-facebook"></use>
 						</svg>
@@ -34,7 +34,7 @@
 				<?php endif;?>				
 				<?php if(get_field('_slt_twitterid')):?>
 				<li>
-					<a href="https://twitter.com/<?php the_field('_slt_twitterid');?>" title="Follow <?php echo $artistname;?> on Twitter" target="_blank">
+					<a href="https://twitter.com/<?php the_field('_slt_twitterid');?>" title="Follow <?php echo $artistname;?> on Twitter" target="_blank" rel="noopener">
 						<svg class="m-social__icon" viewbox="0 0 32 32">
 							<use xlink:href="<?php echo get_template_directory_uri() ?>/assets/img/sprite.svg#icon-twitter"></use>
 						</svg>
@@ -43,7 +43,7 @@
 				<?php endif;?>
 				<?php if(get_field('flickr_username')):?>
 				<li>
-					<a href="https://flickr.com/photos/<?php the_field('flickr_username');?>" title="<?php echo $artistname;?> on Flickr" target="_blank">
+					<a href="https://flickr.com/photos/<?php the_field('flickr_username');?>" title="<?php echo $artistname;?> on Flickr" target="_blank" rel="noopener">
 						<svg class="m-social__icon" viewbox="0 0 32 32">
 							<use xlink:href="<?php echo get_template_directory_uri() ?>/assets/img/sprite.svg#icon-flickr"></use>
 						</svg>
@@ -52,7 +52,7 @@
 				<?php endif;?>
 				<?php if(get_field('_slt_tumblrid')):?>
 				<li>
-					<a href="<?php the_field('_slt_tumblrid');?>" title="<?php echo $artistname;?> on Tumblr" target="_blank">
+					<a href="<?php the_field('_slt_tumblrid');?>" title="<?php echo $artistname;?> on Tumblr" target="_blank" rel="noopener">
 						<svg class="m-social__icon" viewbox="0 0 32 32">
 							<use xlink:href="<?php echo get_template_directory_uri() ?>/assets/img/sprite.svg#icon-tumblr"></use>
 						</svg>
@@ -61,7 +61,7 @@
 				<?php endif;?>
 				<?php if(get_field('_slt_instagram')):?>
 				<li>
-					<a href="https://instagram.com/<?php the_field('_slt_instagram');?>" title="Follow <?php echo $artistname;?> on Instagram" target="_blank">
+					<a href="https://instagram.com/<?php the_field('_slt_instagram');?>" title="Follow <?php echo $artistname;?> on Instagram" target="_blank" rel="noopener">
 						<svg class="m-social__icon" viewbox="0 0 32 32">
 							<use xlink:href="<?php echo get_template_directory_uri() ?>/assets/img/sprite.svg#icon-instagram"></use>
 						</svg>

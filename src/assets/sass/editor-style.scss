@@ -32,6 +32,11 @@ body {
             max-width: 80%;
         }
 
+        .alignleft,
+        .alignright {
+            float: none;
+        }
+
         .m-article__iframe {
             @extend .e-fluidVideo;
         }

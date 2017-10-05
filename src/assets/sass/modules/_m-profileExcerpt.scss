@@ -1,9 +1,22 @@
 .m-profileExcerpt {
+    
     & {       
         max-width: 700px;
         margin: 0 auto 300px;
         text-align: center;
-        display: flex;
+        padding: 0 1.5em;
+
+        @include breakpoint($bpSmall) {
+            display: flex; 
+        }
+    }
+
+    &__person {
+        margin-bottom: 1.5em;
+
+        @include breakpoint($bpSmall) {
+            margin-bottom: 0;
+        }
     }
 
     &__thumbnail {
@@ -20,10 +33,14 @@
     }
 
     &__contentWrap {
-        text-align: left;
-        padding: 0 0 0 2em;
-        display: flex;
-        flex-direction: column;
+        text-align: center;
+
+        @include breakpoint($bpSmall) {
+            padding: 0 0 0 2em;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
     }
 
     &__content {
@@ -34,14 +51,24 @@
             font-size: 1.375em;
             color: $colorGrey800;
             letter-spacing: 1px;
+            border-bottom: 1px solid #ec008c;
+            padding-bottom: 0.25em;
+
+            @include breakpoint($bpSmall) {
+                border-bottom: none;
+            }
         }
 
         p {
             font-size: 18px;
             margin: 0 0 1.25em 0;
-            text-align: left;
+            text-align: center;
             line-height: 1.55;
             color: $colorGrey800;
+
+            @include breakpoint($bpSmall) {
+                text-align: left;
+            }
 
             a {
                 color: $colorPrimary;
@@ -54,12 +81,15 @@
         margin: auto 0 0;
         padding: 0;
         display: flex;
-        // justify-content: space-between;
+        justify-content: space-around;
 
         li {
             width: 22px;
             height: 22px;
-            margin: 0 2.5em 0 0;
+            
+            @include breakpoint($bpSmall) {
+                margin: 0 2.5em 0 0;                
+            }
         }
 
         a {

@@ -1,6 +1,7 @@
 import Barba from 'barba.js';
 import getPosition, { scrollIt, getParents } from './helpers';
 import wrapImages from './wrapImages';
+import headroom from './Header';
 import LightboxSlider from './lightboxSlider';
 import inView from './inView';
 import lazyLoad from './lazyLoad';
@@ -13,7 +14,6 @@ const FadeTransition = Barba.BaseTransition.extend({
             .all([this.newContainerLoading, this.fadeOut()])
             .then(this.fadeIn.bind(this));
     },
-
     fadeOut() {
         const deferred = Barba.Utils.deferred();
         const articleExcerpt = getParents(this.linkClicked, '.m-articleExcerpt');
@@ -60,7 +60,8 @@ const FadeTransition = Barba.BaseTransition.extend({
     },
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {    
+    headroom.init();
     Barba.Pjax.getTransition = () => FadeTransition;
     Barba.Pjax.start();
     Barba.Prefetch.init();

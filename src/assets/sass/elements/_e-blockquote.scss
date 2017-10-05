@@ -1,18 +1,17 @@
-%e-blockquote {
-    font-size: 1.75rem;
+%e-blockquote {    
     font-style: italic;
     position: relative;
-    margin: 2rem 0;
-    padding: 0.25rem 0 0.25rem 2em;
-    text-align: center;
+    margin: 2em 0;    
+    text-align: left;
+    padding: 0.25em 0 0.25em 1em;
 
-    // .no-js & {
-    //     opacity: 1;
-    //     transform: translate(0);
-    // }
+    @include breakpoint($bpSmall) {
+        font-size: 1.75rem;
+        padding: 0.25rem 0 0.25rem 2em;
+    }
     
     p {
-        margin: 0.5rem 0 0.75rem;
+        margin: 0.5rem 0 0;
         transform: translateY(25%);
         opacity: 0;
         transition: all 0.3s ease;
@@ -24,11 +23,15 @@
         left: 0;
         top: 0;
         height: 100%;
-        width: 4px;
+        width: 2px;
         background-color: $colorPrimary;
         transform: scale(0);
         transform-origin: top center;
         transition: all 0.3s ease-out;
+
+        @include breakpoint($bpSmall) {
+            width: 4px;
+        }
     }
 
     &.is-active,

@@ -2,7 +2,7 @@
 
     & {
         width: 100%;
-        height: calc(33.3vh - (var(--headerHeight) / 3));
+        height: calc(33.3vh - (#{$headerHeight} / 3));
         min-height: 200px;
         overflow: hidden;
         display: flex;

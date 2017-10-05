@@ -1294,6 +1294,12 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
+clean-css@4.1.9:
+  version "4.1.9"
+  resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.1.9.tgz#35cee8ae7687a49b98034f70de00c4edd3826301"
+  dependencies:
+    source-map "0.5.x"
+
 cliui@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/cliui/-/cliui-2.1.0.tgz#4b475760ff80264c762c3a1719032e91c7fea0d1"
@@ -2445,6 +2451,10 @@ formidable@1.0.x:
   version "1.0.17"
   resolved "https://registry.yarnpkg.com/formidable/-/formidable-1.0.17.tgz#ef5491490f9433b705faa77249c99029ae348559"
 
+framesync@^3.0.1:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/framesync/-/framesync-3.0.2.tgz#b68cd741af9fe9c15477266260cee1924670a08c"
+
 fresh@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.0.tgz#f474ca5e6a9246d6fd8e0953cfa9b9c805afa78e"
@@ -2778,6 +2788,15 @@ gulp-changed@^3.1.0:
     pify "^2.3.0"
     through2 "^2.0.0"
 
+gulp-clean-css@^3.9.0:
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/gulp-clean-css/-/gulp-clean-css-3.9.0.tgz#e43e4c8d695060f6ba08a154d8e76d0d87b1c822"
+  dependencies:
+    clean-css "4.1.9"
+    gulp-util "3.0.8"
+    through2 "2.0.3"
+    vinyl-sourcemaps-apply "0.2.1"
+
 gulp-composer@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/gulp-composer/-/gulp-composer-0.4.2.tgz#f067de7d6ff8851d00add08c3e4f64eb1d197747"
@@ -2929,7 +2948,7 @@ gulp-svgstore@^6.0.0:
     cheerio "0.*"
     gulp-util "^3.0.0"
 
-gulp-util@>=3.0.0, gulp-util@^3, gulp-util@^3.0, gulp-util@^3.0.0, gulp-util@^3.0.1, gulp-util@^3.0.6, gulp-util@^3.0.7, gulp-util@^3.0.8, gulp-util@latest, gulp-util@~3.0.0:
+gulp-util@3.0.8, gulp-util@>=3.0.0, gulp-util@^3, gulp-util@^3.0, gulp-util@^3.0.0, gulp-util@^3.0.1, gulp-util@^3.0.6, gulp-util@^3.0.7, gulp-util@^3.0.8, gulp-util@latest, gulp-util@~3.0.0:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/gulp-util/-/gulp-util-3.0.8.tgz#0054e1e744502e27c04c187c3ecc505dd54bbb4f"
   dependencies:
@@ -3255,6 +3274,10 @@ ini@^1.3.4, ini@~1.3.0:
 interpret@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.4.tgz#820cdd588b868ffb191a809506d6c9c8f212b1b0"
+
+intersection-observer@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.4.2.tgz#24100ed620baf6a427072996d4d73366e9ec93ef"
 
 invariant@^2.2.0, invariant@^2.2.2:
   version "2.2.2"
@@ -4723,6 +4746,16 @@ plur@^2.0.0:
   dependencies:
     irregular-plurals "^1.0.0"
 
+popmotion-timeline@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/popmotion-timeline/-/popmotion-timeline-1.0.1.tgz#f1ea327b63acc4e6c4daadc1797fe3e63df50300"
+
+popmotion@^7.8.2:
+  version "7.8.2"
+  resolved "https://registry.yarnpkg.com/popmotion/-/popmotion-7.8.2.tgz#984ecbdc1ea70c022ee8d4bc36a4317ed619ba1d"
+  dependencies:
+    framesync "^3.0.1"
+
 portscanner@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/portscanner/-/portscanner-2.1.1.tgz#eabb409e4de24950f5a2a516d35ae769343fbb96"
@@ -5566,7 +5599,7 @@ source-map-url@~0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/source-map-url/-/source-map-url-0.3.0.tgz#7ecaf13b57bcd09da8a40c5d269db33799d4aaf9"
 
-source-map@0.X, source-map@^0.5.1, source-map@^0.5.3, source-map@^0.5.6, source-map@^0.5.7, source-map@~0.5.1, source-map@~0.5.3:
+source-map@0.5.x, source-map@0.X, source-map@^0.5.1, source-map@^0.5.3, source-map@^0.5.6, source-map@^0.5.7, source-map@~0.5.1, source-map@~0.5.3:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 
@@ -5921,7 +5954,7 @@ through2-filter@^2.0.0:
     through2 "~2.0.0"
     xtend "~4.0.0"
 
-through2@2.X, through2@^2, through2@^2.0.0, through2@^2.0.1, through2@^2.0.3, through2@latest, through2@~2.0.0:
+through2@2.0.3, through2@2.X, through2@^2, through2@^2.0.0, through2@^2.0.1, through2@^2.0.3, through2@latest, through2@~2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
   dependencies:
@@ -6257,7 +6290,7 @@ vinyl-ftp@^0.6.0:
     through2 "^2.0.3"
     vinyl "^2.0.1"
 
-vinyl-sourcemaps-apply@^0.2.0, vinyl-sourcemaps-apply@^0.2.1:
+vinyl-sourcemaps-apply@0.2.1, vinyl-sourcemaps-apply@^0.2.0, vinyl-sourcemaps-apply@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/vinyl-sourcemaps-apply/-/vinyl-sourcemaps-apply-0.2.1.tgz#ab6549d61d172c2b1b87be5c508d239c8ef87705"
   dependencies:

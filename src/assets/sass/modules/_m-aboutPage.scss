@@ -1,7 +1,4 @@
 .m-aboutPage {
-    & {
-
-    }
 
     &__about {
         width: 100%;
@@ -14,12 +11,11 @@
         }
 
         &--first {
-            height: calc(100vh - var(--headerHeight));
+            height: calc(100vh - #{$headerHeight});
         }
     }
 
     &__image {
-        height: 100%;
         width: 100%;
         background-size: cover;
         background-position: center;
@@ -27,6 +23,7 @@
         
         @include breakpoint($bpDesktopSmall) {
             width: 50%;
+            height: 100%;
         }
     }
 

@@ -5,6 +5,8 @@
 // =========================================================================
 require_once('functions/setup_theme.php');
 require_once('functions/add_scripts_styles.php');
+require_once('functions/register_menu.php');
+require_once('functions/add_editor_styles.php');
 
 // =========================================================================
 // Remove stuff from header
@@ -24,28 +26,12 @@ require_once('functions/modify_img_caption_shortcode.php');
 // Change queries and stuff
 // =========================================================================
 require_once('functions/modify_main_query.php');
+require_once('functions/modify_admin_bar_position.php');
 
-/* = Limit Excerpt
--------------------------------------------------------------- */  
-function get_excerpt($limit, $source = null){    
-    if($source == "content" ? ($excerpt = get_the_content()) : ($excerpt = get_the_excerpt()));
-    $excerpt = preg_replace(" (\[.*?\])",'',$excerpt);
-    $excerpt = strip_shortcodes($excerpt);
-    $excerpt = strip_tags($excerpt);
-    $excerpt = substr($excerpt, 0, $limit);
-    $excerpt = substr($excerpt, 0, strripos($excerpt, " "));
-    $excerpt = trim(preg_replace( '/\s+/', ' ', $excerpt));
-    $excerpt = $excerpt.'...';
-    return $excerpt;
-}
+// =========================================================================
+// Brand new functions that don't hook into WP Hooks
+// =========================================================================
+require_once('functions/get_excerpt.php');
+require_once('functions/get_current_page_name.php');
 
-function register_my_menu() {
-    register_nav_menu('header-menu',__( 'Header Menu' ));
-}
-add_action( 'init', 'register_my_menu' );
-
-function add_editor_styles() {
-    add_editor_style( 'assets/css/editor-style.css' );
-}
-add_action( 'admin_init', 'add_editor_styles' );
 

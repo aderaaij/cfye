@@ -11,6 +11,8 @@ const stylesProduction = () => gulp.src(config.source)
 
     .pipe(plugins.autoprefixer(config.autoprefixer))
 
+    .pipe(plugins.cleanCss({ compatibility: 'ie8' }))
+
     .pipe(gulp.dest(config.dest));
 
 gulp.task('styles:production', stylesProduction);

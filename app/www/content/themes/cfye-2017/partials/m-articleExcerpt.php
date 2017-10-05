@@ -44,7 +44,7 @@
             <ul>
                 <li>
                     Author: 
-                    <a href="<?php echo get_the_author_meta('url') ?>" target="_blank" title="<?php echo get_the_author() ?>'s Website">
+                    <a href="<?php echo get_the_author_meta('url') ?>" rel="noopener" target="_blank" title="<?php echo get_the_author() ?>'s Website">
                         <?php echo get_the_author() ?>
                     </a>
                 </li>

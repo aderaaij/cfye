@@ -5,6 +5,14 @@ module.exports = {
     host: config.appUrl,
     port: 4040,
     open: 'external',
+    notify: {
+        styles: {
+            top: 'auto',
+            bottom: '0',
+            'border-bottom-left-radius': '0px',
+            'border-top-left-radius': '5px',
+        },
+    },
     files: [
         `${config.themeAssets}**/*.js`,
         `${config.themeAssets}**/*.css`,

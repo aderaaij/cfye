@@ -3,30 +3,35 @@
     & {
         width: 100%;
         background-color: $colorPrimary;
-        height: var(--headerHeight);
+        height: $headerHeight;
         overflow: hidden;
         z-index: 501;
         display: flex;
+        will-change: transform;
+        transform: translateY(-100%);
     }
 
-    &.headroom {
-        position: fixed;
-        top: 0;
-        left: 0;
-        transition: transform 0.3s ease-out;
-
-        &--unpinned {          
-            transform: translateY(-100%);
-        }
-
-        &--autoscroll {
-            transform: translateY(0) !important;
+    &.is-active {
+        transform: translateY(0);
+        &.headroom {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transition: transform 0.3s ease-out;
+    
+            &--unpinned {          
+                transform: translateY(-100%);
+            }
+    
+            &--autoscroll {
+                transform: translateY(0) !important;
+            }
         }
     }
 
     &__title {
-        width: var(--headerHeight);
-        height: var(--headerHeight);
+        width: $headerHeight;
+        height: $headerHeight;
 
         svg {
             display: block;
