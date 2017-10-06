@@ -31,7 +31,7 @@ const webpackExports = (env) => {
                             'transform-class-properties',
                         ],
                     },
-                    exclude: /(node_modules|bower_components)/,
+                    exclude: /(node_modules\/(?!p-wait-for)|bower_components)/,
                 },
             ],
         },

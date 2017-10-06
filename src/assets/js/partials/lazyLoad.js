@@ -1,3 +1,5 @@
+import pWaitFor from 'p-wait-for';
+
 const defaultConfig = {
     rootMargin: '0px',
     threshold: 0,
@@ -16,13 +18,30 @@ const defaultConfig = {
 };
 
 function markAsLoaded(element) {
-    const imgLoad = new Image();
-    imgLoad.onload = () => {
-        element.classList.add('b-loaded');
-        element.parentNode.classList.add('is-loaded');
-        element.dataset.loaded = true;
-    };
-    imgLoad.src = element.dataset.src;
+    if (element.dataset.srcset) {
+        pWaitFor(() => {
+            if (element.currentSrc !== '') {
+                return true;
+            }
+            return false;
+        }).then(() => {
+            const imgLoad = new Image();
+            imgLoad.onload = () => {
+                element.classList.add('b-loaded');
+                element.parentNode.classList.add('is-loaded');
+                element.dataset.loaded = true;
+            };
+            imgLoad.src = element.currentSrc;
+        });
+    } else {
+        const imgLoad = new Image();
+        imgLoad.onload = () => {
+            element.classList.add('b-loaded');
+            element.parentNode.classList.add('is-loaded');
+            element.dataset.loaded = true;
+        };
+        imgLoad.src = element.dataset.src;
+    }
 }
 
 const isLoaded = element => element.dataset.loaded === 'true';
