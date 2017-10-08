@@ -11,7 +11,7 @@ if ('serviceWorker' in navigator) {
             // you may occasionally need to clear a service worker; this is the only way i've found to do that...
             // comment this out while not using it
             /* registration.unregister().then(function(boolean) {
-                // if boolean = true, unregister is successful
+              //  // if boolean = true, unregister is successful
                 console.log('ServiceWorker unregistered');
             }); */
         }).catch((err) => {
