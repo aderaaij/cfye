@@ -18,29 +18,35 @@ const defaultConfig = {
 };
 
 function markAsLoaded(element) {
-    if (element.dataset.srcset) {
-        pWaitFor(() => {
-            if (element.currentSrc !== '') {
-                return true;
-            }
-            return false;
-        }).then(() => {
+    if (navigator.onLine) {
+        if (element.dataset.srcset) {
+            pWaitFor(() => {
+                if (element.currentSrc !== '') {
+                    return true;
+                }
+                return false;
+            }).then(() => {
+                const imgLoad = new Image();
+                imgLoad.onload = () => {
+                    element.classList.add('b-loaded');
+                    element.parentNode.classList.add('is-loaded');
+                    element.dataset.loaded = true;
+                };
+                imgLoad.src = element.currentSrc;
+            });
+        } else {
             const imgLoad = new Image();
             imgLoad.onload = () => {
                 element.classList.add('b-loaded');
                 element.parentNode.classList.add('is-loaded');
                 element.dataset.loaded = true;
             };
-            imgLoad.src = element.currentSrc;
-        });
+            imgLoad.src = element.dataset.src;
+        }
     } else {
-        const imgLoad = new Image();
-        imgLoad.onload = () => {
-            element.classList.add('b-loaded');
-            element.parentNode.classList.add('is-loaded');
-            element.dataset.loaded = true;
-        };
-        imgLoad.src = element.dataset.src;
+        element.classList.add('b-loaded');
+        element.parentNode.classList.add('is-loaded');
+        element.dataset.loaded = true;
     }
 }
 
