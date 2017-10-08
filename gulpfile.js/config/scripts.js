@@ -10,6 +10,7 @@ module.exports = {
         // You can add multiple entries and include a destiotion path in the key
         // https://stackoverflow.com/a/45278943/4474075
         script: `${config.sourceAssets}js/script.js`,
+        '../../../../../service-worker': `${config.sourceAssets}js/standalone/service-worker.js`,
     },
     base: `${config.sourceAssets}js`,
     dest: `${config.themeAssets}js`,
