@@ -1,6 +1,7 @@
 {
     "name": "CFYE.com - Crack For Your Eyes",
     "short_name": "CFYE",
+    "start_url": "https://cfye.com/?utm_source=homescreen",
     "icons": [
         {
             "src": "android-chrome-192x192.png",
