@@ -1,0 +1,36 @@
+.m-entryCollection {
+
+    & {
+        position: relative;
+        justify-content: space-between;
+        margin: 1rem 0;
+        @extend %e-contentBreakout;
+    }
+
+    .alignleft,
+    .alignright {
+        
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    + p {
+        margin-top: 3rem;
+    }
+
+    @include breakpoint($bpSmall) {
+        display: flex;
+    }
+
+    div.wp-caption {
+        margin-bottom: 1em;
+        
+        @include breakpoint($bpSmall) {
+            width: calc(50% - 0.5rem);
+            margin: 0;
+        }
+    }
+}

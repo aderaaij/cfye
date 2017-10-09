@@ -16,6 +16,38 @@ $headerHeight: 50px;
     --headerHeight: 50px;
 }
 
+@mixin socialList($color) {
+    list-style: none;
+    margin: auto 0 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+
+    li {
+        width: 22px;
+        height: 22px;
+        
+        @include breakpoint($bpSmall) {
+            margin: 0 2.5em 0 0;                
+        }
+    }
+
+    a {
+        color: $color;
+
+        &:hover {
+            svg {
+                fill: $colorPrimary;
+            }
+        }
+    }
+
+    svg {
+        fill: $color;
+        transition: fill 0.3s ease-out;
+    }
+}
+
 //Layout
 @import 'layout/l-site';
 
@@ -29,8 +61,11 @@ $headerHeight: 50px;
 @import 'elements/e-fluidVideo';
 @import 'elements/e-scaleLoader';
 @import 'elements/e-contentBreakout';
+@import 'elements/e-wp-caption';
+@import 'elements/e-entryContent';
 
 // Modules
+@import 'modules/m-entryCollection';
 @import 'modules/m-articleExcerpt';
 @import 'modules/m-article';
 @import 'modules/m-siteHeader';
@@ -41,5 +76,6 @@ $headerHeight: 50px;
 @import 'modules/m-siteNav';
 @import 'modules/m-profileExcerpt';
 @import 'modules/m-aboutPage';
+@import 'modules/m-artistProfile';
 
 // State

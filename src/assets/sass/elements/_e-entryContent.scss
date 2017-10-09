@@ -1,0 +1,59 @@
+.e-entryContent {
+
+    & {
+        font-size: 1.25em;
+        font-family: $fontBody;
+
+        @include breakpoint($bpSmall) {
+            font-size: 1.375em;
+        }
+    }
+
+    p {
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    a {
+        color: $colorPrimary;
+    }
+    
+    p,ul,ol {
+        line-height: 1.55;
+        color: $colorGrey700;
+    }
+
+    p,ul,ol,blockquote {
+        & + .wp-caption,
+        & + .m-entryCollection,
+        & + .m-article__iframe {
+            margin-top: 3rem;
+        }
+    }
+
+    ul,ol {
+        margin: 2em 0;
+        padding: 0 0 0 1.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+        margin-bottom: 0.5em;
+    }
+
+    h1,h2,h3,h4,h5,h6 {
+        color: $colorGrey700;
+    }
+
+    blockquote {
+        @extend %e-blockquote;
+    }
+
+    .wp-caption {
+        @extend %e-wp-caption;
+    }
+    .wp-caption-text {
+        @extend %e-wp-caption-text;
+    }
+}

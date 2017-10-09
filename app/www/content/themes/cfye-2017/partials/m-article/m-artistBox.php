@@ -1,17 +1,21 @@
 <?php $posts = get_field('artist_post'); if( $posts ): ?>				
 	<?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
-	<?php setup_postdata($post); ?>
+	<?php setup_postdata($post) ?>
 	<?php $artistID = get_the_ID(); $artistname = get_the_title($artistID); ?>
 	<div class='m-profileExcerpt'>
 		<div class='m-profileExcerpt__person'>
 			<div class='m-profileExcerpt__thumbnail'>
-				<?php the_post_thumbnail( $size = 'thumbnail', $attr = '' );?>
+				<a href="<?php the_permalink() ?>" title="<?php echo $artistname ?>'s profile page'">
+					<?php the_post_thumbnail( $size = 'thumbnail', $attr = '' ) ?>
+				</a>
 			</div>
 		</div>
 		<div class='m-profileExcerpt__contentWrap'>		
 			<div class='m-profileExcerpt__content'>
-				<h3 class='m-profileExcerpt__artistTitle'>About <?php echo $artistname; ?></h3>
-				<?php the_field('artist_description');?>
+				<h3 class='m-profileExcerpt__artistTitle'>
+					<a href="<?php the_permalink() ?>" title="<?php echo $artistname ?>'s profile page'">About <?php echo $artistname ?></a>
+				</h3>
+				<?php the_field('artist_description') ?>
 			</div>
 			<ul class="m-profileExcerpt__socialList">
 				<?php if(get_field('_slt_website')):?>
@@ -94,8 +98,7 @@
 			<li class="related-article-artist">
 				<a href="<?php the_permalink();?>" title="<?php the_title();?>">								
 					<h3>
-						<i class="icon-newspaper related-icon"></i>
-						&nbsp;<?php the_title();?>
+						<?php the_title();?>
 					</h3>
 					<span class="entry-meta"><?php echo get_the_date();?></span>
 					<span class="teaser"><?php echo get_excerpt('50');?></span>

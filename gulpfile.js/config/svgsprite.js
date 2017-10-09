@@ -1,6 +1,6 @@
 const config = require('./');
 
 module.exports = {
-    source: `${config.sourceAssets}sprite/**/*.svg`,
+    source: `${config.sourceAssets}img/sprite/**/*.svg`,
     dest: `${config.themeAssets}img/`,
 };

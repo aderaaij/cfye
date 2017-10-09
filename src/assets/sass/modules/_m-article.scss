@@ -27,12 +27,6 @@
         }
     }
 
-    &__content {
-        max-width: 75ch;
-        margin: 0 auto 3em;
-        padding: 4em 1.5em 2em;        
-    }
-
     &__titleWrap {
         padding: 0 1em;
         margin: auto auto 2em;
@@ -55,6 +49,12 @@
         @include breakpoint($bpDesktop) {
             padding: 0.25em 0;
         }
+    }
+
+    &__content {
+        max-width: 75ch;
+        margin: 0 auto 3em;
+        padding: 4em 1.5em 2em;        
     }
 
     &__iframe {
@@ -100,131 +100,7 @@
     &__entryContent {
 
         & {
-            font-size: 1.125em;
-            font-family: $fontBody;
-            
-            @include breakpoint($bpDesktopSmall) {
-                font-size: 1.375em;
-            }
-        }
-
-        p {
-            &:first-child {
-                margin-top: 0;
-            }
-        }
-
-        a {
-            color: $colorPrimary;
-        }
-        
-        p,ul,ol {
-            line-height: 1.55;
-            color: $colorGrey700;
-        }
-
-        p,ul,ol,blockquote {
-            & + .wp-caption,
-            & + .m-contentCollection,
-            & + .m-article__iframe {
-                margin-top: 3rem;
-            }
-        }
-
-        ul,ol {
-            margin: 2em 0;
-            padding: 0 0 0 1.5em;
-        }
-
-        h2 {
-            font-size: 2em;
-            margin-bottom: 0.5em;
-        }
-
-        h1,h2,h3,h4,h5,h6 {
-            color: $colorGrey700;
-        }
-
-        .wp-caption {
-            position: relative;
-            overflow: hidden;
-            margin: 1rem 0;
-            @extend %e-scaleLoader;
-
-            + p {
-                margin-top: 3rem;
-            }
-
-            + blockquote {
-                margin-top: 3rem;
-            }
-
-            &.alignnone {
-                position: relative;
-                @extend %e-contentBreakout;
-            }
-
-            &.is-loaded {
-                &::before,
-                &::after {
-                    display: none;
-                }
-            }
-
-            img {
-                display: block;
-                width: 100%;
-                height: auto;                
-                transition: all 0.3s ease;                
-
-                &[data-src],
-                &[data-srcset] {
-                    opacity: 0;
-                    transform: scale(0.9);
-                }
-
-                &[data-loaded=true],
-                .no-js & {
-                    opacity: 1;
-                    transform: scale(1);
-                    position: relative;
-                    z-index: 101;
-                }
-            }
-
-            &:hover {
-                .wp-caption-text {
-                    transform: translateY(0);
-                    visibility: visible;
-                    z-index: 102;
-                }
-            }
-
-            &--stack {
-                margin: 0 0 1em;
-            }
-        }
-
-        .wp-caption-text {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(#fff,0.7);
-            margin: 0;
-            padding: 1em;
-            font-size: 1rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease-out;
-            visibility: hidden;
-        }
-
-        blockquote {
-            @extend %e-blockquote;
-            @include breakpoint($bpDesktop) {
-                width: 58vw;
-                left: calc(-29vw + 50%);
-            }
+           @extend .e-entryContent;
         }
     }
 
@@ -247,39 +123,5 @@
         display: block;
         width: 100%;
         height: auto;
-    }
-
-    .m-contentCollection {       
-        position: relative;
-        justify-content: space-between;
-        margin: 1rem 0;
-        @extend %e-contentBreakout;
-
-        .alignleft,
-        .alignright {
-            
-            img {
-                object-fit: cover;
-                width: 100%;
-                height: 100%;
-            }
-        }
-
-        + p {
-            margin-top: 3rem;
-        }
-
-        @include breakpoint($bpSmall) {
-            display: flex;
-        }
-
-        div.wp-caption {
-            margin-bottom: 1em;
-            
-            @include breakpoint($bpSmall) {
-                width: calc(50% - 0.5rem);
-                margin: 0;
-            }
-        }
     }
 }

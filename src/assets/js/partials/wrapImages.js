@@ -8,7 +8,7 @@ export default function wrapImages() {
                 || nextElement.classList.contains('alignleft')
             ) {
                 const wrapper = document.createElement('div');
-                wrapper.classList.add('m-contentCollection');
+                wrapper.classList.add('m-entryCollection');
                 wrapper.innerHTML = image.outerHTML;
                 image.parentNode.insertBefore(wrapper, image);
                 wrapper.appendChild(nextElement);
