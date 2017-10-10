@@ -101,7 +101,7 @@
 						<?php the_title();?>
 					</h3>
 					<span class="entry-meta"><?php echo get_the_date();?></span>
-					<span class="teaser"><?php echo get_excerpt('50');?></span>
+					<span class="teaser"><?php echo wp_trim_words( get_the_content(), 10, '...' ); ?></span>
 				</a>
 			</li><!-- .related-article-artist -->
 			

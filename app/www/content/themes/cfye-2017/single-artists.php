@@ -91,10 +91,10 @@
                         </div>
                         <div class='m-artistProfile__related-content'>
                             <h3>
-                                <?php the_title();?>
+                            <?php echo mb_strimwidth(get_the_title(), 0, 50, '...'); ?>
                             </h3>
                             <span class="entry-meta"><?php echo get_the_date() ?></span>
-                            <p><?php echo get_excerpt('100') ?></p>
+                            <p><?php echo wp_trim_words( get_the_content(), 10, '...' ); ?></p>
                         </div>
                     </a>
                 </li>

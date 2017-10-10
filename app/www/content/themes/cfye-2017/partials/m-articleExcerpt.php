@@ -38,7 +38,7 @@
             </a>
         </h2>
         <div class='m-articleExcerpt__contentExcerpt'>
-            <p><?php echo get_excerpt(250); ?></p>
+            <p><?php echo wp_trim_words( get_the_content(), 40, '...' ); ?></p>
         </div>
         <div class='m-articleExcerpt__meta'>
             <ul>

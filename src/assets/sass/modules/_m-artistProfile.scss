@@ -44,12 +44,12 @@
         @include breakpoint($bpSmall) {
             width: 700px;
             max-width: 700px;
-            margin: auto auto 2.5em;
+            margin: auto auto 3em;
         }       
     }
 
     &__title {
-        border-top: 2px solid $colorPrimary;
+        
         font-size: 2.5em;
         line-height: 1.5;
         padding: 0.5em 0;
@@ -61,6 +61,7 @@
 
         @include breakpoint($bpDesktop) {
             padding: 0.25em 0;
+            border-top: 2px solid $colorPrimary;
         }
     }
 
@@ -149,6 +150,7 @@
         &-content {
             flex-grow: 1;
             padding: 0.75em 1em 0.75em 0;
+            position: relative;
 
             h3 {
                 margin: 0 0 0.25em;

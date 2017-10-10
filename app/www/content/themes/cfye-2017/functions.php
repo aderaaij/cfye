@@ -30,7 +30,6 @@ require_once('functions/modify_admin_bar_position.php');
 // =========================================================================
 // Brand new functions that don't hook into WP Hooks
 // =========================================================================
-require_once('functions/get_excerpt.php');
 require_once('functions/get_current_page_name.php');
 
 // =========================================================================
