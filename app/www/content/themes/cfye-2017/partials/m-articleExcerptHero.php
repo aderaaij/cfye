@@ -13,11 +13,9 @@
     <div class='m-articleExcerptHero__imageWrap'>
         <a 
             href="<?php the_permalink() ?>" 
-            title="<?php the_title() ?>" 
-            data-src="<?php echo $thumb_large[0] ?>"
-            data-src-small="<?php echo $thumb_small[0] ?>" 
-            data-src-medium="<?php echo $thumb_mediumLarge[0]; ?>"                     
-            class="m-articleExcerptHero__image b-lazy"
+            title="<?php the_title() ?>"
+            style="background-image: url(<?php echo $thumb_large[0] ?>)"                  
+            class="m-articleExcerptHero__image"
         >
         </a>
         <noscript>

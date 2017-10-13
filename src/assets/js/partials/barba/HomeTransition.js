@@ -1,6 +1,6 @@
 import Barba from 'barba.js';
 import { css, tween, easing, parallel } from 'popmotion';
-import { getPosition, scrollIt } from '../helpers';
+import { getPosition, scrollIt, setTop } from '../helpers';
 
 const breakpoints = {
     tablet: 768,
@@ -19,11 +19,6 @@ function sizeDesktopSmall() {
 
 function sizeDesktop() {
     return window.matchMedia(`(min-width: ${(breakpoints.desktop)}px)`).matches;
-}
-
-function setTop() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
 }
 
 function scrollToLocation(element) {

@@ -25,6 +25,11 @@ export function getPosition(el) {
     };
 }
 
+export function setTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
 /**
  * Get all of an element's parent elements up the DOM tree
  * @param  {Node}   elem     The element

@@ -44,15 +44,6 @@
         width: 100vw;
         height: 100%;
         overflow: hidden;
-        @extend %e-scaleLoader;
-
-        .no-js &,
-        .is-loaded {
-            &::before,
-            &::after {
-                display: none;
-            }
-        }
 
         @include breakpoint($bpDesktopSmall) {
             width: 50vw;

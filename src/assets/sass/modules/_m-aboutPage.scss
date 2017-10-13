@@ -3,7 +3,6 @@
     &__about {
         width: 100%;
        
-
         @include breakpoint($bpDesktopSmall) {
             display: flex;
             height: 100vh;
@@ -22,8 +21,12 @@
         height: 90%;
         
         @include breakpoint($bpDesktopSmall) {
-            width: 50%;
+            width: 50vw;
             height: 100%;
+        }
+
+        @include breakpoint($bpDesktop) {
+            width: 55vw;
         }
     }
 
@@ -36,7 +39,7 @@
             justify-content: center;
             flex-direction: column;
             height: 100%;
-            width: 50%;
+            width: 45vw;
             padding: 3rem;
         }
     }

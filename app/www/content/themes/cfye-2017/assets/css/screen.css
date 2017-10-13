@@ -522,7 +522,7 @@ h2 {
   height: 100%;
   position: absolute; }
 
-.e-entryContent .wp-caption::before, .m-article__entryContent .wp-caption::before, .m-artistProfile__entryContent .wp-caption::before, .m-articleExcerpt__imageWrap::before, .m-articleExcerptHero__imageWrap::before, .e-entryContent .wp-caption::after, .m-article__entryContent .wp-caption::after, .m-artistProfile__entryContent .wp-caption::after, .m-articleExcerpt__imageWrap::after, .m-articleExcerptHero__imageWrap::after {
+.e-entryContent .wp-caption::before, .m-article__entryContent .wp-caption::before, .m-artistProfile__entryContent .wp-caption::before, .m-articleExcerpt__imageWrap::before, .e-entryContent .wp-caption::after, .m-article__entryContent .wp-caption::after, .m-artistProfile__entryContent .wp-caption::after, .m-articleExcerpt__imageWrap::after {
   content: '';
   width: 50px;
   height: 50px;
@@ -539,11 +539,11 @@ h2 {
   -webkit-animation: scale 2.0s infinite ease-in-out;
           animation: scale 2.0s infinite ease-in-out; }
 
-.e-entryContent .wp-caption::after, .m-article__entryContent .wp-caption::after, .m-artistProfile__entryContent .wp-caption::after, .m-articleExcerpt__imageWrap::after, .m-articleExcerptHero__imageWrap::after {
+.e-entryContent .wp-caption::after, .m-article__entryContent .wp-caption::after, .m-artistProfile__entryContent .wp-caption::after, .m-articleExcerpt__imageWrap::after {
   -webkit-animation-delay: -1.0s;
           animation-delay: -1.0s; }
 
-.e-entryContent .is-loaded.wp-caption::before, .m-article__entryContent .is-loaded.wp-caption::before, .m-artistProfile__entryContent .is-loaded.wp-caption::before, .is-loaded.m-articleExcerpt__imageWrap::before, .is-loaded.m-articleExcerptHero__imageWrap::before, .e-entryContent .is-loaded.wp-caption::after, .m-article__entryContent .is-loaded.wp-caption::after, .m-artistProfile__entryContent .is-loaded.wp-caption::after, .is-loaded.m-articleExcerpt__imageWrap::after, .is-loaded.m-articleExcerptHero__imageWrap::after {
+.e-entryContent .is-loaded.wp-caption::before, .m-article__entryContent .is-loaded.wp-caption::before, .m-artistProfile__entryContent .is-loaded.wp-caption::before, .is-loaded.m-articleExcerpt__imageWrap::before, .e-entryContent .is-loaded.wp-caption::after, .m-article__entryContent .is-loaded.wp-caption::after, .m-artistProfile__entryContent .is-loaded.wp-caption::after, .is-loaded.m-articleExcerpt__imageWrap::after {
   display: none; }
 
 @-webkit-keyframes scale {
@@ -871,10 +871,6 @@ h2 {
   width: 100vw;
   height: 100%;
   overflow: hidden; }
-  .no-js .m-articleExcerptHero__imageWrap::before, .no-js .m-articleExcerptHero__imageWrap::after,
-  .m-articleExcerptHero__imageWrap .is-loaded::before,
-  .m-articleExcerptHero__imageWrap .is-loaded::after {
-    display: none; }
   @media (min-width: 1024px) {
     .m-articleExcerptHero__imageWrap {
       width: 50vw; } }
@@ -1633,8 +1629,11 @@ h2 {
   height: 90%; }
   @media (min-width: 1024px) {
     .m-aboutPage__image {
-      width: 50%;
+      width: 50vw;
       height: 100%; } }
+  @media (min-width: 1200px) {
+    .m-aboutPage__image {
+      width: 55vw; } }
 
 .m-aboutPage__content {
   width: 100%;
@@ -1652,7 +1651,7 @@ h2 {
           -ms-flex-direction: column;
               flex-direction: column;
       height: 100%;
-      width: 50%;
+      width: 45vw;
       padding: 3rem; } }
 
 .m-aboutPage__title {

@@ -60,12 +60,12 @@
 /******/ 	__webpack_require__.p = "/js/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 50);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 12:
+/***/ 50:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110,9 +110,9 @@ var trimCache = function trimCache(cacheName, maxItems) {
 // Remove caches whose name is no longer valid
 var clearOldCaches = function clearOldCaches() {
     return caches.keys().then(function (keys) {
-        return Promise.all(keys.filter(function (key) {
-            return key.indexOf(version) !== 0;
-        }).map(function (key) {
+        return Promise.all(keys
+        // .filter(key => key.indexOf(version) !== 0)
+        .map(function (key) {
             return caches.delete(key);
         }));
     });

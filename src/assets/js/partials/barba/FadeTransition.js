@@ -1,35 +1,54 @@
 import Barba from 'barba.js';
+import { css, tween, easing } from 'popmotion';
+import { setTop } from '../helpers';
 
 export default function fadeTransition(elementClicked) {
     const FadeTransition = Barba.BaseTransition.extend({
         start() {
+            document.body.classList.add('is-loading');
+            this.oldContainerRenderer = css(this.oldContainer);
+            this.oldContainerAnim = tween({
+                from: 1,
+                to: 0,
+                duration: 300,
+                ease: easing.linear,
+                onUpdate: x => this.oldContainerRenderer.set('opacity', x),
+            });
+
             Promise
                 .all([this.newContainerLoading, this.fadeOut()])
                 .then(this.fadeIn.bind(this));
         },
         fadeOut() {
             const deferred = Barba.Utils.deferred();
-            deferred.resolve();
+            this.oldContainerAnim.setProps({
+                onComplete: () => {
+                    setTimeout(() => {
+                        deferred.resolve();
+                    }, 200);
+                },
+            });
+            this.oldContainerAnim.start();
+
             return deferred.promise;
         },
-
         fadeIn() {
-            const _this = this;
             const el = this.newContainer;
-            el.style.opacity = 0;
-            el.style.visibility = 'visible';
-            setTimeout(() => {
-                el.style.opacity = 1;
-            }, 300);
-            setTimeout(() => {
-                document.body.scrollTop = 0;
-                document.documentElement.scrollTop = 0;
-                _this.done();
-            }, 300);
-        },
+            const _this = this;
+            const elRenderer = css(el);
 
-        finish() {
-            this.done();
+            tween({
+                from: 0,
+                to: 1,
+                duration: 300,
+                ease: easing.linear,
+                onUpdate: x => elRenderer.set('opacity', x),
+                onStart: () => setTop(),
+                onComplete: () => {
+                    _this.done();
+                    document.body.classList.remove('is-loading');
+                },
+            }).start();
         },
     });
     return FadeTransition;

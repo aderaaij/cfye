@@ -27,7 +27,7 @@ const stashInCache = function (cacheName, request, response) {
     });
 };
 
-    // Limit the number of items in a specified cache.
+// Limit the number of items in a specified cache.
 const trimCache = function (cacheName, maxItems) {
     caches.open(cacheName).then((cache) => {
         cache.keys().then((keys) => {
@@ -38,10 +38,10 @@ const trimCache = function (cacheName, maxItems) {
     });
 };
 
-    // Remove caches whose name is no longer valid
+// Remove caches whose name is no longer valid
 const clearOldCaches = function () {
     return caches.keys().then(keys => Promise.all(keys
-        .filter(key => key.indexOf(version) !== 0)
+        // .filter(key => key.indexOf(version) !== 0)
         .map(key => caches.delete(key))));
 };
 
@@ -72,8 +72,8 @@ self.addEventListener('fetch', (event) => {
     // Ignore requests to some directories (admin pages, includes files, and post previews)
     if (
         request.url.indexOf('/wp-admin') !== -1 ||
-      request.url.indexOf('/wp-includes') !== -1 ||
-      request.url.indexOf('preview=true') !== -1
+        request.url.indexOf('/wp-includes') !== -1 ||
+        request.url.indexOf('preview=true') !== -1
     ) {
         return;
     }
