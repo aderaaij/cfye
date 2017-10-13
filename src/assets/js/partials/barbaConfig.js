@@ -10,18 +10,25 @@ import { getParents } from './helpers';
 
 let lastElementClicked;
 let lastElementClickedParent;
+let navElementClicked;
 
 Barba.Dispatcher.on('linkClicked', (el) => {
     lastElementClicked = el;
     lastElementClickedParent = getParents(lastElementClicked, 'article');
+    navElementClicked = getParents(lastElementClicked, 'nav');
 });
 
 document.addEventListener('DOMContentLoaded', () => {
     headroom.init();
     Barba.Pjax.getTransition = () => {
         let transitionObj = fadeTransition(lastElementClicked);
-        if (Barba.HistoryManager.prevStatus().namespace === 'home') {
+        if (
+            Barba.HistoryManager.prevStatus().namespace === 'home'
+            && lastElementClickedParent[0]
+        ) {
             transitionObj = homeTransition(lastElementClickedParent[0]);
+        } else if (navElementClicked[0]) {
+            return transitionObj;
         }
         return transitionObj;
     };

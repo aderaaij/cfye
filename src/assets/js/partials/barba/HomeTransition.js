@@ -38,7 +38,6 @@ function prepareHeader() {
     header.classList.add('headroom--autoscroll');
 }
 
-
 export default function homeTransition(element) {
     const HomeTransitionHero = Barba.BaseTransition.extend({
         start() {
@@ -117,10 +116,6 @@ export default function homeTransition(element) {
             setTop();
             this.done();
         },
-
-        finish() {
-            this.done();
-        },
     });
 
     const HomeTransitionDefault = Barba.BaseTransition.extend({
@@ -130,6 +125,8 @@ export default function homeTransition(element) {
             this.oldContainerAnim = tween({
                 from: 1,
                 to: 0,
+                duration: 300,
+                ease: easing.linear,
                 onUpdate: x => this.oldContainerRenderer.set('opacity', x),
             });
 
@@ -140,12 +137,15 @@ export default function homeTransition(element) {
         fadeOut() {
             const deferred = Barba.Utils.deferred();
             prepareHeader();
-
             scrollIt(
                 scrollToLocation(element), 300, 'easeOutQuad',
                 () => {
                     this.oldContainerAnim.setProps({
-                        onComplete: () => deferred.resolve(),
+                        onComplete: () => {
+                            setTimeout(() => {
+                                deferred.resolve();
+                            }, 200);
+                        },
                     });
                     this.oldContainerAnim.start();
                 },
@@ -153,17 +153,23 @@ export default function homeTransition(element) {
 
             return deferred.promise;
         },
-
         fadeIn() {
             const el = this.newContainer;
-            el.style.visibility = 'visible';
-            document.body.classList.remove('is-loading');
-            setTop();
-            this.done();
-        },
-
-        finish() {
-            this.done();
+            const _this = this;
+            const elRenderer = css(el);
+            
+            tween({
+                from: 0,
+                to: 1,
+                duration: 300,
+                ease: easing.linear,
+                onUpdate: x => elRenderer.set('opacity', x),
+                onStart: () => setTop(),
+                onComplete: () => {
+                    _this.done();
+                    document.body.classList.remove('is-loading');
+                },
+            }).start();
         },
     });
     if (element && element.classList.contains('m-articleExcerptHero')) {

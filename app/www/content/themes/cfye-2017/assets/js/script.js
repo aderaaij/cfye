@@ -1369,18 +1369,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var lastElementClicked = void 0;
 var lastElementClickedParent = void 0;
+var navElementClicked = void 0;
 
 _barba2.default.Dispatcher.on('linkClicked', function (el) {
     lastElementClicked = el;
     lastElementClickedParent = (0, _helpers.getParents)(lastElementClicked, 'article');
+    navElementClicked = (0, _helpers.getParents)(lastElementClicked, 'nav');
 });
 
 document.addEventListener('DOMContentLoaded', function () {
     _Header2.default.init();
     _barba2.default.Pjax.getTransition = function () {
         var transitionObj = (0, _FadeTransition2.default)(lastElementClicked);
-        if (_barba2.default.HistoryManager.prevStatus().namespace === 'home') {
+        if (_barba2.default.HistoryManager.prevStatus().namespace === 'home' && lastElementClickedParent[0]) {
             transitionObj = (0, _HomeTransition2.default)(lastElementClickedParent[0]);
+        } else if (navElementClicked[0]) {
+            return transitionObj;
         }
         return transitionObj;
     };
@@ -7589,23 +7593,23 @@ function homeTransition(element) {
             Promise.all([this.newContainerLoading, this.fadeOut()]).then(this.fadeIn.bind(this));
         },
         fadeOut: function fadeOut() {
-            var _this = this;
+            var _this2 = this;
 
             var deferred = _barba2.default.Utils.deferred();
             prepareHeader();
 
             (0, _helpers.scrollIt)(scrollToLocation(element), 300, 'easeOutQuad', function () {
                 if (sizeTablet()) {
-                    _this.heroHeight.setProps({
+                    _this2.heroHeight.setProps({
                         onComplete: function onComplete() {
                             return deferred.resolve();
                         }
                     });
-                    _this.heroHeight.start();
+                    _this2.heroHeight.start();
                 } else {
-                    (0, _popmotion.parallel)([_this.heroImageAnim, _this.heroContentAnim], {
+                    (0, _popmotion.parallel)([_this2.heroImageAnim, _this2.heroContentAnim], {
                         onComplete: function onComplete() {
-                            _this.heroImageOpacity.start();
+                            _this2.heroImageOpacity.start();
                             deferred.resolve();
                         }
                     }).start();
@@ -7620,54 +7624,66 @@ function homeTransition(element) {
             document.body.classList.remove('is-loading');
             setTop();
             this.done();
-        },
-        finish: function finish() {
-            this.done();
         }
     });
 
     var HomeTransitionDefault = _barba2.default.BaseTransition.extend({
         start: function start() {
-            var _this2 = this;
+            var _this3 = this;
 
             document.body.classList.add('is-loading');
             this.oldContainerRenderer = (0, _popmotion.css)(this.oldContainer);
             this.oldContainerAnim = (0, _popmotion.tween)({
                 from: 1,
                 to: 0,
+                duration: 300,
+                ease: _popmotion.easing.linear,
                 onUpdate: function onUpdate(x) {
-                    return _this2.oldContainerRenderer.set('opacity', x);
+                    return _this3.oldContainerRenderer.set('opacity', x);
                 }
             });
 
             Promise.all([this.newContainerLoading, this.fadeOut()]).then(this.fadeIn.bind(this));
         },
         fadeOut: function fadeOut() {
-            var _this3 = this;
+            var _this4 = this;
 
             var deferred = _barba2.default.Utils.deferred();
             prepareHeader();
-
             (0, _helpers.scrollIt)(scrollToLocation(element), 300, 'easeOutQuad', function () {
-                _this3.oldContainerAnim.setProps({
+                _this4.oldContainerAnim.setProps({
                     onComplete: function onComplete() {
-                        return deferred.resolve();
+                        setTimeout(function () {
+                            deferred.resolve();
+                        }, 200);
                     }
                 });
-                _this3.oldContainerAnim.start();
+                _this4.oldContainerAnim.start();
             });
 
             return deferred.promise;
         },
         fadeIn: function fadeIn() {
             var el = this.newContainer;
-            el.style.visibility = 'visible';
-            document.body.classList.remove('is-loading');
-            setTop();
-            this.done();
-        },
-        finish: function finish() {
-            this.done();
+            var _this = this;
+            var elRenderer = (0, _popmotion.css)(el);
+
+            (0, _popmotion.tween)({
+                from: 0,
+                to: 1,
+                duration: 300,
+                ease: _popmotion.easing.linear,
+                onUpdate: function onUpdate(x) {
+                    return elRenderer.set('opacity', x);
+                },
+                onStart: function onStart() {
+                    return setTop();
+                },
+                onComplete: function onComplete() {
+                    _this.done();
+                    document.body.classList.remove('is-loading');
+                }
+            }).start();
         }
     });
     if (element && element.classList.contains('m-articleExcerptHero')) {

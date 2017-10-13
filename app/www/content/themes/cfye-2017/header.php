@@ -47,7 +47,7 @@
                         </h1>
                     </div>
                     <div class='m-siteHeader__nav'>
-                        <div class="m-siteNav">
+                        <nav class="m-siteNav">
                         <?php wp_nav_menu( 
                             array( 
                                 'theme_location' => 'header-menu',
@@ -56,7 +56,7 @@
                                 'container' => '',                                
                             ) 
                         ); ?>
-                        </div>
+                        </nav>
                     </div>
                 </div>
             </div><!-- .l-siteHeader -->
