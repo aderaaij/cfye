@@ -11,6 +11,10 @@
         transform: translateY(-100%);
     }
 
+    .no-js & {
+        transform: translateY(0);
+    }
+
     &.is-active {
         transform: translateY(0);
         &.headroom {

@@ -1,7 +1,7 @@
 .m-profileExcerpt {
     
     & {       
-        max-width: 700px;
+        max-width: 75ch;
         margin: 0 auto 300px;
         text-align: center;
         padding: 0 1.5em;
@@ -74,7 +74,6 @@
             line-height: 1.5;
             font-size: 1.375em;
             color: $colorGrey800;
-            letter-spacing: 1px;
             border-bottom: 1px solid #ec008c;
             padding-bottom: 0.25em;
 

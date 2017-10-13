@@ -19,11 +19,11 @@ h4,
 h5,
 h6 {
     font-family: $fontHeader;
+    font-weight: 800;
 }
 
 h1 {
     font-size: 1.5em;
-    letter-spacing: 1px;
 
     @include breakpoint($bpSmall) {
         font-size: 3em;
@@ -32,7 +32,6 @@ h1 {
 
 h2 {
     font-size: 1.375em;
-    letter-spacing: 1px;
 
     @include breakpoint($bpSmall) {
         font-size: 2.125em;

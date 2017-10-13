@@ -1,5 +1,5 @@
 /*eslint-disable*/
-export default function getPosition(el) {
+export function getPosition(el) {
     let xPos = 0;
     let yPos = 0;
 

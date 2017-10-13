@@ -1,74 +1,32 @@
 import Barba from 'barba.js';
-import getPosition, { scrollIt, getParents } from './helpers';
 import wrapImages from './wrapImages';
 import headroom from './Header';
 import LightboxSlider from './lightboxSlider';
 import inView from './inView';
 import lazyLoad from './lazyLoad';
+import fadeTransition from './barba/FadeTransition';
+import homeTransition from './barba/HomeTransition';
+import { getParents } from './helpers';
 
 let lastElementClicked;
-const FadeTransition = Barba.BaseTransition.extend({
-    start() {
-        this.linkClicked = lastElementClicked;
-        Promise
-            .all([this.newContainerLoading, this.fadeOut()])
-            .then(this.fadeIn.bind(this));
-    },
-    fadeOut() {
-        const deferred = Barba.Utils.deferred();
-        const articleExcerpt = getParents(this.linkClicked, '.m-articleExcerpt');
-        const header = document.querySelector('.m-siteHeader');
-        if (articleExcerpt.length) {
-            const elY = getPosition(articleExcerpt[0]).y;
-            const intElemScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-            header.classList.remove('headroom--unpinned');
-            header.classList.add('headroom--autoscroll');
-            scrollIt(
-                (elY + intElemScrollTop) - 50,
-                300,
-                'easeOutQuad',
-                () => {
-                    this.oldContainer.style.opacity = 0;
-                    setTimeout(() => {
-                        deferred.resolve();
-                    }, 300);
-                },
-            );
-        } else {
-            deferred.resolve();
-        }
-        return deferred.promise;
-    },
-
-    fadeIn() {
-        const _this = this;
-        const el = this.newContainer;
-        el.style.opacity = 0;
-        el.style.visibility = 'visible';
-        setTimeout(() => {
-            el.style.opacity = 1;
-        }, 300);
-        setTimeout(() => {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-            _this.done();
-        }, 300);
-    },
-
-    finish() {
-        this.done();
-    },
-});
-
-document.addEventListener('DOMContentLoaded', () => {    
-    headroom.init();
-    Barba.Pjax.getTransition = () => FadeTransition;
-    Barba.Pjax.start();
-    Barba.Prefetch.init();
-});
+let lastElementClickedParent;
 
 Barba.Dispatcher.on('linkClicked', (el) => {
     lastElementClicked = el;
+    lastElementClickedParent = getParents(lastElementClicked, 'article');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    headroom.init();
+    Barba.Pjax.getTransition = () => {
+        let transitionObj = fadeTransition(lastElementClicked);
+        if (Barba.HistoryManager.prevStatus().namespace === 'home') {
+            transitionObj = homeTransition(lastElementClickedParent[0]);
+        }
+        return transitionObj;
+    };
+    Barba.Pjax.start();
+    Barba.Prefetch.init();
 });
 
 Barba.Dispatcher.on('initStateChange', () => {
@@ -90,7 +48,7 @@ Barba.Dispatcher.on('newPageReady', () => {
 });
 
 Barba.Dispatcher.on('transitionCompleted', (currentStatus, prevStatus, HTMLElementContainer, newPageRawHTML) => {
-    console.log(currentStatus, prevStatus, HTMLElementContainer);
+    // console.log(currentStatus, prevStatus, HTMLElementContainer);
     wrapImages();
     const header = document.querySelector('.m-siteHeader');
     setTimeout(() => {
@@ -103,13 +61,13 @@ Barba.Dispatcher.on('transitionCompleted', (currentStatus, prevStatus, HTMLEleme
     observer.observe();
 });
 
+// Prevent Barba.js from working on certain links
 Barba.Pjax.originalPreventCheck = Barba.Pjax.preventCheck;
-
 Barba.Pjax.preventCheck = (evt, element) => {
     if (!Barba.Pjax.originalPreventCheck(evt, element)) {
         return false;
     }
-
+    // Prevent Barba.js on all links to /wp-admin/
     if (/.wp-admin/.test(element.href.toLowerCase())) {
         return false;
     }

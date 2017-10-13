@@ -1,27 +1,48 @@
-.m-articleExcerpt {
+.m-articleExcerptHero {
 
     & {
+        position: relative;
+        display: flex;
         width: 100%;
-        height: calc((100vh / 3) - (#{$headerHeight} / 3));
+        height: calc(((100vh / 3) * 2) - (( #{$headerHeight} / 3) * 2 ));
         min-height: 200px;
         overflow: hidden;
-        display: flex;
-        position: relative;
 
         @include breakpoint($bpDesktopSmall) {
-            height: 50vh;
-            min-height: 540px;
+            height: calc(100vh -  #{$headerHeight});
         }
     }
 
-    &:nth-child(even) {
-        background: $colorGrey100;
+    .is-loading & {
+        
+        .m-articleExcerptHero__title {
+            transform: translateY(-20%);
+            opacity: 0;
+
+            @include breakpoint($bpDesktopSmall) {
+                transform: translateY(0);
+                opacity: 1;
+            } 
+        }
+
+        .m-articleExcerptHero__image {
+            
+            &::before {
+                opacity: 0;
+            }
+        }
+    }
+
+    &:nth-child(odd) {
+        background: #fff;
     }
 
     &__imageWrap {
-        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
         height: 100%;
-        position: relative;
         overflow: hidden;
         @extend %e-scaleLoader;
 
@@ -34,11 +55,11 @@
         }
 
         @include breakpoint($bpDesktopSmall) {
-            width: 50%;
+            width: 50vw;
         }
 
         @include breakpoint($bpDesktop) {
-            width: 55%;
+            width: 55vw;
         }       
     }
 
@@ -71,7 +92,9 @@
             width: 100%;
             height: 70%;
             background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
-            
+            opacity: 1;
+            transition: opacity 0.3s ease-out;
+
             @include breakpoint($bpDesktopSmall) {
                 display: none;
             }
@@ -79,24 +102,29 @@
     }
 
     &__content {
-        width: 100%;
-        padding: 1.5em;
         position: absolute;
         top: 0;
         left: 0;
+        width: 100vw;
+        padding: 1.5em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
 
         @include breakpoint($bpDesktopSmall) {
-            width: 50%;
-            position: relative;
-            padding: 1.5em 2.5em;
+            position: absolute;
             top: auto;
             left: auto;
-            display: flex;
-            flex-direction: column;
+            right: 0;
+            width: 50vw;
+            height: 100%;
+            padding: 1.5em 2.5em;
+            background: rgba(#fff, 0.9);
         }
 
         @include breakpoint($bpDesktop) {
-            width: 45%;
+            width: 45vw;
             padding: 2em 2.5em;
         }
     }
@@ -110,13 +138,17 @@
         @include breakpoint($bpDesktopSmall) {
             display: block;
             font-size: 1.375em;
+            transition: all 0.3s ease;
         }
     }
 
     &__title {
-        line-height: 1.25;
-        margin: 0;
+        margin: 0 0 auto;
         border-bottom: 2px solid $colorPrimary;
+        line-height: 1.125;        
+        opacity: 1;
+        transform: translateY(0%);
+        transition: all 0.3s ease;
 
         a {
             text-decoration: none;
@@ -126,17 +158,27 @@
                 color: $colorPrimary;
             }
         }
+
+        @include breakpoint($bpDesktopSmall) {
+            margin: auto 0 0;
+        }
+
+        @include breakpoint($bpDesktop) {
+            width: 100%;
+            font-size: 2.5em;
+        }
     }
 
     &__meta {
+        display: none;
+        width: 100%;
+        margin: auto 0 0;
+        padding: 0.5em 0 0;
+        color: $colorGrey600;
         border-top: 1px solid $colorGrey300;
         font-style: italic;
         letter-spacing: 1px;
-        margin: auto 0 0;
-        color: $colorGrey600;
-        padding: 0.5em 0 0;
-        display: none;
-        
+
         @include breakpoint($bpDesktopSmall) {
             display: block;
         }

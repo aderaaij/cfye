@@ -7,7 +7,6 @@ const inView = function () {
     const callback = function (event) {
         console.log(event[0]);
         if (event[0].intersectionRect.bottom > 0) {
-            console.log('test');
             event[0].target.classList.add('is-active');
         }
     };

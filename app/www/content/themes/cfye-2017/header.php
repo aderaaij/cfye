@@ -27,7 +27,7 @@
                 g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
             })();
         </script>
-        <noscript><p><img src="//analytics.arden.nl/piwik.php?idsite=2&rec=1" style="border:0;" alt="" /></p></noscript>
+        <noscript><p class="e-invisible"><img src="//analytics.arden.nl/piwik.php?idsite=2&rec=1" style="border:0;" alt="" /></p></noscript>
         <!-- End Piwik Code -->
     </head>
     <body class='no-js'>
