@@ -11,11 +11,14 @@ import { getParents } from './helpers';
 let lastElementClicked;
 let lastElementClickedParent;
 let navElementClicked;
+const loader = document.createElement('div');
+loader.classList.add('e-loader');
 
 Barba.Dispatcher.on('linkClicked', (el) => {
     lastElementClicked = el;
     lastElementClickedParent = getParents(lastElementClicked, 'article');
     navElementClicked = getParents(lastElementClicked, 'nav');
+    document.body.appendChild(loader);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -66,6 +69,7 @@ Barba.Dispatcher.on('transitionCompleted', (currentStatus, prevStatus, HTMLEleme
         rootMargin: '100% 0%',
     });
     observer.observe();
+    loader.remove();
 });
 
 // Prevent Barba.js from working on certain links

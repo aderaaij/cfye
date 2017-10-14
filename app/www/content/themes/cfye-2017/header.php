@@ -36,7 +36,8 @@
         </script>
         <div class='l-site'>
             <div class='l-site__header'>
-                <div class="m-siteHeader">
+                <header class="m-siteHeader">
+                    <div class="m-siteHeader__loader"></div>
                     <div class="m-siteHeader__title">
                         <h1 class='m-siteLogo'>
                             <a href="<?php echo get_home_url() ?>" title="CFYE.com">
@@ -58,7 +59,7 @@
                         ); ?>
                         </nav>
                     </div>
-                </div>
+                </header>
             </div><!-- .l-siteHeader -->
             
             <div id="barba-wrapper">

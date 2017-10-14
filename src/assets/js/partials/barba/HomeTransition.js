@@ -116,6 +116,7 @@ export default function homeTransition(element) {
     const HomeTransitionDefault = Barba.BaseTransition.extend({
         start() {
             document.body.classList.add('is-loading');
+            document.body.classList.add('is-loading--articleExcerpt');
             this.oldContainerRenderer = css(this.oldContainer);
             this.oldContainerAnim = tween({
                 from: 1,
@@ -163,6 +164,7 @@ export default function homeTransition(element) {
                 onComplete: () => {
                     _this.done();
                     document.body.classList.remove('is-loading');
+                    document.body.classList.remove('is-loading--articleExcerpt');
                 },
             }).start();
         },

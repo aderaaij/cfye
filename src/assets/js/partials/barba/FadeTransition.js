@@ -6,6 +6,7 @@ export default function fadeTransition(elementClicked) {
     const FadeTransition = Barba.BaseTransition.extend({
         start() {
             document.body.classList.add('is-loading');
+            document.body.classList.add('is-loading--nav');
             this.oldContainerRenderer = css(this.oldContainer);
             this.oldContainerAnim = tween({
                 from: 1,
@@ -47,6 +48,7 @@ export default function fadeTransition(elementClicked) {
                 onComplete: () => {
                     _this.done();
                     document.body.classList.remove('is-loading');
+                    document.body.classList.remove('is-loading--nav');
                 },
             }).start();
         },

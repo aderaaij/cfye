@@ -5612,11 +5612,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var lastElementClicked = void 0;
 var lastElementClickedParent = void 0;
 var navElementClicked = void 0;
+var loader = document.createElement('div');
+loader.classList.add('e-loader');
 
 _barba2.default.Dispatcher.on('linkClicked', function (el) {
     lastElementClicked = el;
     lastElementClickedParent = (0, _helpers.getParents)(lastElementClicked, 'article');
     navElementClicked = (0, _helpers.getParents)(lastElementClicked, 'nav');
+    document.body.appendChild(loader);
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -5664,6 +5667,7 @@ _barba2.default.Dispatcher.on('transitionCompleted', function (currentStatus, pr
         rootMargin: '100% 0%'
     });
     observer.observe();
+    loader.remove();
 });
 
 // Prevent Barba.js from working on certain links
@@ -6238,6 +6242,7 @@ function fadeTransition(elementClicked) {
             var _this2 = this;
 
             document.body.classList.add('is-loading');
+            document.body.classList.add('is-loading--nav');
             this.oldContainerRenderer = (0, _popmotion.css)(this.oldContainer);
             this.oldContainerAnim = (0, _popmotion.tween)({
                 from: 1,
@@ -6283,6 +6288,7 @@ function fadeTransition(elementClicked) {
                 onComplete: function onComplete() {
                     _this.done();
                     document.body.classList.remove('is-loading');
+                    document.body.classList.remove('is-loading--nav');
                 }
             }).start();
         }
@@ -7663,6 +7669,7 @@ function homeTransition(element) {
             var _this3 = this;
 
             document.body.classList.add('is-loading');
+            document.body.classList.add('is-loading--articleExcerpt');
             this.oldContainerRenderer = (0, _popmotion.css)(this.oldContainer);
             this.oldContainerAnim = (0, _popmotion.tween)({
                 from: 1,
@@ -7713,6 +7720,7 @@ function homeTransition(element) {
                 onComplete: function onComplete() {
                     _this.done();
                     document.body.classList.remove('is-loading');
+                    document.body.classList.remove('is-loading--articleExcerpt');
                 }
             }).start();
         }

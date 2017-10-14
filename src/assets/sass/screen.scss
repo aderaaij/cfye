@@ -12,7 +12,14 @@
 @import 'settings/breakpoints';
 
 $headerHeight: 50px;
-
+.e-loader {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 4px;
+    background: $colorPrimary;
+}
 //Layout
 @import 'layout/l-site';
 

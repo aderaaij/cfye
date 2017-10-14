@@ -19,6 +19,8 @@
         background-size: cover;
         background-position: center;
         height: 90%;
+        opacity: 1;
+        transition: opacity 0.3s ease;
         
         @include breakpoint($bpDesktopSmall) {
             width: 50vw;
@@ -56,6 +58,22 @@
 
         @include breakpoint($bpDesktopSmall) {
             font-size: 22px;
+        }
+
+        a {
+            color: $colorPrimary;
+        }
+    }
+
+    .is-loading & {
+        filter: blur(4px);
+        transition: all 0.3s ease;
+        .m-aboutPage__image {
+            transform: opacity(0);
+        }
+
+        .m-aboutPage__content {
+            
         }
     }
     

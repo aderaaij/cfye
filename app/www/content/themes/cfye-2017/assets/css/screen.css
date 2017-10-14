@@ -407,6 +407,14 @@ template {
 [hidden] {
   display: none; }
 
+.e-loader {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 4px;
+  background: #ec008c; }
+
 .l-site__header {
   height: 50px; }
 
@@ -716,6 +724,14 @@ h2 {
       height: 50vh;
       min-height: 540px; } }
 
+.is-loading .m-articleExcerpt {
+  -webkit-filter: blur(3px);
+          filter: blur(3px);
+  -webkit-transition: -webkit-filter 0.3s ease-out 0.3s;
+  transition: -webkit-filter 0.3s ease-out 0.3s;
+  transition: filter 0.3s ease-out 0.3s;
+  transition: filter 0.3s ease-out 0.3s, -webkit-filter 0.3s ease-out 0.3s; }
+
 .m-articleExcerpt:nth-child(even) {
   background: #F5F5F5; }
 
@@ -942,7 +958,7 @@ h2 {
       width: 50vw;
       height: 100%;
       padding: 1.5em 2.5em;
-      background: rgba(255, 255, 255, 0.9); } }
+      background: #fff; } }
   @media (min-width: 1200px) {
     .m-articleExcerptHero__content {
       width: 45vw;
@@ -1144,6 +1160,13 @@ h2 {
   -webkit-transform: translateY(0);
           transform: translateY(0); }
 
+.is-loading .m-siteHeader {
+  -webkit-transition: background-color 0.3s ease 0.9s;
+  transition: background-color 0.3s ease 0.9s; }
+  .is-loading .m-siteHeader .m-siteHeader__loader {
+    -webkit-animation: loadingbar 2s ease-out;
+            animation: loadingbar 2s ease-out; }
+
 .m-siteHeader.is-active {
   -webkit-transform: translateY(0);
           transform: translateY(0); }
@@ -1162,9 +1185,23 @@ h2 {
       -webkit-transform: translateY(0) !important;
               transform: translateY(0) !important; }
 
+.m-siteHeader__loader {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), color-stop(70%, rgba(113, 61, 234, 0.5)));
+  background-image: linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(113, 61, 234, 0.5) 70%); }
+
 .m-siteHeader__title {
   width: 50px;
-  height: 50px; }
+  height: 50px;
+  z-index: 101; }
   .m-siteHeader__title svg {
     display: block;
     width: 100%;
@@ -1177,7 +1214,39 @@ h2 {
   display: flex;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
-          flex-grow: 1; }
+          flex-grow: 1;
+  position: relative;
+  z-index: 101; }
+
+@-webkit-keyframes loadingbar {
+  0% {
+    left: -100%; }
+  50% {
+    left: 100%;
+    -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg); }
+  51% {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg); }
+  100% {
+    left: -100%;
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg); } }
+
+@keyframes loadingbar {
+  0% {
+    left: -100%; }
+  50% {
+    left: 100%;
+    -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg); }
+  51% {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg); }
+  100% {
+    left: -100%;
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg); } }
 
 .m-siteLogo {
   display: block;
@@ -1626,7 +1695,10 @@ h2 {
   width: 100%;
   background-size: cover;
   background-position: center;
-  height: 90%; }
+  height: 90%;
+  opacity: 1;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease; }
   @media (min-width: 1024px) {
     .m-aboutPage__image {
       width: 50vw;
@@ -1665,6 +1737,17 @@ h2 {
   @media (min-width: 1024px) {
     .m-aboutPage__entryContent {
       font-size: 22px; } }
+  .m-aboutPage__entryContent a {
+    color: #ec008c; }
+
+.is-loading .m-aboutPage {
+  -webkit-filter: blur(4px);
+          filter: blur(4px);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease; }
+  .is-loading .m-aboutPage .m-aboutPage__image {
+    -webkit-transform: opacity(0);
+            transform: opacity(0); }
 
 .m-artistProfile {
   width: 100%; }
