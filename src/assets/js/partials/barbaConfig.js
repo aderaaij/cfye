@@ -11,17 +11,34 @@ import { getParents } from './helpers';
 let lastElementClicked;
 let lastElementClickedParent;
 let navElementClicked;
-const loader = document.createElement('div');
-loader.classList.add('e-loader');
+
+const pageSingle = document.querySelector('[data-namespace=single]');
+const pageHome = document.querySelector('[data-namespace=home]');
+
+if (pageSingle) {
+    const heroImage = pageSingle.querySelector('.m-article__heroImage');
+    const imageUrl = heroImage.getAttribute('data-src-large');
+    const imgLoad = new Image();
+    document.body.classList.remove('is-loading');
+    imgLoad.onload = () => {
+        heroImage.style.backgroundImage = `url(${imageUrl})`;
+        document.body.classList.remove('is-loadingInit');
+        document.body.classList.remove('is-loadingBar');
+    };
+    imgLoad.src = imageUrl;
+} else {
+    document.body.classList.remove('is-loadingInit');
+}
 
 Barba.Dispatcher.on('linkClicked', (el) => {
     lastElementClicked = el;
     lastElementClickedParent = getParents(lastElementClicked, 'article');
     navElementClicked = getParents(lastElementClicked, 'nav');
-    document.body.appendChild(loader);
+    document.body.classList.add('is-loadingBar');
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.remove('is-loadingBar');
     headroom.init();
     Barba.Pjax.getTransition = () => {
         let transitionObj = fadeTransition(lastElementClicked);
@@ -69,7 +86,6 @@ Barba.Dispatcher.on('transitionCompleted', (currentStatus, prevStatus, HTMLEleme
         rootMargin: '100% 0%',
     });
     observer.observe();
-    loader.remove();
 });
 
 // Prevent Barba.js from working on certain links

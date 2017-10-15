@@ -1,6 +1,7 @@
 <?php
-$thumb_id = get_post_thumbnail_id();
-$thumb_url = wp_get_attachment_image_src( $thumb_id, 'large', true );
+$imageID = get_post_thumbnail_id();
+$imageURLThumb = wp_get_attachment_image_src( $imageID, 'medium', true );
+$imageURLLarge = wp_get_attachment_image_src( $imageID, 'large', true );
 ?>
 
 <?php $text = preg_replace( '|([^\s])\s+([^\s]+)\s*$|', '$1&nbsp;$2', get_the_title()); ?>
@@ -8,7 +9,11 @@ $thumb_url = wp_get_attachment_image_src( $thumb_id, 'large', true );
 <article class='m-article'>
     
     <div class='m-article__hero'>
-        <div class='m-article__heroImage' style='background-image: url(<?php echo $thumb_url[0] ?>);'></div>
+        <?php if ( is_sticky() ): ?>
+        <div class='m-article__heroImage' data-src-large='<?php echo $imageURLLarge[0] ?>' style='background-image: url(<?php echo $imageURLLarge[0] ?>);'></div>
+        <?php else: ?>
+        <div class='m-article__heroImage' data-src-large='<?php echo $imageURLLarge[0] ?>' style='background-image: url(<?php echo $imageURLThumb[0] ?>);'></div>
+        <?php endif; ?>
         <div class='m-article__titleWrap'>
             <h1 class='m-article__title'><?php echo $text ?></h1>
         </div>

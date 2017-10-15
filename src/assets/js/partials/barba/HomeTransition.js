@@ -33,10 +33,15 @@ function prepareHeader() {
     header.classList.add('headroom--autoscroll');
 }
 
+function getBackgroundImageUrl(element) {
+    return element.style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+}
+
 export default function homeTransition(element) {
     const HomeTransitionHero = Barba.BaseTransition.extend({
         start() {
             document.body.classList.add('is-loading');
+            document.body.classList.add('is-loadingBar');
             const elImageFrom = ((sizeDesktopSmall()) ? 50 : 55);
             const elImage = element.querySelector('.m-articleExcerptHero__imageWrap');
             const elContent = element.querySelector('.m-articleExcerptHero__content');
@@ -108,6 +113,7 @@ export default function homeTransition(element) {
             const el = this.newContainer;
             el.style.visibility = 'visible';
             document.body.classList.remove('is-loading');
+            document.body.classList.remove('is-loadingBar');
             setTop();
             this.done();
         },
@@ -116,13 +122,16 @@ export default function homeTransition(element) {
     const HomeTransitionDefault = Barba.BaseTransition.extend({
         start() {
             document.body.classList.add('is-loading');
+            document.body.classList.add('is-loadingBar');
             document.body.classList.add('is-loading--articleExcerpt');
+            const heroImageEl = element.querySelector('.m-articleExcerpt__image');
+            this.heroImageUrl = getBackgroundImageUrl(heroImageEl);
             this.oldContainerRenderer = css(this.oldContainer);
             this.oldContainerAnim = tween({
                 from: 1,
                 to: 0,
                 duration: 300,
-                ease: easing.linear,
+                ease: easing.easeOut,
                 onUpdate: x => this.oldContainerRenderer.set('opacity', x),
             });
 
@@ -134,7 +143,7 @@ export default function homeTransition(element) {
             const deferred = Barba.Utils.deferred();
             prepareHeader();
             scrollIt(
-                scrollToLocation(element), 300, 'easeOutQuad',
+                scrollToLocation(element), 300, 'linear',
                 () => {
                     this.oldContainerAnim.setProps({
                         onComplete: () => {
@@ -153,20 +162,33 @@ export default function homeTransition(element) {
             const el = this.newContainer;
             const _this = this;
             const elRenderer = css(el);
+            const heroImage = el.querySelector('.m-article__heroImage');
+            const heroImageUrlLarge = heroImage.getAttribute('data-src-large');
+            heroImage.style.backgroundImage = `url(${this.heroImageUrl})`;
             
-            tween({
+            const fadeIn = tween({
                 from: 0,
                 to: 1,
                 duration: 300,
-                ease: easing.linear,
+                ease: easing.easeIn,
                 onUpdate: x => elRenderer.set('opacity', x),
-                onStart: () => setTop(),
+                onStart: () => {
+                    setTop();
+                },
                 onComplete: () => {
                     _this.done();
-                    document.body.classList.remove('is-loading');
                     document.body.classList.remove('is-loading--articleExcerpt');
+                    document.body.classList.remove('is-loading');
                 },
-            }).start();
+            });
+            fadeIn.start();
+
+            const imgLoad = new Image();
+            imgLoad.onload = () => {
+                heroImage.style.backgroundImage = `url(${heroImageUrlLarge})`;
+                document.body.classList.remove('is-loadingBar');
+            };
+            imgLoad.src = heroImageUrlLarge;
         },
     });
     if (element && element.classList.contains('m-articleExcerptHero')) {

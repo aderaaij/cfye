@@ -5612,17 +5612,34 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var lastElementClicked = void 0;
 var lastElementClickedParent = void 0;
 var navElementClicked = void 0;
-var loader = document.createElement('div');
-loader.classList.add('e-loader');
+
+var pageSingle = document.querySelector('[data-namespace=single]');
+var pageHome = document.querySelector('[data-namespace=home]');
+
+if (pageSingle) {
+    var heroImage = pageSingle.querySelector('.m-article__heroImage');
+    var imageUrl = heroImage.getAttribute('data-src-large');
+    var imgLoad = new Image();
+    document.body.classList.remove('is-loading');
+    imgLoad.onload = function () {
+        heroImage.style.backgroundImage = 'url(' + imageUrl + ')';
+        document.body.classList.remove('is-loadingInit');
+        document.body.classList.remove('is-loadingBar');
+    };
+    imgLoad.src = imageUrl;
+} else {
+    document.body.classList.remove('is-loadingInit');
+}
 
 _barba2.default.Dispatcher.on('linkClicked', function (el) {
     lastElementClicked = el;
     lastElementClickedParent = (0, _helpers.getParents)(lastElementClicked, 'article');
     navElementClicked = (0, _helpers.getParents)(lastElementClicked, 'nav');
-    document.body.appendChild(loader);
+    document.body.classList.add('is-loadingBar');
 });
 
 document.addEventListener('DOMContentLoaded', function () {
+    document.body.classList.remove('is-loadingBar');
     _Header2.default.init();
     _barba2.default.Pjax.getTransition = function () {
         var transitionObj = (0, _FadeTransition2.default)(lastElementClicked);
@@ -5667,7 +5684,6 @@ _barba2.default.Dispatcher.on('transitionCompleted', function (currentStatus, pr
         rootMargin: '100% 0%'
     });
     observer.observe();
-    loader.remove();
 });
 
 // Prevent Barba.js from working on certain links
@@ -6242,7 +6258,7 @@ function fadeTransition(elementClicked) {
             var _this2 = this;
 
             document.body.classList.add('is-loading');
-            document.body.classList.add('is-loading--nav');
+            document.body.classList.add('is-loadingBar');
             this.oldContainerRenderer = (0, _popmotion.css)(this.oldContainer);
             this.oldContainerAnim = (0, _popmotion.tween)({
                 from: 1,
@@ -6288,7 +6304,7 @@ function fadeTransition(elementClicked) {
                 onComplete: function onComplete() {
                     _this.done();
                     document.body.classList.remove('is-loading');
-                    document.body.classList.remove('is-loading--nav');
+                    document.body.classList.remove('is-loadingBar');
                 }
             }).start();
         }
@@ -7581,10 +7597,15 @@ function prepareHeader() {
     header.classList.add('headroom--autoscroll');
 }
 
+function getBackgroundImageUrl(element) {
+    return element.style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+}
+
 function homeTransition(element) {
     var HomeTransitionHero = _barba2.default.BaseTransition.extend({
         start: function start() {
             document.body.classList.add('is-loading');
+            document.body.classList.add('is-loadingBar');
             var elImageFrom = sizeDesktopSmall() ? 50 : 55;
             var elImage = element.querySelector('.m-articleExcerptHero__imageWrap');
             var elContent = element.querySelector('.m-articleExcerptHero__content');
@@ -7659,6 +7680,7 @@ function homeTransition(element) {
             var el = this.newContainer;
             el.style.visibility = 'visible';
             document.body.classList.remove('is-loading');
+            document.body.classList.remove('is-loadingBar');
             (0, _helpers.setTop)();
             this.done();
         }
@@ -7669,13 +7691,16 @@ function homeTransition(element) {
             var _this3 = this;
 
             document.body.classList.add('is-loading');
+            document.body.classList.add('is-loadingBar');
             document.body.classList.add('is-loading--articleExcerpt');
+            var heroImageEl = element.querySelector('.m-articleExcerpt__image');
+            this.heroImageUrl = getBackgroundImageUrl(heroImageEl);
             this.oldContainerRenderer = (0, _popmotion.css)(this.oldContainer);
             this.oldContainerAnim = (0, _popmotion.tween)({
                 from: 1,
                 to: 0,
                 duration: 300,
-                ease: _popmotion.easing.linear,
+                ease: _popmotion.easing.easeOut,
                 onUpdate: function onUpdate(x) {
                     return _this3.oldContainerRenderer.set('opacity', x);
                 }
@@ -7688,7 +7713,7 @@ function homeTransition(element) {
 
             var deferred = _barba2.default.Utils.deferred();
             prepareHeader();
-            (0, _helpers.scrollIt)(scrollToLocation(element), 300, 'easeOutQuad', function () {
+            (0, _helpers.scrollIt)(scrollToLocation(element), 300, 'linear', function () {
                 _this4.oldContainerAnim.setProps({
                     onComplete: function onComplete() {
                         setTimeout(function () {
@@ -7705,24 +7730,35 @@ function homeTransition(element) {
             var el = this.newContainer;
             var _this = this;
             var elRenderer = (0, _popmotion.css)(el);
+            var heroImage = el.querySelector('.m-article__heroImage');
+            var heroImageUrlLarge = heroImage.getAttribute('data-src-large');
+            heroImage.style.backgroundImage = 'url(' + this.heroImageUrl + ')';
 
-            (0, _popmotion.tween)({
+            var fadeIn = (0, _popmotion.tween)({
                 from: 0,
                 to: 1,
                 duration: 300,
-                ease: _popmotion.easing.linear,
+                ease: _popmotion.easing.easeIn,
                 onUpdate: function onUpdate(x) {
                     return elRenderer.set('opacity', x);
                 },
                 onStart: function onStart() {
-                    return (0, _helpers.setTop)();
+                    (0, _helpers.setTop)();
                 },
                 onComplete: function onComplete() {
                     _this.done();
-                    document.body.classList.remove('is-loading');
                     document.body.classList.remove('is-loading--articleExcerpt');
+                    document.body.classList.remove('is-loading');
                 }
-            }).start();
+            });
+            fadeIn.start();
+
+            var imgLoad = new Image();
+            imgLoad.onload = function () {
+                heroImage.style.backgroundImage = 'url(' + heroImageUrlLarge + ')';
+                document.body.classList.remove('is-loadingBar');
+            };
+            imgLoad.src = heroImageUrlLarge;
         }
     });
     if (element && element.classList.contains('m-articleExcerptHero')) {

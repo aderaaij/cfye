@@ -30,14 +30,13 @@
         <noscript><p class="e-invisible"><img src="//analytics.arden.nl/piwik.php?idsite=2&rec=1" style="border:0;" alt="" /></p></noscript>
         <!-- End Piwik Code -->
     </head>
-    <body class='no-js'>
+    <body class='no-js is-loadingBar is-loadingInit'>
         <script type="text/javascript">
             document.body.classList.remove('no-js');
         </script>
         <div class='l-site'>
             <div class='l-site__header'>
-                <header class="m-siteHeader">
-                    <div class="m-siteHeader__loader"></div>
+                <header class="m-siteHeader" data-scroll-header>
                     <div class="m-siteHeader__title">
                         <h1 class='m-siteLogo'>
                             <a href="<?php echo get_home_url() ?>" title="CFYE.com">
