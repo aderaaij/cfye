@@ -7,6 +7,7 @@
             &__title {
                 transform: translateY(-20%);
                 opacity: 0;
+                will-change: transform, opacity;
 
                 @include breakpoint($bpDesktopSmall) {
                     transform: translateY(0);
@@ -18,6 +19,7 @@
 
                 &::before {
                     opacity: 0;
+                    will-change: opacity;
                 }
             }
         }
@@ -101,6 +103,7 @@
         flex-direction: column;
         justify-content: center;
         text-align: left;
+        will-change: transform;
 
         @include breakpoint($bpDesktopSmall) {
             position: absolute;

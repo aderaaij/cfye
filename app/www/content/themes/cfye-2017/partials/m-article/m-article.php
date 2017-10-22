@@ -1,6 +1,6 @@
 <?php
 $imageID = get_post_thumbnail_id();
-$imageURLThumb = wp_get_attachment_image_src( $imageID, 'medium', true );
+$imageURLThumb = wp_get_attachment_image_src( $imageID, '100x100', true );
 $imageURLLarge = wp_get_attachment_image_src( $imageID, 'large', true );
 ?>
 

@@ -67,7 +67,7 @@
         background-size: cover;
         background-position: center;
         opacity: 1;
-        filter: blur(0);
+        // filter: none;
         transition: filter 0.3s ease;        
     }
 
@@ -159,6 +159,22 @@
 
         & {
            @extend .e-entryContent;
+        }
+
+        > p {
+            &:first-of-type {
+                &::first-letter {
+                    float: left;
+                    padding: 0 0.25em;
+                    line-height: 1.25;
+                    font-size: 2.5em;
+                    color: $colorPrimary;
+                    @include breakpoint($bpSmall) {
+                        font-size: 3em;
+                        line-height: 1;
+                    }                    
+                }
+            }
         }
     }
 
