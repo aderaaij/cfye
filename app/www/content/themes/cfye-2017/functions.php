@@ -20,6 +20,7 @@ require_once('functions/remove_junk_from_head.php');
 require_once('functions/remove_p_from_images.php');
 require_once('functions/add_content_iframe_wrap.php');
 require_once('functions/modify_img_caption_shortcode.php');
+require_once('functions/ssl_post_thumbnail_urls.php');
 
 // =========================================================================
 // Change queries and stuff
