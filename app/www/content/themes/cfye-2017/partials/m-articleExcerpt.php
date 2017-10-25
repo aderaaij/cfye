@@ -24,6 +24,7 @@
             <a 
                 href="<?php the_permalink() ?>" 
                 title="<?php the_title() ?>" 
+                class="m-articleExcerpt__image"
                 style="background-image: url(<?php echo $thumb_large[0] ?>);" class="m-articleExcerpt__image">
             </a>
         </noscript>

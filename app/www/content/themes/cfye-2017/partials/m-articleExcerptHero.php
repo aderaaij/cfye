@@ -1,10 +1,21 @@
 <?php
     $thumb_id = get_post_thumbnail_id();
     $thumb_small = wp_get_attachment_image_src( $thumb_id, 'medium', true );
+    $thumb_900x600 = wp_get_attachment_image_src( $thumb_id, '900x600', true );
     $thumb_mediumLarge = wp_get_attachment_image_src( $thumb_id, 'medium_large', true );
     $thumb_large = wp_get_attachment_image_src( $thumb_id, 'large', true );
 ?>
 <?php $title = preg_replace( '|([^\s])\s+([^\s]+)\s*$|', '$1&nbsp;$2', get_the_title()); ?>
+<style>
+.m-articleExcerptHero__image {
+    background-image: url(<?php echo $thumb_900x600[0] ?>);
+}      
+@media (min-width: 768px) {
+    .m-articleExcerptHero__image {
+        background-image: url(<?php echo $thumb_large[0] ?>);
+    }       
+}
+</style>
 
 <article 
     id="<?php the_ID();?>" 
@@ -13,13 +24,13 @@
     <div class='m-articleExcerptHero__imageWrap'>
         <a 
             href="<?php the_permalink() ?>" 
-            title="<?php the_title() ?>"
-            style="background-image: url(<?php echo $thumb_large[0] ?>)"                  
+            title="<?php the_title() ?>"   
             class="m-articleExcerptHero__image"
         >
         </a>
         <noscript>
             <a 
+                class="m-articleExcerptHero__image"
                 href="<?php the_permalink() ?>" 
                 title="<?php the_title() ?>" 
                 style="background-image: url(<?php echo $thumb_large[0] ?>);" class="m-articleExcerptHero__image">
