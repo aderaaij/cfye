@@ -38,12 +38,15 @@
     }
 
     h2 {
-        font-size: 2em;
-        margin-bottom: 0.5em;
+        // font-size: em;
+        font-size: 1.25em;
+        border-bottom: 1px solid $colorPrimary;
+        font-weight: 700;
+        margin-bottom: 0.25em;
     }
 
     h1,h2,h3,h4,h5,h6 {
-        color: $colorGrey700;
+        color: $colorGrey900;
     }
 
     blockquote {

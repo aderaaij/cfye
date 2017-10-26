@@ -1,4 +1,5 @@
 import pWaitFor from 'p-wait-for';
+import { mediaQueries } from './mediaQueries';
 
 const defaultConfig = {
     rootMargin: '0px',
@@ -12,10 +13,32 @@ const defaultConfig = {
                 element.srcset = element.dataset.srcset;
             }
         } else {
-            element.style.backgroundImage = `url(${element.dataset.src})`;
+            switch (mediaQueries()) {
+            case 'sizeTablet':
+                element.style.backgroundImage = `url(${element.dataset.srcSmall})`;
+                break;
+            case 'sizeDesktopSmall':
+                element.style.backgroundImage = `url(${element.dataset.srcMedium})`;
+                break;
+            case 'sizeDesktop':
+                element.style.backgroundImage = `url(${element.dataset.src})`;
+                break;
+            }
         }
     },
 };
+
+function removeDataAtrributes(element) {
+    element.removeAttribute('data-src');
+    element.removeAttribute('data-srcset');
+}
+
+function imageOnLoad(element) {
+    element.classList.add('b-loaded');
+    element.parentNode.classList.add('is-loaded');
+    element.dataset.loaded = true;
+    removeDataAtrributes(element);
+}
 
 function markAsLoaded(element) {
     if (navigator.onLine) {
@@ -28,25 +51,19 @@ function markAsLoaded(element) {
             }).then(() => {
                 const imgLoad = new Image();
                 imgLoad.onload = () => {
-                    element.classList.add('b-loaded');
-                    element.parentNode.classList.add('is-loaded');
-                    element.dataset.loaded = true;
+                    imageOnLoad(element);
                 };
                 imgLoad.src = element.currentSrc;
             });
         } else {
             const imgLoad = new Image();
             imgLoad.onload = () => {
-                element.classList.add('b-loaded');
-                element.parentNode.classList.add('is-loaded');
-                element.dataset.loaded = true;
+                imageOnLoad(element);                
             };
             imgLoad.src = element.dataset.src;
         }
     } else {
-        element.classList.add('b-loaded');
-        element.parentNode.classList.add('is-loaded');
-        element.dataset.loaded = true;
+        imageOnLoad(element);
     }
 }
 

@@ -24,6 +24,9 @@ function sizeDesktop() {
 function scrollToLocation(element) {
     const intElemScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
     const elY = getPosition(element).y;
+    if ((elY + intElemScrollTop) === 0) {
+        return (elY + intElemScrollTop);
+    }
     return (elY + intElemScrollTop) - 50;
 }
 
@@ -83,7 +86,6 @@ export default function homeTransition(element) {
         fadeOut() {
             const deferred = Barba.Utils.deferred();
             prepareHeader();
-
             scrollIt(
                 scrollToLocation(element), 300, 'easeOutQuad',
                 () => {
@@ -165,7 +167,7 @@ export default function homeTransition(element) {
             const heroImage = el.querySelector('.m-article__heroImage');
             const heroImageUrlLarge = heroImage.getAttribute('data-src-large');
             heroImage.style.backgroundImage = `url(${this.heroImageUrl})`;
-            
+
             const fadeIn = tween({
                 from: 0,
                 to: 1,

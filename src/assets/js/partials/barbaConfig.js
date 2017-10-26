@@ -42,13 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
     headroom.init();
     Barba.Pjax.getTransition = () => {
         let transitionObj = fadeTransition(lastElementClicked);
-        if (
-            Barba.HistoryManager.prevStatus().namespace === 'home'
-            && lastElementClickedParent[0]
-        ) {
-            transitionObj = homeTransition(lastElementClickedParent[0]);
-        } else if (navElementClicked[0]) {
-            return transitionObj;
+        if (lastElementClickedParent) {
+            if (
+                Barba.HistoryManager.prevStatus().namespace === 'home'
+                && lastElementClickedParent[0]
+            ) {
+                transitionObj = homeTransition(lastElementClickedParent[0]);
+            } else if (navElementClicked[0]) {
+                return transitionObj;
+            }
         }
         return transitionObj;
     };
@@ -75,7 +77,7 @@ Barba.Dispatcher.on('newPageReady', () => {
 });
 
 Barba.Dispatcher.on('transitionCompleted', (currentStatus, prevStatus, HTMLElementContainer, newPageRawHTML) => {
-    // console.log(currentStatus, prevStatus, HTMLElementContainer);
+    // console.log(currentStatus, prevStatus, HTMLElementContainer, newPageRawHTML);
     wrapImages();
     const header = document.querySelector('.m-siteHeader');
     setTimeout(() => {

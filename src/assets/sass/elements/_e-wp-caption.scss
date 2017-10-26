@@ -7,7 +7,14 @@
         @extend %e-scaleLoader;
     }
 
-    + p {
+    + p,
+    + blockquote,
+    + h2,
+    + h3,
+    + h4,
+    + h5,
+    + h6,
+    + iframe {
         margin-top: 3rem;
     }
 

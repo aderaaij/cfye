@@ -21,7 +21,7 @@ function add_scripts_styles() {
     wp_register_script( 'script', get_template_directory_uri() . '/assets/js/script.js','', autoversion('/assets/js/script.js'), true );
     wp_enqueue_script('script');
 
-    wp_enqueue_style( 'style',  get_template_directory_uri() . '/assets/css/screen.css','', autoversion('/assets/css/screen.css'), '');
+    wp_enqueue_style( 'style',  get_template_directory_uri() . '/assets/css/screen.css','', autoversion('/assets/css/screen.css'), 'screen');
 
     // Remove wp-embed script
     wp_deregister_script( 'wp-embed' );
