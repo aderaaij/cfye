@@ -17,6 +17,8 @@ body {
             font-size: 1.25em;
             max-width: 60ch;
             margin: 1em auto;
+            overflow: hidden;
+            clear: both;
         }
 
         a {
@@ -35,6 +37,8 @@ body {
         .alignleft,
         .alignright {
             float: none;
+            margin: 0 auto;
+            max-width: 80%;
         }
 
         .m-article__iframe {
