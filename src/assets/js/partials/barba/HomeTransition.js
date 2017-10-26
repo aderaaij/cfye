@@ -40,17 +40,26 @@ function getBackgroundImageUrl(element) {
     return element.style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
 }
 
+function addLoadingClasses() {
+    document.body.classList.add('is-loading');
+    document.body.classList.add('is-loadingBar');
+}
+
+function removeLoadingClasses() {
+    document.body.classList.remove('is-loading');
+    document.body.classList.remove('is-loadingBar');
+}
+
 export default function homeTransition(element) {
     const HomeTransitionHero = Barba.BaseTransition.extend({
         start() {
-            document.body.classList.add('is-loading');
-            document.body.classList.add('is-loadingBar');
             const elImageFrom = ((sizeDesktopSmall()) ? 50 : 55);
             const elImage = element.querySelector('.m-articleExcerptHero__imageWrap');
             const elContent = element.querySelector('.m-articleExcerptHero__content');
             const elContentRenderer = css(elContent);
             const elImageRenderer = css(elImage);
             const elRenderer = css(element);
+            addLoadingClasses();
             this.heroHeight = tween({
                 from: ((100 / 3) * 2),
                 to: 100,
@@ -114,8 +123,7 @@ export default function homeTransition(element) {
         fadeIn() {
             const el = this.newContainer;
             el.style.visibility = 'visible';
-            document.body.classList.remove('is-loading');
-            document.body.classList.remove('is-loadingBar');
+            removeLoadingClasses();
             setTop();
             this.done();
         },
@@ -123,8 +131,7 @@ export default function homeTransition(element) {
 
     const HomeTransitionDefault = Barba.BaseTransition.extend({
         start() {
-            document.body.classList.add('is-loading');
-            document.body.classList.add('is-loadingBar');
+            addLoadingClasses();
             document.body.classList.add('is-loading--articleExcerpt');
             const heroImageEl = element.querySelector('.m-articleExcerpt__image');
             this.heroImageUrl = getBackgroundImageUrl(heroImageEl);
