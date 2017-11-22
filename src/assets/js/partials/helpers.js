@@ -1,18 +1,21 @@
 /*eslint-disable*/
+/**
+ * @param  {} el
+ */
 export function getPosition(el) {
     let xPos = 0;
     let yPos = 0;
 
     while (el) {
         if (el.tagName == 'BODY') {
-        // deal with browser quirks with body/window/document and page scroll
+            // deal with browser quirks with body/window/document and page scroll
             const xScroll = el.scrollLeft || document.documentElement.scrollLeft;
             const yScroll = el.scrollTop || document.documentElement.scrollTop;
 
             xPos += (el.offsetLeft - xScroll + el.clientLeft);
             yPos += (el.offsetTop - yScroll + el.clientTop);
         } else {
-        // for all other non-BODY elements
+            // for all other non-BODY elements
             xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
             yPos += (el.offsetTop - el.scrollTop + el.clientTop);
         }
@@ -40,17 +43,17 @@ export function getParents(elem, selector) {
     // Element.matches() polyfill
     if (!Element.prototype.matches) {
         Element.prototype.matches =
-                Element.prototype.matchesSelector ||
-                Element.prototype.mozMatchesSelector ||
-                Element.prototype.msMatchesSelector ||
-                Element.prototype.oMatchesSelector ||
-                Element.prototype.webkitMatchesSelector ||
-                function (s) {
-                    let matches = (this.document || this.ownerDocument).querySelectorAll(s),
-                        i = matches.length;
-                    while (--i >= 0 && matches.item(i) !== this) {}
-                    return i > -1;
-                };
+            Element.prototype.matchesSelector ||
+            Element.prototype.mozMatchesSelector ||
+            Element.prototype.msMatchesSelector ||
+            Element.prototype.oMatchesSelector ||
+            Element.prototype.webkitMatchesSelector ||
+            function (s) {
+                let matches = (this.document || this.ownerDocument).querySelectorAll(s),
+                    i = matches.length;
+                while (--i >= 0 && matches.item(i) !== this) {}
+                return i > -1;
+            };
     }
 
     // Setup parents array
@@ -192,7 +195,10 @@ export function scrollIt(destination, duration = 200, easing = 'linear', callbac
     // Invoke scroll and sequential requestAnimationFrame
     scroll();
 }
-
+/**
+ * Get all the siblings of an element
+ * @param  {node} elem      The Element
+ */
 export function getSiblings(elem) {
 	var siblings = [];
 	var sibling = elem.parentNode.firstChild;

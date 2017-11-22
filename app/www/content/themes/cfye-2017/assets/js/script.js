@@ -3656,6 +3656,9 @@ exports.getParents = getParents;
 exports.scrollIt = scrollIt;
 exports.getSiblings = getSiblings;
 /*eslint-disable*/
+/**
+ * @param  {} el
+ */
 function getPosition(el) {
     var xPos = 0;
     var yPos = 0;
@@ -3844,7 +3847,10 @@ function scrollIt(destination) {
     // Invoke scroll and sequential requestAnimationFrame
     scroll();
 }
-
+/**
+ * Get all the siblings of an element
+ * @param  {node} elem      The Element
+ */
 function getSiblings(elem) {
     var siblings = [];
     var sibling = elem.parentNode.firstChild;
@@ -4352,26 +4358,23 @@ exports.default = function (key, asDashCase) {
 
 __webpack_require__(23);
 
-__webpack_require__(15);
+var _barbaConfig = __webpack_require__(25);
 
-__webpack_require__(25);
+var _barbaConfig2 = _interopRequireDefault(_barbaConfig);
 
-if ('serviceWorker' in navigator) {
-    // register the Service Worker, must be in the root directory to have site-wide scope...
-    navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
-        // registration succeeded :-)
-        // console.log('ServiceWorker registration succeeded, with this scope: ', registration.scope);
-        // you may occasionally need to clear a service worker; this is the only way i've found to do that...
-        // comment this out while not using it
-        /* registration.unregister().then(function(boolean) {
-          //  // if boolean = true, unregister is successful
-            console.log('ServiceWorker unregistered');
-        }); */
-    }).catch(function (err) {
-        // registration failed :-(
-        console.log('ServiceWorker registration failed: ', err);
-    });
-}
+var _initViews = __webpack_require__(52);
+
+var _initViews2 = _interopRequireDefault(_initViews);
+
+var _initServiceWorker = __webpack_require__(53);
+
+var _initServiceWorker2 = _interopRequireDefault(_initServiceWorker);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+(0, _initViews2.default)();
+(0, _barbaConfig2.default)();
+(0, _initServiceWorker2.default)();
 
 /***/ }),
 /* 23 */
@@ -5578,6 +5581,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = barbaInit;
+
 var _barba = __webpack_require__(9);
 
 var _barba2 = _interopRequireDefault(_barba);
@@ -5620,94 +5628,80 @@ var lastElementClicked = void 0;
 var lastElementClickedParent = void 0;
 var navElementClicked = void 0;
 
-var pageSingle = document.querySelector('[data-namespace=single]');
-var pageHome = document.querySelector('[data-namespace=home]');
-
-if (pageSingle) {
-    var heroImage = pageSingle.querySelector('.m-article__heroImage');
-    var imageUrl = heroImage.getAttribute('data-src-large');
-    var imgLoad = new Image();
-    document.body.classList.remove('is-loading');
-    imgLoad.onload = function () {
-        heroImage.style.backgroundImage = 'url(' + imageUrl + ')';
-        document.body.classList.remove('is-loadingInit');
-        document.body.classList.remove('is-loadingBar');
-    };
-    imgLoad.src = imageUrl;
-} else {
-    document.body.classList.remove('is-loadingInit');
-}
-
-_barba2.default.Dispatcher.on('linkClicked', function (el) {
-    lastElementClicked = el;
-    lastElementClickedParent = (0, _helpers.getParents)(lastElementClicked, 'article');
-    navElementClicked = (0, _helpers.getParents)(lastElementClicked, 'nav');
-    document.body.classList.add('is-loadingBar');
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    document.body.classList.remove('is-loadingBar');
-    _Header2.default.init();
-    _barba2.default.Pjax.getTransition = function () {
-        var transitionObj = (0, _FadeTransition2.default)(lastElementClicked);
-        if (lastElementClickedParent) {
-            if (_barba2.default.HistoryManager.prevStatus().namespace === 'home' && lastElementClickedParent[0]) {
-                transitionObj = (0, _HomeTransition2.default)(lastElementClickedParent[0]);
-            } else if (navElementClicked[0]) {
-                return transitionObj;
-            }
-        }
-        return transitionObj;
-    };
-    _barba2.default.Pjax.start();
-    _barba2.default.Prefetch.init();
-});
-
-_barba2.default.Dispatcher.on('initStateChange', function () {
-    var lightbox = document.querySelector('.m-lightbox');
-    if (lightbox) {
-        lightbox.remove();
-    }
-});
-
-_barba2.default.Dispatcher.on('newPageReady', function () {
-    var gallery = document.querySelector('.m-gallerySimple');
-    if (gallery) {
-        var lb = new _lightboxSlider2.default({
-            selector: '.m-gallerySimple__link',
-            lazyload: true
-        });
-    }
-    (0, _inView2.default)();
-});
-
-_barba2.default.Dispatcher.on('transitionCompleted', function (currentStatus, prevStatus, HTMLElementContainer, newPageRawHTML) {
-    // console.log(currentStatus, prevStatus, HTMLElementContainer, newPageRawHTML);
-    (0, _wrapImages2.default)();
-    // menuToggle();
-    var header = document.querySelector('.m-siteHeader');
-    setTimeout(function () {
-        header.classList.remove('headroom--autoscroll');
-    }, 300);
-    var observer = (0, _lazyLoad2.default)('img[data-src], .b-lazy', {
-        threshold: 0.1,
-        rootMargin: '100% 0%'
+function barbaInit() {
+    _barba2.default.Dispatcher.on('linkClicked', function (el) {
+        lastElementClicked = el;
+        lastElementClickedParent = (0, _helpers.getParents)(lastElementClicked, 'article');
+        navElementClicked = (0, _helpers.getParents)(lastElementClicked, 'nav');
+        document.body.classList.add('is-loadingBar');
     });
-    observer.observe();
-});
 
-// Prevent Barba.js from working on certain links
-_barba2.default.Pjax.originalPreventCheck = _barba2.default.Pjax.preventCheck;
-_barba2.default.Pjax.preventCheck = function (evt, element) {
-    if (!_barba2.default.Pjax.originalPreventCheck(evt, element)) {
-        return false;
-    }
-    // Prevent Barba.js on all links to /wp-admin/
-    if (/.wp-admin/.test(element.href.toLowerCase())) {
-        return false;
-    }
-    return true;
-};
+    document.addEventListener('DOMContentLoaded', function () {
+        document.body.classList.remove('is-loadingBar');
+        _Header2.default.init();
+        _barba2.default.Pjax.getTransition = function () {
+            var transitionObj = (0, _FadeTransition2.default)(lastElementClicked);
+            if (lastElementClickedParent) {
+                if (_barba2.default.HistoryManager.prevStatus().namespace === 'home' && lastElementClickedParent[0]) {
+                    transitionObj = (0, _HomeTransition2.default)(lastElementClickedParent[0]);
+                } else if (navElementClicked[0]) {
+                    return transitionObj;
+                }
+            }
+            return transitionObj;
+        };
+        _barba2.default.Pjax.start();
+        _barba2.default.Prefetch.init();
+    });
+
+    _barba2.default.Dispatcher.on('initStateChange', function () {
+        var lightbox = document.querySelector('.m-lightbox');
+        if (lightbox) lightbox.remove();
+    });
+
+    _barba2.default.Dispatcher.on('newPageReady', function () {
+        var gallery = document.querySelector('.m-gallerySimple');
+        if (gallery) {
+            var lb = new _lightboxSlider2.default({
+                selector: '.m-gallerySimple__link',
+                lazyload: true
+            });
+        }
+        (0, _inView2.default)();
+    });
+
+    _barba2.default.Dispatcher.on('transitionCompleted', function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        console.log(args);
+        (0, _wrapImages2.default)();
+        // menuToggle();
+        var header = document.querySelector('.m-siteHeader');
+        setTimeout(function () {
+            header.classList.remove('headroom--autoscroll');
+        }, 300);
+        var observer = (0, _lazyLoad2.default)('img[data-src], .b-lazy', {
+            threshold: 0.1,
+            rootMargin: '100% 0%'
+        });
+        observer.observe();
+    });
+
+    // Prevent Barba.js from working on certain links
+    _barba2.default.Pjax.originalPreventCheck = _barba2.default.Pjax.preventCheck;
+    _barba2.default.Pjax.preventCheck = function (evt, element) {
+        if (!_barba2.default.Pjax.originalPreventCheck(evt, element)) {
+            return false;
+        }
+        // Prevent Barba.js on all links to /wp-admin/
+        if (/.wp-admin/.test(element.href.toLowerCase())) {
+            return false;
+        }
+        return true;
+    };
+}
 
 /***/ }),
 /* 26 */
@@ -7856,6 +7850,82 @@ function homeTransition(element) {
         return HomeTransitionHero;
     }
     return HomeTransitionDefault;
+}
+
+/***/ }),
+/* 51 */,
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = initViews;
+var pageSingle = document.querySelector('[data-namespace=single]');
+var pageHome = document.querySelector('[data-namespace=home]');
+
+/**
+ * Toggle classes and load image of a single page
+ */
+function initPageSingle() {
+    var heroImage = pageSingle.querySelector('.m-article__heroImage');
+    var imageUrl = heroImage.getAttribute('data-src-large');
+    var imgLoad = new Image();
+    document.body.classList.remove('is-loading');
+    imgLoad.onload = function () {
+        heroImage.style.backgroundImage = 'url(' + imageUrl + ')';
+        document.body.classList.remove('is-loadingInit');
+        document.body.classList.remove('is-loadingBar');
+    };
+    imgLoad.src = imageUrl;
+}
+
+/**
+ * Toggle classes for a default page
+ */
+function initPageDefault() {
+    document.body.classList.remove('is-loadingInit');
+}
+
+function initViews() {
+    if (pageSingle) {
+        initPageSingle();
+    } else {
+        initPageDefault();
+    }
+}
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = initServiceWorker;
+function initServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        // register the Service Worker, must be in the root directory to have site-wide scope...
+        navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+            // registration succeeded :-)
+            // console.log('ServiceWorker registration succeeded, with this scope: ', registration.scope);
+            // you may occasionally need to clear a service worker; this is the only way i've found to do that...
+            // comment this out while not using it
+            /* registration.unregister().then(function(boolean) {
+            //  // if boolean = true, unregister is successful
+                console.log('ServiceWorker unregistered');
+            }); */
+        }).catch(function (err) {
+            // registration failed :-(
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    }
 }
 
 /***/ })
