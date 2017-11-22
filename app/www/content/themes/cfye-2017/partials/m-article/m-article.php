@@ -4,7 +4,7 @@ $imageURLThumb = wp_get_attachment_image_src( $imageID, '100x100', true );
 $imageURLLarge = wp_get_attachment_image_src( $imageID, 'large', true );
 ?>
 
-<?php $text = preg_replace( '|([^\s])\s+([^\s]+)\s*$|', '$1&nbsp;$2', get_the_title()); ?>
+<?php $text = preg_replace( '|([^\s])\s+([^\s]+)\s*$|', '$1&nbsp;$2', get_the_title() ) ?>
 
 <article class='m-article'>
     
@@ -21,23 +21,26 @@ $imageURLLarge = wp_get_attachment_image_src( $imageID, 'large', true );
 
     <div class='m-article__content'>        
         <div class='m-article__entryContent'>    
-            <?php the_content(); ?>
+            <?php the_content() ?>
         </div>
     </div>
 
-    <?php if(get_post_format( ) === 'video'): ?>
+    <?php if ( get_post_format( ) === 'video' ): ?>
     <div class='m-article__video'>
-       <?php get_template_part('partials/m-article/m-video') ?>
+       <?php get_template_part( 'partials/m-article/m-video' ) ?>
     </div>
     <?php endif; ?>
 
-    <?php if(get_post_format( ) === 'gallery'): ?>
+    <?php if ( get_post_format( ) === 'gallery' ): ?>
     <div class='m-article__gallery'>
        
-        <?php get_template_part('partials/m-article/gallery/m-gallerySimple') ?>
+        <?php get_template_part( 'partials/m-article/gallery/m-gallerySimple' ) ?>
         
     </div>
     <?php endif; ?>
-
-    <?php get_template_part('partials/m-article/m-artistBox') ?>
-</article>
+    <?php if ( get_field('artist_post') ): ?>
+    <?php get_template_part( 'partials/m-article/m-artistBox' ) ?>
+    <?php else: ?>
+    <?php get_template_part( 'partials/m-article/m-authorBox' ) ?>
+    <?php endif ?>
+</article> 

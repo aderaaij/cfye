@@ -3654,6 +3654,7 @@ exports.getPosition = getPosition;
 exports.setTop = setTop;
 exports.getParents = getParents;
 exports.scrollIt = scrollIt;
+exports.getSiblings = getSiblings;
 /*eslint-disable*/
 function getPosition(el) {
     var xPos = 0;
@@ -3842,6 +3843,17 @@ function scrollIt(destination) {
 
     // Invoke scroll and sequential requestAnimationFrame
     scroll();
+}
+
+function getSiblings(elem) {
+    var siblings = [];
+    var sibling = elem.parentNode.firstChild;
+    for (; sibling; sibling = sibling.nextSibling) {
+        if (sibling.nodeType === 1 && sibling !== elem) {
+            siblings.push(sibling);
+        }
+    }
+    return siblings;
 }
 
 /***/ }),
@@ -4344,6 +4356,28 @@ __webpack_require__(15);
 
 __webpack_require__(25);
 
+var _helpers = __webpack_require__(14);
+
+function articleFocus(e) {
+    if (e.key === 'Tab') {
+        var el = document.activeElement;
+        var siblings = (0, _helpers.getSiblings)(el.parentElement);
+        siblings.filter(function (item) {
+            return item.tagName === 'ARTICLE';
+        }).forEach(function (article) {
+            article.classList.add('is-inActive');
+            el.parentElement.classList.remove('is-inActive');
+        });
+    }
+}
+window.addEventListener('keydown', function (e) {
+    articleFocus(e);
+});
+
+window.addEventListener('keyup', function (e) {
+    articleFocus(e);
+});
+
 if ('serviceWorker' in navigator) {
     // register the Service Worker, must be in the root directory to have site-wide scope...
     navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
@@ -4368,17 +4402,10 @@ if ('serviceWorker' in navigator) {
 /**
  * Copyright 2016 Google Inc. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the W3C SOFTWARE AND DOCUMENT NOTICE AND LICENSE.
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *  https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
+ * 
  */
 
 (function(window, document) {
@@ -4392,7 +4419,7 @@ if ('IntersectionObserver' in window &&
     'intersectionRatio' in window.IntersectionObserverEntry.prototype) {
 
   // Minimal polyfill for Edge 15's lack of `isIntersecting`
-  // See: https://github.com/WICG/IntersectionObserver/issues/211
+  // See: https://github.com/w3c/IntersectionObserver/issues/211
   if (!('isIntersecting' in window.IntersectionObserverEntry.prototype)) {
     Object.defineProperty(window.IntersectionObserverEntry.prototype,
       'isIntersecting', {
@@ -4416,7 +4443,7 @@ var registry = [];
 
 /**
  * Creates the global IntersectionObserverEntry constructor.
- * https://wicg.github.io/IntersectionObserver/#intersection-observer-entry
+ * https://w3c.github.io/IntersectionObserver/#intersection-observer-entry
  * @param {Object} entry A dictionary of instance properties.
  * @constructor
  */
@@ -4446,7 +4473,7 @@ function IntersectionObserverEntry(entry) {
 
 /**
  * Creates the global IntersectionObserver constructor.
- * https://wicg.github.io/IntersectionObserver/#intersection-observer-interface
+ * https://w3c.github.io/IntersectionObserver/#intersection-observer-interface
  * @param {Function} callback The function to be invoked after intersection
  *     changes have queued. The function is not invoked if the queue has
  *     been emptied by calling the `takeRecords` method.
@@ -4724,7 +4751,7 @@ IntersectionObserver.prototype._checkForIntersections = function() {
  * Accepts a target and root rect computes the intersection between then
  * following the algorithm in the spec.
  * TODO(philipwalton): at this time clip-path is not considered.
- * https://wicg.github.io/IntersectionObserver/#calculate-intersection-rect-algo
+ * https://w3c.github.io/IntersectionObserver/#calculate-intersection-rect-algo
  * @param {Element} target The target DOM element
  * @param {Object} rootRect The bounding rect of the root after being
  *     expanded by the rootMargin value.
@@ -5013,7 +5040,7 @@ function getBoundingClientRect(el) {
     rect = el.getBoundingClientRect();
   } catch (err) {
     // Ignore Windows 7 IE11 "Unspecified error"
-    // https://github.com/WICG/IntersectionObserver/pull/205
+    // https://github.com/w3c/IntersectionObserver/pull/205
   }
 
   if (!rect) return getEmptyRect();
@@ -5610,6 +5637,8 @@ var _helpers = __webpack_require__(14);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var lastElementClicked = void 0;
+// import menuToggle from './menuToggle';
+
 var lastElementClickedParent = void 0;
 var navElementClicked = void 0;
 
@@ -5677,6 +5706,7 @@ _barba2.default.Dispatcher.on('newPageReady', function () {
 _barba2.default.Dispatcher.on('transitionCompleted', function (currentStatus, prevStatus, HTMLElementContainer, newPageRawHTML) {
     // console.log(currentStatus, prevStatus, HTMLElementContainer, newPageRawHTML);
     (0, _wrapImages2.default)();
+    // menuToggle();
     var header = document.querySelector('.m-siteHeader');
     setTimeout(function () {
         header.classList.remove('headroom--autoscroll');
@@ -6407,13 +6437,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function createRenderStep(startRenderLoop) {
     var functionsToRun = [];
     var functionsToRunNextFrame = [];
+    var numThisFrame = 0;
+    var isProcessing = false;
+    var i = 0;
     return {
-        schedule: function (callback) {
-            startRenderLoop();
-            if (functionsToRunNextFrame.indexOf(callback) === -1) {
-                functionsToRunNextFrame.push(callback);
-            }
-        },
         cancel: function (callback) {
             var indexOfCallback = functionsToRunNextFrame.indexOf(callback);
             if (indexOfCallback !== -1) {
@@ -6421,14 +6448,28 @@ function createRenderStep(startRenderLoop) {
             }
         },
         process: function () {
+            isProcessing = true;
             _a = [functionsToRunNextFrame, functionsToRun], functionsToRun = _a[0], functionsToRunNextFrame = _a[1];
             functionsToRunNextFrame.length = 0;
-            var numThisFrame = functionsToRun.length;
-            for (var i = 0; i < numThisFrame; i++) {
+            numThisFrame = functionsToRun.length;
+            for (i = 0; i < numThisFrame; i++) {
                 functionsToRun[i]();
             }
+            isProcessing = false;
             var _a;
-        }
+        },
+        schedule: function (callback, immediate) {
+            if (immediate === void 0) { immediate = false; }
+            startRenderLoop();
+            var addToCurrentBuffer = immediate && isProcessing;
+            var buffer = addToCurrentBuffer ? functionsToRun : functionsToRunNextFrame;
+            if (buffer.indexOf(callback) === -1) {
+                buffer.push(callback);
+                if (addToCurrentBuffer) {
+                    numThisFrame = functionsToRun.length;
+                }
+            }
+        },
     };
 }
 exports.default = createRenderStep;
@@ -7649,7 +7690,7 @@ function sizeDesktop() {
 function scrollToLocation(element) {
     var intElemScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
     var elY = (0, _helpers.getPosition)(element).y;
-    if (elY + intElemScrollTop === 0) {
+    if (elY === 0 && intElemScrollTop === 0) {
         return elY + intElemScrollTop;
     }
     return elY + intElemScrollTop - 50;

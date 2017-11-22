@@ -38,6 +38,7 @@ require_once('functions/get_current_page_name.php');
 // =========================================================================
 require_once('functions/add_editor_styles.php');
 require_once('functions/admin_modify_contact_methods.php');
+require_once('functions/remove_admin_profile_fields.php');
 
 
 /* Add Google Maps API key to ACF */
@@ -45,6 +46,26 @@ function my_acf_init() {
     acf_update_setting('google_api_key', 'AIzaSyAsIWgX7THlxoAl2hpyc0xgo2gJz6h90WU');
 }
 add_action('acf/init', 'my_acf_init');
+
+/*
+* New user registrations should have display_name set 
+* to 'firstname lastname'. This is best used on the
+* 'user_register' action.
+*
+* @param int $user_id The user ID
+*/
+function set_default_display_name( $user_id ) {
+    $user = get_userdata( $user_id );
+    $name = sprintf( '%s %s', $user->first_name, $user->last_name );
+    $args = array(
+        'ID'           => $user_id,
+        'display_name' => $name,
+        'nickname'     => $name
+    );
+    wp_update_user( $args );
+}
+add_action( 'user_register', 'set_default_display_name' );
+
 
 
 /* Add general Advanded Custom Fields author page */
