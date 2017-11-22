@@ -4,6 +4,7 @@ import headroom from './Header';
 import LightboxSlider from './lightboxSlider';
 import inView from './inView';
 import lazyLoad from './lazyLoad';
+// import menuToggle from './menuToggle';
 import fadeTransition from './barba/FadeTransition';
 import homeTransition from './barba/HomeTransition';
 import { getParents } from './helpers';
@@ -79,6 +80,7 @@ Barba.Dispatcher.on('newPageReady', () => {
 Barba.Dispatcher.on('transitionCompleted', (currentStatus, prevStatus, HTMLElementContainer, newPageRawHTML) => {
     // console.log(currentStatus, prevStatus, HTMLElementContainer, newPageRawHTML);
     wrapImages();
+    // menuToggle();
     const header = document.querySelector('.m-siteHeader');
     setTimeout(() => {
         header.classList.remove('headroom--autoscroll');

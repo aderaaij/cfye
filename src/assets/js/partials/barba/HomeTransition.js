@@ -24,7 +24,7 @@ function sizeDesktop() {
 function scrollToLocation(element) {
     const intElemScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
     const elY = getPosition(element).y;
-    if ((elY + intElemScrollTop) === 0) {
+    if (elY === 0 && intElemScrollTop === 0) {
         return (elY + intElemScrollTop);
     }
     return (elY + intElemScrollTop) - 50;

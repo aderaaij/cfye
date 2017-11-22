@@ -25,9 +25,11 @@
         }
     }
 
+    &.is-inActive {
+        opacity: 0.5;
+    }
+
     & {
-        position: relative;
-        display: flex;
         width: 100%;
         height: calc(((100vh / 3) * 2) - (( #{$headerHeight} / 3) * 2 ));
         min-height: 200px;
@@ -36,6 +38,14 @@
         @include breakpoint($bpDesktopSmall) {
             height: calc(100vh -  #{$headerHeight});
         }
+    }
+
+
+    &__link {
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: 100%;
     }
 
     &__imageWrap {

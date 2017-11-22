@@ -52,5 +52,7 @@ $headerHeight: 50px;
 @import 'modules/m-profileExcerpt';
 @import 'modules/m-aboutPage';
 @import 'modules/m-artistProfile';
+@import 'modules/m-siteMenu';
 
 // State
+@import 'state/is-activeMenu';

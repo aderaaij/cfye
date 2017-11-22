@@ -1,0 +1,66 @@
+.m-siteMenu {
+
+    & {
+        position: fixed;
+        bottom: 0; left: 0;
+        width: 100%;     
+        height: calc(100vh - #{$headerHeight});
+        background: $colorPrimary;
+        z-index: 500;
+        opacity: 0;
+        transform: translateY(-10%);
+        pointer-events: none;
+    }
+
+    &__inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &.is-active {
+        // visibility: visible;
+        pointer-events: auto;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    li {
+        text-transform: uppercase;
+        font-size: 2.5em;
+        font-weight: 800;
+        font-family: $fontHeader;
+        line-height: 1.5;
+    }
+
+    a {
+        color: #fff;
+        text-decoration: none;
+        position: relative;
+
+        &::before {
+            content: '';
+            width: 100%;
+            height: 6px;
+            background: $colorPrimary;
+            position: absolute;
+            top: 50%; left: 0;
+            transform: translateY(-50%) scaleX(0);
+            transform-origin: 0 0;
+            transition: transform 0.3s ease-out;
+        }
+
+        &:hover {
+            &::before {
+                transform: translateY(-50%) scaleX(1);
+            }
+        }
+    }
+}
