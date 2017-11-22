@@ -6,12 +6,8 @@ const defaultConfig = {
     threshold: 0,
     load(element) {
         if (element.tagName === 'IMG') {
-            if (element.dataset.src) {
-                element.src = element.dataset.src;
-            }
-            if (element.dataset.srcset) {
-                element.srcset = element.dataset.srcset;
-            }
+            if (element.dataset.src) element.src = element.dataset.src;
+            if (element.dataset.srcset) element.srcset = element.dataset.srcset;
         } else {
             switch (mediaQueries()) {
             case 'sizeTablet':
@@ -33,6 +29,23 @@ function removeDataAtrributes(element) {
     element.removeAttribute('data-srcset');
 }
 
+function waitForImageLoad(element) {
+    if (element.dataset.srcset) {
+        pWaitFor(() => {
+            if (element.currentSrc !== '') return true;
+            return false;
+        }).then(() => {
+            const imgLoad = new Image();
+            imgLoad.onload = () => imageOnLoad(element);
+            imgLoad.src = element.currentSrc;
+        });
+    } else {
+        const imgLoad = new Image();
+        imgLoad.onload = () => imageOnLoad(element);
+        imgLoad.src = element.dataset.src;
+    }
+}
+
 function imageOnLoad(element) {
     element.classList.add('b-loaded');
     element.parentNode.classList.add('is-loaded');
@@ -41,30 +54,7 @@ function imageOnLoad(element) {
 }
 
 function markAsLoaded(element) {
-    if (navigator.onLine) {
-        if (element.dataset.srcset) {
-            pWaitFor(() => {
-                if (element.currentSrc !== '') {
-                    return true;
-                }
-                return false;
-            }).then(() => {
-                const imgLoad = new Image();
-                imgLoad.onload = () => {
-                    imageOnLoad(element);
-                };
-                imgLoad.src = element.currentSrc;
-            });
-        } else {
-            const imgLoad = new Image();
-            imgLoad.onload = () => {
-                imageOnLoad(element);                
-            };
-            imgLoad.src = element.dataset.src;
-        }
-    } else {
-        imageOnLoad(element);
-    }
+    (navigator.onLine) ? waitForImageLoad(element) : imageOnLoad(element);
 }
 
 const isLoaded = element => element.dataset.loaded === 'true';
@@ -94,9 +84,7 @@ export default function (selector = '.lozad', options = {}) {
         observe() {
             const elements = Array.from(document.querySelectorAll(selector));
             for (let i = 0; i < elements.length; i++) {
-                if (isLoaded(elements[i])) {
-                    continue;
-                }
+                if (isLoaded(elements[i])) continue;
                 if (observer) {
                     observer.observe(elements[i]);
                     continue;

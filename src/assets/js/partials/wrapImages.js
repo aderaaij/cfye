@@ -1,3 +1,8 @@
+/*
+ * Wrap images which contain `alignleft` and `alignright` classes
+ * and are next to each other into a `m-entryCollection` div
+ * for styling purposes.
+ */
 export default function wrapImages() {
     const postImages = Array.from(document.querySelectorAll('.wp-caption'));
 
