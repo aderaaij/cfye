@@ -17,4 +17,3 @@ export default function articleFocus() {
     window.addEventListener('keydown', e => articleFocusListener(e));
     window.addEventListener('keyup', e => articleFocusListener(e));
 }
-
