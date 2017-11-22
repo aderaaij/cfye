@@ -1,12 +1,16 @@
 import Barba from 'barba.js';
 import { css, tween, easing } from 'popmotion';
-import { setTop } from '../helpers';
+import {
+    setTop,
+    addBodyLoadingClass,
+    removeBodyLoadingClass,
+    loadHeroImage,
+} from '../helpers';
 
-export default function fadeTransition(elementClicked) {
+export default function fadeTransition() {
     const FadeTransition = Barba.BaseTransition.extend({
         start() {
-            document.body.classList.add('is-loading');
-            document.body.classList.add('is-loadingBar');
+            addBodyLoadingClass();
             this.oldContainerRenderer = css(this.oldContainer);
             this.oldContainerAnim = tween({
                 from: 1,
@@ -37,6 +41,7 @@ export default function fadeTransition(elementClicked) {
             const el = this.newContainer;
             const _this = this;
             const elRenderer = css(el);
+            const heroImage = document.querySelector('.m-article__heroImage');
 
             tween({
                 from: 0,
@@ -47,10 +52,11 @@ export default function fadeTransition(elementClicked) {
                 onStart: () => setTop(),
                 onComplete: () => {
                     _this.done();
-                    document.body.classList.remove('is-loading');
-                    document.body.classList.remove('is-loadingBar');
+                    removeBodyLoadingClass();
                 },
             }).start();
+
+            if (heroImage) loadHeroImage(heroImage);
         },
     });
     return FadeTransition;

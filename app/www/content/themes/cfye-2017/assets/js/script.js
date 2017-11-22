@@ -3651,13 +3651,19 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.getPosition = getPosition;
+exports.loadHeroImage = loadHeroImage;
+exports.getBackgroundImageUrl = getBackgroundImageUrl;
 exports.setTop = setTop;
+exports.addBodyLoadingClass = addBodyLoadingClass;
+exports.removeBodyLoadingClass = removeBodyLoadingClass;
 exports.getParents = getParents;
-exports.scrollIt = scrollIt;
 exports.getSiblings = getSiblings;
+exports.scrollIt = scrollIt;
 /*eslint-disable*/
+
 /**
- * @param  {} el
+ * Get element X and Y position, cross-browser compatible
+ * @param  {node} el
  */
 function getPosition(el) {
     var xPos = 0;
@@ -3685,9 +3691,43 @@ function getPosition(el) {
     };
 }
 
+function loadHeroImage(element) {
+    if (element.dataset.srcLarge) {
+        var imgLoad = new Image();
+        imgLoad.onload = function () {
+            element.style.backgroundImage = 'url(' + element.dataset.srcLarge + ')';
+            document.body.classList.remove('is-loadingBar');
+        };
+        imgLoad.src = element.dataset.srcLarge;
+    } else {
+        console.error('Element ' + element + ' doesn\'t contain a data-src-large');
+    }
+}
+/**
+ * Get background image URL
+ * @param {node} element 
+ * @return {string}
+ */
+function getBackgroundImageUrl(element) {
+    return element.style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+}
+
+/**
+ * Set the view to the top of the page
+ */
 function setTop() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+}
+
+function addBodyLoadingClass() {
+    document.body.classList.add('is-loading');
+    document.body.classList.add('is-loadingBar');
+}
+
+function removeBodyLoadingClass() {
+    document.body.classList.remove('is-loading');
+    document.body.classList.remove('is-loadingBar');
 }
 
 /**
@@ -3725,6 +3765,22 @@ function getParents(elem, selector) {
     return parents;
 }
 
+/**
+ * Get all the siblings of an element
+ * @param  {node}   elem    The Element
+ * @return {Array}          Array of sibling elements
+ */
+function getSiblings(elem) {
+    var siblings = [];
+    var sibling = elem.parentNode.firstChild;
+    for (; sibling; sibling = sibling.nextSibling) {
+        if (sibling.nodeType === 1 && sibling !== elem) {
+            siblings.push(sibling);
+        }
+    }
+    return siblings;
+}
+
 // https://pawelgrzybek.com/page-scroll-in-vanilla-javascript/
 // Browser support:
 
@@ -3741,7 +3797,6 @@ function getParents(elem, selector) {
 // Chrome for Android >= 35
 
 /**
- *
  * @param {(number|HTMLElement)} destination - Destination to scroll to (DOM element or number)
  * @param {number} duration - Duration of scrolling animation
  * @param {string} easing - Timing function name (Allowed values: 'linear', 'easeInQuad', 'easeOutQuad', 'easeInOutQuad', 'easeInCubic', 'easeOutCubic', 'easeInOutCubic', 'easeInQuart', 'easeOutQuart', 'easeInOutQuart', 'easeInQuint', 'easeOutQuint', 'easeInOutQuint')
@@ -3846,20 +3901,6 @@ function scrollIt(destination) {
 
     // Invoke scroll and sequential requestAnimationFrame
     scroll();
-}
-/**
- * Get all the siblings of an element
- * @param  {node} elem      The Element
- */
-function getSiblings(elem) {
-    var siblings = [];
-    var sibling = elem.parentNode.firstChild;
-    for (; sibling; sibling = sibling.nextSibling) {
-        if (sibling.nodeType === 1 && sibling !== elem) {
-            siblings.push(sibling);
-        }
-    }
-    return siblings;
 }
 
 /***/ }),
@@ -6199,13 +6240,12 @@ var _helpers = __webpack_require__(14);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function fadeTransition(elementClicked) {
+function fadeTransition() {
     var FadeTransition = _barba2.default.BaseTransition.extend({
         start: function start() {
             var _this2 = this;
 
-            document.body.classList.add('is-loading');
-            document.body.classList.add('is-loadingBar');
+            (0, _helpers.addBodyLoadingClass)();
             this.oldContainerRenderer = (0, _popmotion.css)(this.oldContainer);
             this.oldContainerAnim = (0, _popmotion.tween)({
                 from: 1,
@@ -6236,6 +6276,7 @@ function fadeTransition(elementClicked) {
             var el = this.newContainer;
             var _this = this;
             var elRenderer = (0, _popmotion.css)(el);
+            var heroImage = document.querySelector('.m-article__heroImage');
 
             (0, _popmotion.tween)({
                 from: 0,
@@ -6250,10 +6291,11 @@ function fadeTransition(elementClicked) {
                 },
                 onComplete: function onComplete() {
                     _this.done();
-                    document.body.classList.remove('is-loading');
-                    document.body.classList.remove('is-loadingBar');
+                    (0, _helpers.removeBodyLoadingClass)();
                 }
             }).start();
+
+            if (heroImage) (0, _helpers.loadHeroImage)(heroImage);
         }
     });
     return FadeTransition;
@@ -7558,20 +7600,6 @@ function prepareHeader() {
     header.classList.add('headroom--autoscroll');
 }
 
-function getBackgroundImageUrl(element) {
-    return element.style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-}
-
-function addLoadingClasses() {
-    document.body.classList.add('is-loading');
-    document.body.classList.add('is-loadingBar');
-}
-
-function removeLoadingClasses() {
-    document.body.classList.remove('is-loading');
-    document.body.classList.remove('is-loadingBar');
-}
-
 function homeTransition(element) {
     var HomeTransitionHero = _barba2.default.BaseTransition.extend({
         start: function start() {
@@ -7581,7 +7609,7 @@ function homeTransition(element) {
             var elContentRenderer = (0, _popmotion.css)(elContent);
             var elImageRenderer = (0, _popmotion.css)(elImage);
             var elRenderer = (0, _popmotion.css)(element);
-            addLoadingClasses();
+            (0, _helpers.addBodyLoadingClass)();
             this.heroHeight = (0, _popmotion.tween)({
                 from: 100 / 3 * 2,
                 to: 100,
@@ -7648,7 +7676,7 @@ function homeTransition(element) {
         fadeIn: function fadeIn() {
             var el = this.newContainer;
             el.style.visibility = 'visible';
-            removeLoadingClasses();
+            (0, _helpers.removeBodyLoadingClass)();
             (0, _helpers.setTop)();
             this.done();
         }
@@ -7658,10 +7686,10 @@ function homeTransition(element) {
         start: function start() {
             var _this3 = this;
 
-            addLoadingClasses();
+            (0, _helpers.addBodyLoadingClass)();
             document.body.classList.add('is-loading--articleExcerpt');
             var heroImageEl = element.querySelector('.m-articleExcerpt__image');
-            this.heroImageUrl = getBackgroundImageUrl(heroImageEl);
+            this.heroImageUrl = (0, _helpers.getBackgroundImageUrl)(heroImageEl);
             this.oldContainerRenderer = (0, _popmotion.css)(this.oldContainer);
             this.oldContainerAnim = (0, _popmotion.tween)({
                 from: 1,
@@ -7697,8 +7725,7 @@ function homeTransition(element) {
             var el = this.newContainer;
             var _this = this;
             var elRenderer = (0, _popmotion.css)(el);
-            var heroImage = el.querySelector('.m-article__heroImage');
-            var heroImageUrlLarge = heroImage.getAttribute('data-src-large');
+            var heroImage = document.querySelector('.m-article__heroImage');
             heroImage.style.backgroundImage = 'url(' + this.heroImageUrl + ')';
 
             var fadeIn = (0, _popmotion.tween)({
@@ -7710,7 +7737,7 @@ function homeTransition(element) {
                     return elRenderer.set('opacity', x);
                 },
                 onStart: function onStart() {
-                    (0, _helpers.setTop)();
+                    return (0, _helpers.setTop)();
                 },
                 onComplete: function onComplete() {
                     _this.done();
@@ -7719,15 +7746,10 @@ function homeTransition(element) {
                 }
             });
             fadeIn.start();
-
-            var imgLoad = new Image();
-            imgLoad.onload = function () {
-                heroImage.style.backgroundImage = 'url(' + heroImageUrlLarge + ')';
-                document.body.classList.remove('is-loadingBar');
-            };
-            imgLoad.src = heroImageUrlLarge;
+            (0, _helpers.loadHeroImage)(heroImage);
         }
     });
+
     if (element && element.classList.contains('m-articleExcerptHero')) {
         return HomeTransitionHero;
     }

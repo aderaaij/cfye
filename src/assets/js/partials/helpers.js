@@ -1,6 +1,8 @@
 /*eslint-disable*/
+
 /**
- * @param  {} el
+ * Get element X and Y position, cross-browser compatible
+ * @param  {node} el
  */
 export function getPosition(el) {
     let xPos = 0;
@@ -28,9 +30,43 @@ export function getPosition(el) {
     };
 }
 
+export function loadHeroImage(element) {
+    if (element.dataset.srcLarge) {
+        const imgLoad = new Image();
+        imgLoad.onload = () => {
+            element.style.backgroundImage = `url(${element.dataset.srcLarge})`;
+            document.body.classList.remove('is-loadingBar');
+        };
+        imgLoad.src = element.dataset.srcLarge;
+    } else {
+        console.error(`Element ${element} doesn't contain a data-src-large`);
+    }
+}
+/**
+ * Get background image URL
+ * @param {node} element 
+ * @return {string}
+ */
+export function getBackgroundImageUrl(element) {
+    return element.style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+}
+
+/**
+ * Set the view to the top of the page
+ */
 export function setTop() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+}
+
+export function addBodyLoadingClass() {
+    document.body.classList.add('is-loading');
+    document.body.classList.add('is-loadingBar');
+}
+
+export function removeBodyLoadingClass() {
+    document.body.classList.remove('is-loading');
+    document.body.classList.remove('is-loadingBar');
 }
 
 /**
@@ -74,6 +110,22 @@ export function getParents(elem, selector) {
     return parents;
 }
 
+/**
+ * Get all the siblings of an element
+ * @param  {node}   elem    The Element
+ * @return {Array}          Array of sibling elements
+ */
+export function getSiblings(elem) {
+	var siblings = [];
+	var sibling = elem.parentNode.firstChild;
+	for ( ; sibling; sibling = sibling.nextSibling ) {
+			if ( sibling.nodeType === 1 && sibling !== elem ) {
+					siblings.push( sibling );
+			}
+	}
+	return siblings;
+}
+
 // https://pawelgrzybek.com/page-scroll-in-vanilla-javascript/
 // Browser support:
 
@@ -90,7 +142,6 @@ export function getParents(elem, selector) {
 // Chrome for Android >= 35
 
 /**
- *
  * @param {(number|HTMLElement)} destination - Destination to scroll to (DOM element or number)
  * @param {number} duration - Duration of scrolling animation
  * @param {string} easing - Timing function name (Allowed values: 'linear', 'easeInQuad', 'easeOutQuad', 'easeInOutQuad', 'easeInCubic', 'easeOutCubic', 'easeInOutCubic', 'easeInQuart', 'easeOutQuart', 'easeInOutQuart', 'easeInQuint', 'easeOutQuint', 'easeInOutQuint')
@@ -194,18 +245,4 @@ export function scrollIt(destination, duration = 200, easing = 'linear', callbac
 
     // Invoke scroll and sequential requestAnimationFrame
     scroll();
-}
-/**
- * Get all the siblings of an element
- * @param  {node} elem      The Element
- */
-export function getSiblings(elem) {
-	var siblings = [];
-	var sibling = elem.parentNode.firstChild;
-	for ( ; sibling; sibling = sibling.nextSibling ) {
-			if ( sibling.nodeType === 1 && sibling !== elem ) {
-					siblings.push( sibling );
-			}
-	}
-	return siblings;
 }

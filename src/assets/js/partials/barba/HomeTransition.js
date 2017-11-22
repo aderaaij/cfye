@@ -1,6 +1,13 @@
 import Barba from 'barba.js';
 import { css, tween, easing, parallel } from 'popmotion';
-import { getPosition, scrollIt, setTop } from '../helpers';
+import {
+    getPosition,
+    scrollIt, setTop,
+    addBodyLoadingClass,
+    removeBodyLoadingClass,
+    getBackgroundImageUrl,
+    loadHeroImage,
+} from '../helpers';
 
 const breakpoints = {
     tablet: 768,
@@ -36,20 +43,6 @@ function prepareHeader() {
     header.classList.add('headroom--autoscroll');
 }
 
-function getBackgroundImageUrl(element) {
-    return element.style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-}
-
-function addLoadingClasses() {
-    document.body.classList.add('is-loading');
-    document.body.classList.add('is-loadingBar');
-}
-
-function removeLoadingClasses() {
-    document.body.classList.remove('is-loading');
-    document.body.classList.remove('is-loadingBar');
-}
-
 export default function homeTransition(element) {
     const HomeTransitionHero = Barba.BaseTransition.extend({
         start() {
@@ -59,7 +52,7 @@ export default function homeTransition(element) {
             const elContentRenderer = css(elContent);
             const elImageRenderer = css(elImage);
             const elRenderer = css(element);
-            addLoadingClasses();
+            addBodyLoadingClass();
             this.heroHeight = tween({
                 from: ((100 / 3) * 2),
                 to: 100,
@@ -123,7 +116,7 @@ export default function homeTransition(element) {
         fadeIn() {
             const el = this.newContainer;
             el.style.visibility = 'visible';
-            removeLoadingClasses();
+            removeBodyLoadingClass();
             setTop();
             this.done();
         },
@@ -131,7 +124,7 @@ export default function homeTransition(element) {
 
     const HomeTransitionDefault = Barba.BaseTransition.extend({
         start() {
-            addLoadingClasses();
+            addBodyLoadingClass();
             document.body.classList.add('is-loading--articleExcerpt');
             const heroImageEl = element.querySelector('.m-articleExcerpt__image');
             this.heroImageUrl = getBackgroundImageUrl(heroImageEl);
@@ -171,8 +164,7 @@ export default function homeTransition(element) {
             const el = this.newContainer;
             const _this = this;
             const elRenderer = css(el);
-            const heroImage = el.querySelector('.m-article__heroImage');
-            const heroImageUrlLarge = heroImage.getAttribute('data-src-large');
+            const heroImage = document.querySelector('.m-article__heroImage');
             heroImage.style.backgroundImage = `url(${this.heroImageUrl})`;
 
             const fadeIn = tween({
@@ -181,9 +173,7 @@ export default function homeTransition(element) {
                 duration: 300,
                 ease: easing.easeIn,
                 onUpdate: x => elRenderer.set('opacity', x),
-                onStart: () => {
-                    setTop();
-                },
+                onStart: () => setTop(),
                 onComplete: () => {
                     _this.done();
                     document.body.classList.remove('is-loading--articleExcerpt');
@@ -191,15 +181,10 @@ export default function homeTransition(element) {
                 },
             });
             fadeIn.start();
-
-            const imgLoad = new Image();
-            imgLoad.onload = () => {
-                heroImage.style.backgroundImage = `url(${heroImageUrlLarge})`;
-                document.body.classList.remove('is-loadingBar');
-            };
-            imgLoad.src = heroImageUrlLarge;
+            loadHeroImage(heroImage);
         },
     });
+    
     if (element && element.classList.contains('m-articleExcerptHero')) {
         return HomeTransitionHero;
     }
