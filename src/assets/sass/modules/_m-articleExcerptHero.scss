@@ -148,16 +148,11 @@
         line-height: 1.125;        
         opacity: 1;
         transform: translateY(0%);
-        transition: all 0.3s ease;
-        color: $colorPrimary;
-
-        a {
-            text-decoration: none;
-            color: #fff;
-
-            @include breakpoint($bpDesktopSmall) {
-                color: $colorPrimary;
-            }
+        transition: all 0.3s ease-out;
+        color: #fff;
+        
+        @include breakpoint($bpDesktopSmall) {
+            color: $colorPrimary;
         }
 
         @include breakpoint($bpDesktopSmall) {
