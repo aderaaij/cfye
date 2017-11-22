@@ -1,20 +1,22 @@
 export default function wrapImages() {
     const postImages = Array.from(document.querySelectorAll('.wp-caption'));
-    postImages.forEach((image) => {
-        const nextElement = image.nextElementSibling;
-        if (image.classList.contains('alignleft')) {
-            if (
-                nextElement.classList.contains('alignright')
-                || nextElement.classList.contains('alignleft')
-            ) {
-                const wrapper = document.createElement('div');
-                wrapper.classList.add('m-entryCollection');
-                wrapper.innerHTML = image.outerHTML;
-                image.parentNode.insertBefore(wrapper, image);
-                wrapper.appendChild(nextElement);
-                // nextElement.remove();
-                image.remove();
-            }
-        }
-    });
+
+    if (postImages.length) {
+        postImages
+            .filter(item => item.classList.contains('alignleft'))
+            .forEach((item) => {
+                const nextElement = item.nextElementSibling;
+                if (
+                    nextElement.classList.contains('alignright')
+                    || nextElement.classList.contains('alignleft')
+                ) {
+                    const wrapper = document.createElement('div');
+                    wrapper.classList.add('m-entryCollection');
+                    wrapper.innerHTML = item.outerHTML;
+                    item.parentNode.insertBefore(wrapper, item);
+                    wrapper.appendChild(nextElement);
+                    item.remove();
+                }
+            });
+    }
 }
