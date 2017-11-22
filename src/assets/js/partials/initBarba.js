@@ -13,7 +13,7 @@ let lastElementClicked;
 let lastElementClickedParent;
 let navElementClicked;
 
-export default function barbaInit() {
+export default function initBarba() {
     Barba.Dispatcher.on('linkClicked', (el) => {
         lastElementClicked = el;
         lastElementClickedParent = getParents(lastElementClicked, 'article');
