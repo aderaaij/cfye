@@ -985,7 +985,8 @@ h2 {
   -webkit-transform: translateY(0%);
           transform: translateY(0%);
   -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease; }
+  transition: all 0.3s ease;
+  color: #ec008c; }
   .m-articleExcerptHero__title a {
     text-decoration: none;
     color: #fff; }
