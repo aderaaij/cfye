@@ -4358,9 +4358,9 @@ exports.default = function (key, asDashCase) {
 
 __webpack_require__(23);
 
-var _barbaConfig = __webpack_require__(25);
+var _initBarba = __webpack_require__(54);
 
-var _barbaConfig2 = _interopRequireDefault(_barbaConfig);
+var _initBarba2 = _interopRequireDefault(_initBarba);
 
 var _initViews = __webpack_require__(52);
 
@@ -4372,8 +4372,21 @@ var _initServiceWorker2 = _interopRequireDefault(_initServiceWorker);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * 👁️ Each page has loading animations that trigger only on first direct load
+ * (so not with ajax)
+ */
 (0, _initViews2.default)();
-(0, _barbaConfig2.default)();
+
+/**
+ * 🔥 Barba.js initialisation, used to ajaxify our theme
+ * url: http://barbajs.org/
+ */
+(0, _initBarba2.default)();
+
+/**
+ * 👷🏽‍♀️Initialize a serviceworker
+ */
 (0, _initServiceWorker2.default)();
 
 /***/ }),
@@ -5575,135 +5588,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 }));
 
 /***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = barbaInit;
-
-var _barba = __webpack_require__(9);
-
-var _barba2 = _interopRequireDefault(_barba);
-
-var _wrapImages = __webpack_require__(26);
-
-var _wrapImages2 = _interopRequireDefault(_wrapImages);
-
-var _Header = __webpack_require__(15);
-
-var _Header2 = _interopRequireDefault(_Header);
-
-var _lightboxSlider = __webpack_require__(27);
-
-var _lightboxSlider2 = _interopRequireDefault(_lightboxSlider);
-
-var _inView = __webpack_require__(28);
-
-var _inView2 = _interopRequireDefault(_inView);
-
-var _lazyLoad = __webpack_require__(29);
-
-var _lazyLoad2 = _interopRequireDefault(_lazyLoad);
-
-var _FadeTransition = __webpack_require__(32);
-
-var _FadeTransition2 = _interopRequireDefault(_FadeTransition);
-
-var _HomeTransition = __webpack_require__(50);
-
-var _HomeTransition2 = _interopRequireDefault(_HomeTransition);
-
-var _helpers = __webpack_require__(14);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var lastElementClicked = void 0;
-// import menuToggle from './menuToggle';
-
-var lastElementClickedParent = void 0;
-var navElementClicked = void 0;
-
-function barbaInit() {
-    _barba2.default.Dispatcher.on('linkClicked', function (el) {
-        lastElementClicked = el;
-        lastElementClickedParent = (0, _helpers.getParents)(lastElementClicked, 'article');
-        navElementClicked = (0, _helpers.getParents)(lastElementClicked, 'nav');
-        document.body.classList.add('is-loadingBar');
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        document.body.classList.remove('is-loadingBar');
-        _Header2.default.init();
-        _barba2.default.Pjax.getTransition = function () {
-            var transitionObj = (0, _FadeTransition2.default)(lastElementClicked);
-            if (lastElementClickedParent) {
-                if (_barba2.default.HistoryManager.prevStatus().namespace === 'home' && lastElementClickedParent[0]) {
-                    transitionObj = (0, _HomeTransition2.default)(lastElementClickedParent[0]);
-                } else if (navElementClicked[0]) {
-                    return transitionObj;
-                }
-            }
-            return transitionObj;
-        };
-        _barba2.default.Pjax.start();
-        _barba2.default.Prefetch.init();
-    });
-
-    _barba2.default.Dispatcher.on('initStateChange', function () {
-        var lightbox = document.querySelector('.m-lightbox');
-        if (lightbox) lightbox.remove();
-    });
-
-    _barba2.default.Dispatcher.on('newPageReady', function () {
-        var gallery = document.querySelector('.m-gallerySimple');
-        if (gallery) {
-            var lb = new _lightboxSlider2.default({
-                selector: '.m-gallerySimple__link',
-                lazyload: true
-            });
-        }
-        (0, _inView2.default)();
-    });
-
-    _barba2.default.Dispatcher.on('transitionCompleted', function () {
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        console.log(args);
-        (0, _wrapImages2.default)();
-        // menuToggle();
-        var header = document.querySelector('.m-siteHeader');
-        setTimeout(function () {
-            header.classList.remove('headroom--autoscroll');
-        }, 300);
-        var observer = (0, _lazyLoad2.default)('img[data-src], .b-lazy', {
-            threshold: 0.1,
-            rootMargin: '100% 0%'
-        });
-        observer.observe();
-    });
-
-    // Prevent Barba.js from working on certain links
-    _barba2.default.Pjax.originalPreventCheck = _barba2.default.Pjax.preventCheck;
-    _barba2.default.Pjax.preventCheck = function (evt, element) {
-        if (!_barba2.default.Pjax.originalPreventCheck(evt, element)) {
-            return false;
-        }
-        // Prevent Barba.js on all links to /wp-admin/
-        if (/.wp-admin/.test(element.href.toLowerCase())) {
-            return false;
-        }
-        return true;
-    };
-}
-
-/***/ }),
+/* 25 */,
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5714,6 +5599,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = wrapImages;
+/*
+ * Wrap images which contain `alignleft` and `alignright` classes
+ * and are next to each other into a `m-entryCollection` div
+ * for styling purposes.
+ */
 function wrapImages() {
     var postImages = Array.from(document.querySelectorAll('.wp-caption'));
 
@@ -6121,9 +6011,7 @@ exports.default = function () {
         observe: function observe() {
             var elements = Array.from(document.querySelectorAll(selector));
             for (var i = 0; i < elements.length; i++) {
-                if (isLoaded(elements[i])) {
-                    continue;
-                }
+                if (isLoaded(elements[i])) continue;
                 if (observer) {
                     observer.observe(elements[i]);
                     continue;
@@ -6148,12 +6036,8 @@ var defaultConfig = {
     threshold: 0,
     load: function load(element) {
         if (element.tagName === 'IMG') {
-            if (element.dataset.src) {
-                element.src = element.dataset.src;
-            }
-            if (element.dataset.srcset) {
-                element.srcset = element.dataset.srcset;
-            }
+            if (element.dataset.src) element.src = element.dataset.src;
+            if (element.dataset.srcset) element.srcset = element.dataset.srcset;
         } else {
             switch ((0, _mediaQueries.mediaQueries)()) {
                 case 'sizeTablet':
@@ -6175,6 +6059,27 @@ function removeDataAtrributes(element) {
     element.removeAttribute('data-srcset');
 }
 
+function waitForImageLoad(element) {
+    if (element.dataset.srcset) {
+        (0, _pWaitFor2.default)(function () {
+            if (element.currentSrc !== '') return true;
+            return false;
+        }).then(function () {
+            var imgLoad = new Image();
+            imgLoad.onload = function () {
+                return imageOnLoad(element);
+            };
+            imgLoad.src = element.currentSrc;
+        });
+    } else {
+        var imgLoad = new Image();
+        imgLoad.onload = function () {
+            return imageOnLoad(element);
+        };
+        imgLoad.src = element.dataset.src;
+    }
+}
+
 function imageOnLoad(element) {
     element.classList.add('b-loaded');
     element.parentNode.classList.add('is-loaded');
@@ -6183,30 +6088,7 @@ function imageOnLoad(element) {
 }
 
 function markAsLoaded(element) {
-    if (navigator.onLine) {
-        if (element.dataset.srcset) {
-            (0, _pWaitFor2.default)(function () {
-                if (element.currentSrc !== '') {
-                    return true;
-                }
-                return false;
-            }).then(function () {
-                var imgLoad = new Image();
-                imgLoad.onload = function () {
-                    imageOnLoad(element);
-                };
-                imgLoad.src = element.currentSrc;
-            });
-        } else {
-            var imgLoad = new Image();
-            imgLoad.onload = function () {
-                imageOnLoad(element);
-            };
-            imgLoad.src = element.dataset.src;
-        }
-    } else {
-        imageOnLoad(element);
-    }
+    navigator.onLine ? waitForImageLoad(element) : imageOnLoad(element);
 }
 
 var isLoaded = function isLoaded(element) {
@@ -7926,6 +7808,166 @@ function initServiceWorker() {
             console.log('ServiceWorker registration failed: ', err);
         });
     }
+}
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+exports.default = initBarba;
+
+var _barba = __webpack_require__(9);
+
+var _barba2 = _interopRequireDefault(_barba);
+
+var _wrapImages = __webpack_require__(26);
+
+var _wrapImages2 = _interopRequireDefault(_wrapImages);
+
+var _Header = __webpack_require__(15);
+
+var _Header2 = _interopRequireDefault(_Header);
+
+var _lightboxSlider = __webpack_require__(27);
+
+var _lightboxSlider2 = _interopRequireDefault(_lightboxSlider);
+
+var _inView = __webpack_require__(28);
+
+var _inView2 = _interopRequireDefault(_inView);
+
+var _lazyLoad = __webpack_require__(29);
+
+var _lazyLoad2 = _interopRequireDefault(_lazyLoad);
+
+var _FadeTransition = __webpack_require__(32);
+
+var _FadeTransition2 = _interopRequireDefault(_FadeTransition);
+
+var _HomeTransition = __webpack_require__(50);
+
+var _HomeTransition2 = _interopRequireDefault(_HomeTransition);
+
+var _helpers = __webpack_require__(14);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function initBarba() {
+    var lastElementClicked = void 0;
+    var lastElementClickedParent = void 0;
+    var navElementClicked = void 0;
+
+    /**
+     * The user click on a link elegible for PJAX.
+     * Arguments: HTMLElement, MouseEvent
+     */
+    _barba2.default.Dispatcher.on('linkClicked', function (el) {
+        lastElementClicked = el;
+
+        var _getParents = (0, _helpers.getParents)(lastElementClicked, 'article');
+
+        var _getParents2 = _slicedToArray(_getParents, 1);
+
+        lastElementClickedParent = _getParents2[0];
+
+        var _getParents3 = (0, _helpers.getParents)(lastElementClicked, 'nav');
+
+        var _getParents4 = _slicedToArray(_getParents3, 1);
+
+        navElementClicked = _getParents4[0];
+
+        document.body.classList.add('is-loadingBar');
+    });
+
+    /**
+     * Start doing stuff on document.load
+     */
+    document.addEventListener('DOMContentLoaded', function () {
+        document.body.classList.remove('is-loadingBar');
+        _Header2.default.init();
+        _barba2.default.Pjax.getTransition = function () {
+            var transitionObj = (0, _FadeTransition2.default)(lastElementClicked);
+            if (lastElementClickedParent) {
+                if (_barba2.default.HistoryManager.prevStatus().namespace === 'home' && lastElementClickedParent) {
+                    transitionObj = (0, _HomeTransition2.default)(lastElementClickedParent);
+                } else if (navElementClicked) {
+                    return transitionObj;
+                }
+            }
+            return transitionObj;
+        };
+        _barba2.default.Pjax.start();
+        _barba2.default.Prefetch.init();
+    });
+
+    /**
+     * The link has just been changed.
+     * Remove lightBox from DOM if present
+     * Arguments: currentStatus
+     */
+    _barba2.default.Dispatcher.on('initStateChange', function () {
+        var lightbox = document.querySelector('.m-lightbox');
+        if (lightbox) lightbox.remove();
+    });
+
+    /**
+     * The new container has been loaded and injected in the wrapper.
+     * Arguments: currentStatus, prevStatus, HTMLElementContainer, newPageRawHTML
+     */
+    _barba2.default.Dispatcher.on('newPageReady', function () {
+        var gallery = document.querySelector('.m-gallerySimple');
+        if (gallery) {
+            var lb = new _lightboxSlider2.default({
+                selector: '.m-gallerySimple__link',
+                lazyload: true
+            });
+        }
+        (0, _inView2.default)();
+    });
+
+    /**
+     * The transition has just finished and the old Container has been
+     * removed from the DOM.
+     * Arguments: currentStatus[, prevStatus]
+     */
+    _barba2.default.Dispatcher.on('transitionCompleted', function () {
+        var header = document.querySelector('.m-siteHeader');
+        (0, _wrapImages2.default)();
+        setTimeout(function () {
+            header.classList.remove('headroom--autoscroll');
+        }, 300);
+        var observer = (0, _lazyLoad2.default)('img[data-src], .b-lazy', {
+            threshold: 0.1,
+            rootMargin: '100% 0%'
+        });
+        observer.observe();
+    });
+
+    /**
+     * Prevent Barba.js from acting on specified links
+     * /wp-admin/
+     * Help: http://barbajs.org/faq.html
+     */
+    _barba2.default.Pjax.originalPreventCheck = _barba2.default.Pjax.preventCheck;
+    _barba2.default.Pjax.preventCheck = function (evt, element) {
+        if (!_barba2.default.Pjax.originalPreventCheck(evt, element)) {
+            return false;
+        }
+        // Prevent Barba.js on all links to /wp-admin/
+        if (/.wp-admin/.test(element.href.toLowerCase())) {
+            return false;
+        }
+        return true;
+    };
 }
 
 /***/ })

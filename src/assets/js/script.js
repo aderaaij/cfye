@@ -10,12 +10,12 @@ import initServiceWorker from './partials/initServiceWorker';
 initViews();
 
 /**
- * Barba.js initialisation, used to ajaxify our theme
+ * 🔥 Barba.js initialisation, used to ajaxify our theme
  * url: http://barbajs.org/
  */
 initBarba();
 
 /**
- * Initialize a serviceworker
+ * 👷🏽‍♀️Initialize a serviceworker
  */
 initServiceWorker();

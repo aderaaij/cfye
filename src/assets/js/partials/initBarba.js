@@ -4,23 +4,29 @@ import headroom from './Header';
 import LightboxSlider from './lightboxSlider';
 import inView from './inView';
 import lazyLoad from './lazyLoad';
-// import menuToggle from './menuToggle';
 import fadeTransition from './barba/FadeTransition';
 import homeTransition from './barba/HomeTransition';
 import { getParents } from './helpers';
 
-let lastElementClicked;
-let lastElementClickedParent;
-let navElementClicked;
-
 export default function initBarba() {
+    let lastElementClicked;
+    let lastElementClickedParent;
+    let navElementClicked;
+
+    /**
+     * The user click on a link elegible for PJAX.
+     * Arguments: HTMLElement, MouseEvent
+     */
     Barba.Dispatcher.on('linkClicked', (el) => {
         lastElementClicked = el;
-        lastElementClickedParent = getParents(lastElementClicked, 'article');
-        navElementClicked = getParents(lastElementClicked, 'nav');
+        [lastElementClickedParent] = getParents(lastElementClicked, 'article');
+        [navElementClicked] = getParents(lastElementClicked, 'nav');
         document.body.classList.add('is-loadingBar');
     });
 
+    /**
+     * Start doing stuff on document.load
+     */
     document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('is-loadingBar');
         headroom.init();
@@ -29,10 +35,10 @@ export default function initBarba() {
             if (lastElementClickedParent) {
                 if (
                     Barba.HistoryManager.prevStatus().namespace === 'home'
-                    && lastElementClickedParent[0]
+                    && lastElementClickedParent
                 ) {
-                    transitionObj = homeTransition(lastElementClickedParent[0]);
-                } else if (navElementClicked[0]) {
+                    transitionObj = homeTransition(lastElementClickedParent);
+                } else if (navElementClicked) {
                     return transitionObj;
                 }
             }
@@ -42,11 +48,20 @@ export default function initBarba() {
         Barba.Prefetch.init();
     });
 
+    /**
+     * The link has just been changed.
+     * Remove lightBox from DOM if present
+     * Arguments: currentStatus
+     */
     Barba.Dispatcher.on('initStateChange', () => {
         const lightbox = document.querySelector('.m-lightbox');
         if (lightbox) lightbox.remove();
     });
 
+    /**
+     * The new container has been loaded and injected in the wrapper.
+     * Arguments: currentStatus, prevStatus, HTMLElementContainer, newPageRawHTML
+     */
     Barba.Dispatcher.on('newPageReady', () => {
         const gallery = document.querySelector('.m-gallerySimple');
         if (gallery) {
@@ -58,11 +73,14 @@ export default function initBarba() {
         inView();
     });
 
-    Barba.Dispatcher.on('transitionCompleted', (...args) => {
-        console.log(args);
-        wrapImages();
-        // menuToggle();
+    /**
+     * The transition has just finished and the old Container has been
+     * removed from the DOM.
+     * Arguments: currentStatus[, prevStatus]
+     */
+    Barba.Dispatcher.on('transitionCompleted', () => {
         const header = document.querySelector('.m-siteHeader');
+        wrapImages();
         setTimeout(() => {
             header.classList.remove('headroom--autoscroll');
         }, 300);
@@ -73,7 +91,11 @@ export default function initBarba() {
         observer.observe();
     });
 
-    // Prevent Barba.js from working on certain links
+    /**
+     * Prevent Barba.js from acting on specified links
+     * /wp-admin/
+     * Help: http://barbajs.org/faq.html
+     */
     Barba.Pjax.originalPreventCheck = Barba.Pjax.preventCheck;
     Barba.Pjax.preventCheck = (evt, element) => {
         if (!Barba.Pjax.originalPreventCheck(evt, element)) {
