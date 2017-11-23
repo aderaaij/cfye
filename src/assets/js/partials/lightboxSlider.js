@@ -89,7 +89,7 @@ export default class Lightbox {
         const spinner = '<div class="spinner"></div>';
         const img = items[num].querySelector('img');
         if (this.lazyload) {
-            const src = img.getAttribute('data-src');
+            const src = img.getAttribute('data-lb-src');
             items[num].insertAdjacentHTML('beforeend', spinner);
             // Set image attribute
             img.setAttribute('src', src);
@@ -265,7 +265,7 @@ export default class Lightbox {
             return `
                 <li class='m-lightbox__slide' style='transform: translateX(${offset}vw)'>
                     ${this.lazyload ? `
-                        <img data-src='${imageSrc}'/>
+                        <img data-lb-src='${imageSrc}'/>
                     ` : `
                         <img src='${imageSrc}'/>
                     `}
