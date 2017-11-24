@@ -1990,12 +1990,14 @@ h2 {
   left: 0;
   width: 100%;
   height: calc(100vh - 50px);
-  background: #ec008c;
   z-index: 500;
+  pointer-events: none;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
   opacity: 0;
-  -webkit-transform: translateY(-10%);
-          transform: translateY(-10%);
-  pointer-events: none; }
+  visibility: hidden; }
 
 .m-siteMenu__inner {
   width: 100%;
@@ -2008,7 +2010,12 @@ h2 {
           justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
-          align-items: center; }
+          align-items: center;
+  -webkit-transform: rotateX(-25deg);
+          transform: rotateX(-25deg);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background: #ec008c; }
 
 .m-siteMenu.is-active {
   pointer-events: auto; }
@@ -2024,12 +2031,33 @@ h2 {
   font-size: 2.5em;
   font-weight: 800;
   font-family: "jaf-bernino-sans-condensed", sans-serif;
-  line-height: 1.5; }
+  line-height: 1.5;
+  opacity: 0;
+  -webkit-transform: translateY(50%);
+          transform: translateY(50%);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  -webkit-perspective: 1000px;
+          perspective: 1000px; }
+  .m-siteMenu li.is-active {
+    opacity: 1;
+    -webkit-transform: translateY(0%);
+            transform: translateY(0%); }
+    .m-siteMenu li.is-active a {
+      -webkit-transform: rotateX(0deg);
+              transform: rotateX(0deg); }
 
 .m-siteMenu a {
   color: #fff;
   text-decoration: none;
-  position: relative; }
+  position: relative;
+  display: block;
+  -webkit-transform: rotateX(-50deg);
+          transform: rotateX(-50deg);
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease; }
   .m-siteMenu a::before {
     content: '';
     width: 100%;
@@ -2052,5 +2080,15 @@ h2 {
 
 .is-activeMenu {
   overflow: hidden; }
+
+.is-activeMenu .m-siteMenu {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  pointer-events: auto; }
+  .is-activeMenu .m-siteMenu__inner {
+    -webkit-transform: rotateX(0);
+            transform: rotateX(0); }
 
 /*# sourceMappingURL=screen.css.map */

@@ -5166,6 +5166,8 @@ var _lazyLoad = __webpack_require__(29);
 
 var _lazyLoad2 = _interopRequireDefault(_lazyLoad);
 
+var _menuToggle = __webpack_require__(54);
+
 var _FadeTransition = __webpack_require__(32);
 
 var _FadeTransition2 = _interopRequireDefault(_FadeTransition);
@@ -5211,6 +5213,7 @@ function initBarba() {
     document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.remove('is-loadingBar');
         _Header2.default.init();
+        (0, _menuToggle.menuToggle)();
         _barba2.default.Pjax.getTransition = function () {
             var transitionObj = (0, _FadeTransition2.default)(lastElementClicked);
             if (lastElementClickedParent) {
@@ -5248,6 +5251,10 @@ function initBarba() {
                 lazyload: true
             });
         }
+
+        /**
+         * Call the inview function to trigger animations for blockquotes and such
+         */
         (0, _inView2.default)();
     });
 
@@ -5259,6 +5266,7 @@ function initBarba() {
     _barba2.default.Dispatcher.on('transitionCompleted', function () {
         var header = document.querySelector('.m-siteHeader');
         (0, _wrapImages2.default)();
+
         setTimeout(function () {
             header.classList.remove('headroom--autoscroll');
         }, 300);
@@ -7988,6 +7996,41 @@ function initServiceWorker() {
             console.log('ServiceWorker registration failed: ', err);
         });
     }
+}
+
+/***/ }),
+/* 53 */,
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.menuToggle = menuToggle;
+function menuToggle() {
+    var button = document.querySelector('.m-navButton');
+    var menu = document.querySelector('.m-siteMenu');
+    var menuItems = Array.from(document.querySelectorAll('.m-siteMenu__nav li'));
+    button.addEventListener('click', function () {
+        document.body.classList.toggle('is-activeMenu');
+        setTimeout(function () {
+            menuItems.forEach(function (item, index) {
+                setTimeout(function () {
+                    item.classList.toggle('is-active');
+                }, index * 150);
+            });
+        }, 300);
+    });
+
+    menuItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+            item.classList.remove('is-current');
+            this.classList.add('is-current');
+        });
+    });
 }
 
 /***/ })

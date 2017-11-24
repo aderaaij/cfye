@@ -40,6 +40,8 @@ require_once('functions/add_editor_styles.php');
 require_once('functions/admin_modify_contact_methods.php');
 require_once('functions/remove_admin_profile_fields.php');
 
+require_once('functions/add_custom_post_type_events.php');
+require_once('functions/add_custom_post_type_venues.php');
 
 /* Add Google Maps API key to ACF */
 function my_acf_init() {
@@ -73,3 +75,15 @@ add_action( 'user_register', 'set_default_display_name' );
 // acf_add_options_page();
 // acf_add_options_sub_page('General');
 // }
+
+
+! is_admin() && add_filter( 'request', function( $query_vars )  
+{
+    if ( isset( $query_vars['events'] ) )  
+    {
+        $city = $query_vars['events'];
+        if ( in_array( $city, array( 'events' ) ) )
+            $query_vars['pagename'] = 'page-events';
+    }
+    return $query_vars;
+} );

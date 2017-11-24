@@ -8,7 +8,6 @@
         <?php else: ?>
         <?php get_template_part('partials/m-articleExcerpt') ?>
         <?php endif ?>
-
         <?php endwhile; ?>
     <?php endif; ?>
 <?php endif ?>

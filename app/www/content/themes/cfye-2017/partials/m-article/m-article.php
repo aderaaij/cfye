@@ -41,6 +41,8 @@ $imageURLLarge = wp_get_attachment_image_src( $imageID, 'large', true );
     <?php if ( get_field('artist_post') ): ?>
     <?php get_template_part( 'partials/m-article/m-artistBox' ) ?>
     <?php else: ?>
+    <?php if ( !is_singular( 'events' ) ): ?>
     <?php get_template_part( 'partials/m-article/m-authorBox' ) ?>
+    <?php endif; ?>
     <?php endif ?>
 </article> 

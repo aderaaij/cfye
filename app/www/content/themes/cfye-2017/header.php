@@ -31,8 +31,14 @@
                             </a>
                         </div>
                     </div>
-                    <div class='m-siteHeader__nav'>
-                        <nav class="m-siteNav">
+                    <button class='m-navButton'>
+                        <span>Open Menu</span>
+                    </button>
+                </header>
+            </div><!-- .l-siteHeader -->
+            <div class='m-siteMenu'>
+                <div class='m-siteMenu__inner'>
+                    <nav class='m-siteMenu__nav'>
                         <?php wp_nav_menu( 
                             array( 
                                 'theme_location' => 'header-menu',
@@ -41,26 +47,9 @@
                                 'container' => '',                                
                             ) 
                         ); ?>
-                        </nav>
-                    </div>
-                    <!-- <button class='m-navButton'>
-                        <span>Open Menu</span>
-                    </button> -->
-                </header>
-            </div><!-- .l-siteHeader -->
-            <!-- <div class='m-siteMenu'>
-                <div class='m-siteMenu__inner'>
-                    <nav>
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">New Work</a></li>
-                            <li><a href="#">Events</a></li>
-                            <li><a href="#">Map</a></li>
-                            <li><a href="#">About</a></li>
-                        </ul>
                     </nav>
                 </div>
-            </div> -->
+            </div>
             
             <div id="barba-wrapper">
                 <div class="barba-container" data-namespace="<?php current_page_name() ?>">
