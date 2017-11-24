@@ -40,4 +40,4 @@ function modify_admin_bar_position() {
 	}
 }
 
-add_action( 'wp_head', 'modify_admin_bar_position' );
+// add_action( 'wp_head', 'modify_admin_bar_position' );
