@@ -4,6 +4,7 @@ import headroom from './Header';
 import LightboxSlider from './lightboxSlider';
 import inView from './inView';
 import lazyLoad from './lazyLoad';
+import { menuToggle } from './menuToggle';
 import fadeTransition from './barba/FadeTransition';
 import homeTransition from './barba/HomeTransition';
 import { getParents } from './helpers';
@@ -30,6 +31,7 @@ export default function initBarba() {
     document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('is-loadingBar');
         headroom.init();
+        menuToggle();
         Barba.Pjax.getTransition = () => {
             let transitionObj = fadeTransition(lastElementClicked);
             if (lastElementClickedParent) {
@@ -70,6 +72,10 @@ export default function initBarba() {
                 lazyload: true,
             });
         }
+
+        /**
+         * Call the inview function to trigger animations for blockquotes and such
+         */
         inView();
     });
 
@@ -81,6 +87,7 @@ export default function initBarba() {
     Barba.Dispatcher.on('transitionCompleted', () => {
         const header = document.querySelector('.m-siteHeader');
         wrapImages();
+        
         setTimeout(() => {
             header.classList.remove('headroom--autoscroll');
         }, 300);

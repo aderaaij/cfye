@@ -1,53 +1,22 @@
-import { action, spring, value, styler, tween, physics, easing, parallel } from 'popmotion';
-// import timeline from 'popmotion-timeline';
-// import { percent } from 'style-value-types';
-
-const siteMenu = document.querySelector('.m-siteMenu');
-const navButton = document.querySelector('.m-navButton');
-const siteMenuRenderer = styler(siteMenu);
-
-siteMenuRenderer.set({
-    y: '-50%',
-    rotateX: 20,
-    perspective: 1000,
-});
-
-const positionTween = tween({
-    from: { y: -50, opacity: 0, rotateX: 20 },
-    to: { y: 0, opacity: 1, rotateX: 0 },
-    duration: 600,
-    ease: easing.anticipate,
-});
-
-console.log(siteMenuRenderer);
-
-export default function menuToggle() {
-    function toggle() {
-        siteMenu.classList.toggle('is-active');
+export function menuToggle() {
+    const button = document.querySelector('.m-navButton');
+    const menu = document.querySelector('.m-siteMenu');
+    const menuItems = Array.from(document.querySelectorAll('.m-siteMenu__nav li'));
+    button.addEventListener('click', () => {
         document.body.classList.toggle('is-activeMenu');
-        if (!document.body.classList.contains('is-activeMenu')) {
-            // document.body.classList.add('is-activeMenu');
-            positionTween.start({
-                complete: () => console.log('w00t'),
-                update: (values) => {
-                    siteMenuRenderer.set('opacity', values.opacity);
-                    siteMenuRenderer.set('y', `${values.y}%`);
-                    siteMenuRenderer.set('rotateX', values.rotateX);
-                },
-            }).reverse();
-        }
-        console.log(positionTween.start())
+        setTimeout(() => {
+            menuItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.toggle('is-active');
+                }, index * 150);
+            });
+        }, 300);
+    });
 
-        positionTween.start({
-            complete: () => console.log('bla'),
-            update: (values) => {
-                siteMenuRenderer.set('opacity', values.opacity);
-                siteMenuRenderer.set('y', `${values.y}%`);
-                siteMenuRenderer.set('rotateX', values.rotateX);
-            },
+    menuItems.forEach((item) => {
+        item.addEventListener('click', function () {
+            item.classList.remove('is-current');
+            this.classList.add('is-current');
         });
-    }
-    if (navButton) {
-        navButton.addEventListener('click', toggle, false);
-    }
+    });
 }
