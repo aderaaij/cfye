@@ -5,11 +5,12 @@
         bottom: 0; left: 0;
         width: 100%;     
         height: calc(100vh - #{$headerHeight});
-        background: $colorPrimary;
         z-index: 500;
-        opacity: 0;
-        transform: translateY(-10%);
         pointer-events: none;
+        transition: all 0.3s ease;
+        perspective: 1000px;
+        opacity: 0;
+        visibility: hidden;
     }
 
     &__inner {
@@ -18,6 +19,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        transform: rotateX(-25deg);
+        transition: all 0.3s ease;
+        background: $colorPrimary;
+        // transform-origin: top left;
     }
 
     &.is-active {
@@ -38,12 +43,28 @@
         font-weight: 800;
         font-family: $fontHeader;
         line-height: 1.5;
+        opacity: 0;
+        transform: translateY(50%);
+        transition: all 0.3s ease;
+        perspective: 1000px;
+        
+        &.is-active {
+            opacity: 1;
+            transform: translateY(0%);
+
+            a {
+                transform: rotateX(0deg);
+            }
+        }
     }
 
     a {
         color: #fff;
         text-decoration: none;
         position: relative;
+        display: block;
+        transform: rotateX(-50deg);
+        transition: transform 0.3s ease;
 
         &::before {
             content: '';

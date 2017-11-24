@@ -3,4 +3,15 @@
     & {
         overflow: hidden;
     }
+
+    .m-siteMenu {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+
+        &__inner {
+            transform: rotateX(0);
+        }
+    }
 }
