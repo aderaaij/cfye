@@ -137,12 +137,12 @@
     }
 
     &__gallery {
-        width: calc(100vw - 2em);
         margin: 0 auto 3em;
 
         @include breakpoint($bpDesktop) {
-            width: 80vw;
+            margin: 0 auto 6em;
         }
+        @extend %e-contentBreakout;
     }
 
     &__video {        

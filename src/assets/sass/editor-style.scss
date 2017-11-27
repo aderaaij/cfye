@@ -1,21 +1,39 @@
 // Import fonts
 @import url("https://use.typekit.net/nqe6umn.css");
+@import 'breakpoint';
 
 @import 'settings/fonts';
 @import 'settings/colors';
 @import 'settings/breakpoints';
 
+
 @import 'elements/e-fluidVideo';
+@import 'elements/e-blockquote';
 
 body {
+
+    & {
+        box-sizing: border-box;
+    }
     
     &#tinymce {
         color: #000;
         font-family: $fontBody;
 
+        p, 
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        blockquote {
+            max-width: 670px;
+            margin: 0 auto;
+        }
+        
         p {
             font-size: 1.25em;
-            max-width: 60ch;
             margin: 1em auto;
             overflow: hidden;
             clear: both;
@@ -25,20 +43,83 @@ body {
             color: $colorPrimary;
         }
 
+        blockquote {
+            @extend %e-blockquote;
+            visibility: visible;
+            margin: 2em auto;
+
+            p {
+                opacity: 1;
+                transform: translateY(0);
+                font-size: 1em;
+            }
+
+            &::before {
+                transform: scale(1);
+            }
+        }
+
         h1,h2,h3,h4,h5,h6 {
             font-family: $fontHeader;
+            font-weight: 800;
+            color: $colorGrey900;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        h3 {
+            font-size: 1.25em;
         }
 
         .alignnone {
-            margin: 0 auto;
-            max-width: 80%;
+            margin: 1em auto;
+            max-width: 90%;
+            min-width: 90%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            clear: both; 
+
+            @include breakpoint($bpDesktopSmall) {
+                // max-width: 70%;
+            }
+
+            &::after {                
+                content: '';
+                display: table;
+                clear: both;
+            }
         }
 
         .alignleft,
         .alignright {
-            float: none;
-            margin: 0 auto;
-            max-width: 80%;
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            float: left;
+            margin: 1em auto;
+            max-width: 35%;
+        }
+
+        .alignleft + alignright {
+            width: 50%;
+            float: left;
+        }
+
+        .wp-caption {
+
+            &-dt {
+                img {
+                    display: block;
+                    margin: 0 auto;
+                    width: 100%;
+                    max-width: 625px;
+                }
+            }
+
+            &-dd {
+                text-align: center;
+            }
         }
 
         .m-article__iframe {
