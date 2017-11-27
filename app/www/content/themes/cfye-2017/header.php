@@ -31,12 +31,24 @@
                             </a>
                         </div>
                     </div>
-                    <button class='m-navButton'>
+                    <div class='m-siteHeader__nav'>
+                        <nav class="m-siteNav">
+                        <?php wp_nav_menu( 
+                            array( 
+                                'theme_location' => 'header-menu',
+                                'menu_id' => '',
+                                'menu_class' => '',
+                                'container' => '',                                
+                            ) 
+                        ); ?>
+                        </nav>
+                    </div>
+                    <!-- <button class='m-navButton'>
                         <span>Open Menu</span>
-                    </button>
+                    </button> -->
                 </header>
             </div><!-- .l-siteHeader -->
-            <div class='m-siteMenu'>
+            <!-- <div class='m-siteMenu'>
                 <div class='m-siteMenu__inner'>
                     <nav class='m-siteMenu__nav'>
                         <?php wp_nav_menu( 
@@ -49,7 +61,7 @@
                         ); ?>
                     </nav>
                 </div>
-            </div>
+            </div> -->
             
             <div id="barba-wrapper">
                 <div class="barba-container" data-namespace="<?php current_page_name() ?>">

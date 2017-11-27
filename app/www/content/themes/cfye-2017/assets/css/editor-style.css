@@ -9,27 +9,133 @@
   height: 100%;
   position: absolute; }
 
+body#tinymce blockquote {
+  font-style: italic;
+  position: relative;
+  margin: 2em 0;
+  text-align: left;
+  padding: 0.25em 0 0.25em 1em; }
+
+@media (min-width: 768px) {
+  body#tinymce blockquote {
+    font-size: 1.75rem;
+    padding: 0.25rem 0 0.25rem 2em; } }
+
+@media (min-width: 1200px) {
+  body#tinymce blockquote {
+    width: 58vw;
+    left: calc(-29vw + 50%); } }
+
+body#tinymce blockquote p {
+  margin: 0.5rem 0 0;
+  -webkit-transform: translateY(25%);
+          transform: translateY(25%);
+  opacity: 0;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease; }
+
+body#tinymce blockquote::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background-color: #ec008c;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transform-origin: top center;
+          transform-origin: top center;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out; }
+  @media (min-width: 768px) {
+    body#tinymce blockquote::before {
+      width: 4px; } }
+
+body#tinymce blockquote.is-active p,
+.no-js body#tinymce blockquote p, body#tinymce
+.no-js blockquote p {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0); }
+
+body#tinymce blockquote.is-active::before,
+.no-js body#tinymce blockquote::before, body#tinymce
+.no-js blockquote::before {
+  -webkit-transform: scale(1);
+          transform: scale(1); }
+
+body {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+
 body#tinymce {
   color: #000;
   font-family: "freight-text-pro", serif; }
+  body#tinymce p,
+  body#tinymce h1,
+  body#tinymce h2,
+  body#tinymce h3,
+  body#tinymce h4,
+  body#tinymce h5,
+  body#tinymce h6,
+  body#tinymce blockquote {
+    max-width: 670px;
+    margin: 0 auto; }
   body#tinymce p {
     font-size: 1.25em;
-    max-width: 60ch;
     margin: 1em auto;
     overflow: hidden;
     clear: both; }
   body#tinymce a {
     color: #ec008c; }
+  body#tinymce blockquote {
+    visibility: visible;
+    margin: 2em auto; }
+    body#tinymce blockquote p {
+      opacity: 1;
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+      font-size: 1em; }
+    body#tinymce blockquote::before {
+      -webkit-transform: scale(1);
+              transform: scale(1); }
   body#tinymce h1, body#tinymce h2, body#tinymce h3, body#tinymce h4, body#tinymce h5, body#tinymce h6 {
-    font-family: "jaf-bernino-sans-condensed", sans-serif; }
+    font-family: "jaf-bernino-sans-condensed", sans-serif;
+    font-weight: 800;
+    color: #212121; }
+  body#tinymce h2 {
+    font-size: 1.5em; }
+  body#tinymce h3 {
+    font-size: 1.25em; }
   body#tinymce .alignnone {
-    margin: 0 auto;
-    max-width: 80%; }
+    margin: 1em auto;
+    max-width: 90%;
+    min-width: 90%;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    clear: both; }
+    body#tinymce .alignnone::after {
+      content: '';
+      display: table;
+      clear: both; }
   body#tinymce .alignleft,
   body#tinymce .alignright {
-    float: none;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    float: left;
+    margin: 1em auto;
+    max-width: 35%; }
+  body#tinymce .alignleft + alignright {
+    width: 50%;
+    float: left; }
+  body#tinymce .wp-caption-dt img {
+    display: block;
     margin: 0 auto;
-    max-width: 80%; }
+    width: 100%;
+    max-width: 625px; }
+  body#tinymce .wp-caption-dd {
+    text-align: center; }
   body#tinymce .wpview {
     max-width: 80%;
     margin: 3rem auto; }
