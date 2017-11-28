@@ -456,7 +456,7 @@ h2 {
   position: absolute;
   clip: rect(0px 0px 0px 0px); }
 
-.e-entryContent blockquote, .m-article__entryContent blockquote, .m-artistProfile__entryContent blockquote {
+.e-entryContent blockquote, .m-article__entryContent blockquote, .m-artistProfile__entryContent blockquote, .m-event__entryContent blockquote {
   font-style: italic;
   position: relative;
   margin: 2em 0;
@@ -464,16 +464,16 @@ h2 {
   padding: 0.25em 0 0.25em 1em; }
 
 @media (min-width: 768px) {
-  .e-entryContent blockquote, .m-article__entryContent blockquote, .m-artistProfile__entryContent blockquote {
+  .e-entryContent blockquote, .m-article__entryContent blockquote, .m-artistProfile__entryContent blockquote, .m-event__entryContent blockquote {
     font-size: 1.75rem;
     padding: 0.25rem 0 0.25rem 2em; } }
 
 @media (min-width: 1200px) {
-  .e-entryContent blockquote, .m-article__entryContent blockquote, .m-artistProfile__entryContent blockquote {
+  .e-entryContent blockquote, .m-article__entryContent blockquote, .m-artistProfile__entryContent blockquote, .m-event__entryContent blockquote {
     width: 58vw;
     left: calc(-29vw + 50%); } }
 
-.e-entryContent blockquote p, .m-article__entryContent blockquote p, .m-artistProfile__entryContent blockquote p {
+.e-entryContent blockquote p, .m-article__entryContent blockquote p, .m-artistProfile__entryContent blockquote p, .m-event__entryContent blockquote p {
   margin: 0.5rem 0 0;
   -webkit-transform: translateY(25%);
           transform: translateY(25%);
@@ -481,7 +481,7 @@ h2 {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease; }
 
-.e-entryContent blockquote::before, .m-article__entryContent blockquote::before, .m-artistProfile__entryContent blockquote::before {
+.e-entryContent blockquote::before, .m-article__entryContent blockquote::before, .m-artistProfile__entryContent blockquote::before, .m-event__entryContent blockquote::before {
   content: '';
   position: absolute;
   left: 0;
@@ -496,26 +496,30 @@ h2 {
   -webkit-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out; }
   @media (min-width: 768px) {
-    .e-entryContent blockquote::before, .m-article__entryContent blockquote::before, .m-artistProfile__entryContent blockquote::before {
+    .e-entryContent blockquote::before, .m-article__entryContent blockquote::before, .m-artistProfile__entryContent blockquote::before, .m-event__entryContent blockquote::before {
       width: 4px; } }
 
-.e-entryContent blockquote.is-active p, .m-article__entryContent blockquote.is-active p, .m-artistProfile__entryContent blockquote.is-active p,
+.e-entryContent blockquote.is-active p, .m-article__entryContent blockquote.is-active p, .m-artistProfile__entryContent blockquote.is-active p, .m-event__entryContent blockquote.is-active p,
 .no-js .e-entryContent blockquote p, .e-entryContent
 .no-js blockquote p,
 .no-js .m-article__entryContent blockquote p, .m-article__entryContent
 .no-js blockquote p,
 .no-js .m-artistProfile__entryContent blockquote p, .m-artistProfile__entryContent
+.no-js blockquote p,
+.no-js .m-event__entryContent blockquote p, .m-event__entryContent
 .no-js blockquote p {
   opacity: 1;
   -webkit-transform: translateY(0);
           transform: translateY(0); }
 
-.e-entryContent blockquote.is-active::before, .m-article__entryContent blockquote.is-active::before, .m-artistProfile__entryContent blockquote.is-active::before,
+.e-entryContent blockquote.is-active::before, .m-article__entryContent blockquote.is-active::before, .m-artistProfile__entryContent blockquote.is-active::before, .m-event__entryContent blockquote.is-active::before,
 .no-js .e-entryContent blockquote::before, .e-entryContent
 .no-js blockquote::before,
 .no-js .m-article__entryContent blockquote::before, .m-article__entryContent
 .no-js blockquote::before,
 .no-js .m-artistProfile__entryContent blockquote::before, .m-artistProfile__entryContent
+.no-js blockquote::before,
+.no-js .m-event__entryContent blockquote::before, .m-event__entryContent
 .no-js blockquote::before {
   -webkit-transform: scale(1);
           transform: scale(1); }
@@ -530,7 +534,7 @@ h2 {
   height: 100%;
   position: absolute; }
 
-.e-entryContent .wp-caption::before, .m-article__entryContent .wp-caption::before, .m-artistProfile__entryContent .wp-caption::before, .m-articleExcerpt__imageWrap::before, .e-entryContent .wp-caption::after, .m-article__entryContent .wp-caption::after, .m-artistProfile__entryContent .wp-caption::after, .m-articleExcerpt__imageWrap::after {
+.e-entryContent .wp-caption::before, .m-article__entryContent .wp-caption::before, .m-artistProfile__entryContent .wp-caption::before, .m-event__entryContent .wp-caption::before, .m-articleExcerpt__imageWrap::before, .e-entryContent .wp-caption::after, .m-article__entryContent .wp-caption::after, .m-artistProfile__entryContent .wp-caption::after, .m-event__entryContent .wp-caption::after, .m-articleExcerpt__imageWrap::after {
   content: '';
   width: 50px;
   height: 50px;
@@ -547,11 +551,11 @@ h2 {
   -webkit-animation: scale 2.0s infinite ease-in-out;
           animation: scale 2.0s infinite ease-in-out; }
 
-.e-entryContent .wp-caption::after, .m-article__entryContent .wp-caption::after, .m-artistProfile__entryContent .wp-caption::after, .m-articleExcerpt__imageWrap::after {
+.e-entryContent .wp-caption::after, .m-article__entryContent .wp-caption::after, .m-artistProfile__entryContent .wp-caption::after, .m-event__entryContent .wp-caption::after, .m-articleExcerpt__imageWrap::after {
   -webkit-animation-delay: -1.0s;
           animation-delay: -1.0s; }
 
-.e-entryContent .is-loaded.wp-caption::before, .m-article__entryContent .is-loaded.wp-caption::before, .m-artistProfile__entryContent .is-loaded.wp-caption::before, .is-loaded.m-articleExcerpt__imageWrap::before, .e-entryContent .is-loaded.wp-caption::after, .m-article__entryContent .is-loaded.wp-caption::after, .m-artistProfile__entryContent .is-loaded.wp-caption::after, .is-loaded.m-articleExcerpt__imageWrap::after {
+.e-entryContent .is-loaded.wp-caption::before, .m-article__entryContent .is-loaded.wp-caption::before, .m-artistProfile__entryContent .is-loaded.wp-caption::before, .m-event__entryContent .is-loaded.wp-caption::before, .is-loaded.m-articleExcerpt__imageWrap::before, .e-entryContent .is-loaded.wp-caption::after, .m-article__entryContent .is-loaded.wp-caption::after, .m-artistProfile__entryContent .is-loaded.wp-caption::after, .m-event__entryContent .is-loaded.wp-caption::after, .is-loaded.m-articleExcerpt__imageWrap::after {
   display: none; }
 
 @-webkit-keyframes scale {
@@ -570,47 +574,49 @@ h2 {
     -webkit-transform: translateX(-50%) translateY(-50%) scale(1);
             transform: translateX(-50%) translateY(-50%) scale(1); } }
 
-.e-entryContent .alignnone.wp-caption, .m-article__entryContent .alignnone.wp-caption, .m-artistProfile__entryContent .alignnone.wp-caption, .m-entryCollection, .m-article__iframe, .m-article__gallery, .m-article img.alignnone {
+.e-entryContent .alignnone.wp-caption, .m-article__entryContent .alignnone.wp-caption, .m-artistProfile__entryContent .alignnone.wp-caption, .m-event__entryContent .alignnone.wp-caption, .m-entryCollection, .m-article__iframe, .m-article__gallery, .m-article img.alignnone {
   width: 100vw;
   left: calc(-50vw + 50%); }
   @media (min-width: 1200px) {
-    .e-entryContent .alignnone.wp-caption, .m-article__entryContent .alignnone.wp-caption, .m-artistProfile__entryContent .alignnone.wp-caption, .m-entryCollection, .m-article__iframe, .m-article__gallery, .m-article img.alignnone {
+    .e-entryContent .alignnone.wp-caption, .m-article__entryContent .alignnone.wp-caption, .m-artistProfile__entryContent .alignnone.wp-caption, .m-event__entryContent .alignnone.wp-caption, .m-entryCollection, .m-article__iframe, .m-article__gallery, .m-article img.alignnone {
       width: 72vw;
       left: calc(-36vw + 50%); } }
 
-.e-entryContent .wp-caption, .m-article__entryContent .wp-caption, .m-artistProfile__entryContent .wp-caption {
+.e-entryContent .wp-caption, .m-article__entryContent .wp-caption, .m-artistProfile__entryContent .wp-caption, .m-event__entryContent .wp-caption {
   position: relative;
   overflow: hidden;
   margin: 1rem 0; }
 
-.e-entryContent .wp-caption + p, .m-article__entryContent .wp-caption + p, .m-artistProfile__entryContent .wp-caption + p, .e-entryContent .wp-caption + blockquote, .m-article__entryContent .wp-caption + blockquote, .m-artistProfile__entryContent .wp-caption + blockquote, .e-entryContent .wp-caption + h2, .m-article__entryContent .wp-caption + h2, .m-artistProfile__entryContent .wp-caption + h2, .e-entryContent .wp-caption + h3, .m-article__entryContent .wp-caption + h3, .m-artistProfile__entryContent .wp-caption + h3, .e-entryContent .wp-caption + h4, .m-article__entryContent .wp-caption + h4, .m-artistProfile__entryContent .wp-caption + h4, .e-entryContent .wp-caption + h5, .m-article__entryContent .wp-caption + h5, .m-artistProfile__entryContent .wp-caption + h5, .e-entryContent .wp-caption + h6, .m-article__entryContent .wp-caption + h6, .m-artistProfile__entryContent .wp-caption + h6, .e-entryContent .wp-caption + iframe, .m-article__entryContent .wp-caption + iframe, .m-artistProfile__entryContent .wp-caption + iframe {
+.e-entryContent .wp-caption + p, .m-article__entryContent .wp-caption + p, .m-artistProfile__entryContent .wp-caption + p, .m-event__entryContent .wp-caption + p, .e-entryContent .wp-caption + blockquote, .m-article__entryContent .wp-caption + blockquote, .m-artistProfile__entryContent .wp-caption + blockquote, .m-event__entryContent .wp-caption + blockquote, .e-entryContent .wp-caption + h2, .m-article__entryContent .wp-caption + h2, .m-artistProfile__entryContent .wp-caption + h2, .m-event__entryContent .wp-caption + h2, .e-entryContent .wp-caption + h3, .m-article__entryContent .wp-caption + h3, .m-artistProfile__entryContent .wp-caption + h3, .m-event__entryContent .wp-caption + h3, .e-entryContent .wp-caption + h4, .m-article__entryContent .wp-caption + h4, .m-artistProfile__entryContent .wp-caption + h4, .m-event__entryContent .wp-caption + h4, .e-entryContent .wp-caption + h5, .m-article__entryContent .wp-caption + h5, .m-artistProfile__entryContent .wp-caption + h5, .m-event__entryContent .wp-caption + h5, .e-entryContent .wp-caption + h6, .m-article__entryContent .wp-caption + h6, .m-artistProfile__entryContent .wp-caption + h6, .m-event__entryContent .wp-caption + h6, .e-entryContent .wp-caption + iframe, .m-article__entryContent .wp-caption + iframe, .m-artistProfile__entryContent .wp-caption + iframe, .m-event__entryContent .wp-caption + iframe {
   margin-top: 3rem; }
 
-.e-entryContent .wp-caption + blockquote, .m-article__entryContent .wp-caption + blockquote, .m-artistProfile__entryContent .wp-caption + blockquote {
+.e-entryContent .wp-caption + blockquote, .m-article__entryContent .wp-caption + blockquote, .m-artistProfile__entryContent .wp-caption + blockquote, .m-event__entryContent .wp-caption + blockquote {
   margin-top: 3rem; }
 
-.e-entryContent .alignnone.wp-caption, .m-article__entryContent .alignnone.wp-caption, .m-artistProfile__entryContent .alignnone.wp-caption {
+.e-entryContent .alignnone.wp-caption, .m-article__entryContent .alignnone.wp-caption, .m-artistProfile__entryContent .alignnone.wp-caption, .m-event__entryContent .alignnone.wp-caption {
   position: relative; }
 
-.e-entryContent .is-loaded.wp-caption::before, .m-article__entryContent .is-loaded.wp-caption::before, .m-artistProfile__entryContent .is-loaded.wp-caption::before, .e-entryContent .is-loaded.wp-caption::after, .m-article__entryContent .is-loaded.wp-caption::after, .m-artistProfile__entryContent .is-loaded.wp-caption::after {
+.e-entryContent .is-loaded.wp-caption::before, .m-article__entryContent .is-loaded.wp-caption::before, .m-artistProfile__entryContent .is-loaded.wp-caption::before, .m-event__entryContent .is-loaded.wp-caption::before, .e-entryContent .is-loaded.wp-caption::after, .m-article__entryContent .is-loaded.wp-caption::after, .m-artistProfile__entryContent .is-loaded.wp-caption::after, .m-event__entryContent .is-loaded.wp-caption::after {
   display: none; }
 
-.e-entryContent .wp-caption img, .m-article__entryContent .wp-caption img, .m-artistProfile__entryContent .wp-caption img {
+.e-entryContent .wp-caption img, .m-article__entryContent .wp-caption img, .m-artistProfile__entryContent .wp-caption img, .m-event__entryContent .wp-caption img {
   display: block;
   width: 100%;
   height: auto;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease; }
-  .e-entryContent .wp-caption img[data-src], .m-article__entryContent .wp-caption img[data-src], .m-artistProfile__entryContent .wp-caption img[data-src], .e-entryContent .wp-caption img[data-srcset], .m-article__entryContent .wp-caption img[data-srcset], .m-artistProfile__entryContent .wp-caption img[data-srcset] {
+  .e-entryContent .wp-caption img[data-src], .m-article__entryContent .wp-caption img[data-src], .m-artistProfile__entryContent .wp-caption img[data-src], .m-event__entryContent .wp-caption img[data-src], .e-entryContent .wp-caption img[data-srcset], .m-article__entryContent .wp-caption img[data-srcset], .m-artistProfile__entryContent .wp-caption img[data-srcset], .m-event__entryContent .wp-caption img[data-srcset] {
     opacity: 0;
     -webkit-transform: scale(0.9);
             transform: scale(0.9); }
-  .e-entryContent .wp-caption img[data-loaded=true], .m-article__entryContent .wp-caption img[data-loaded=true], .m-artistProfile__entryContent .wp-caption img[data-loaded=true],
+  .e-entryContent .wp-caption img[data-loaded=true], .m-article__entryContent .wp-caption img[data-loaded=true], .m-artistProfile__entryContent .wp-caption img[data-loaded=true], .m-event__entryContent .wp-caption img[data-loaded=true],
   .no-js .e-entryContent .wp-caption img, .e-entryContent
   .no-js .wp-caption img,
   .no-js .m-article__entryContent .wp-caption img, .m-article__entryContent
   .no-js .wp-caption img,
   .no-js .m-artistProfile__entryContent .wp-caption img, .m-artistProfile__entryContent
+  .no-js .wp-caption img,
+  .no-js .m-event__entryContent .wp-caption img, .m-event__entryContent
   .no-js .wp-caption img {
     opacity: 1;
     -webkit-transform: scale(1);
@@ -618,13 +624,13 @@ h2 {
     position: relative;
     z-index: 101; }
 
-.e-entryContent .wp-caption:hover .wp-caption-text, .m-article__entryContent .wp-caption:hover .wp-caption-text, .m-artistProfile__entryContent .wp-caption:hover .wp-caption-text {
+.e-entryContent .wp-caption:hover .wp-caption-text, .m-article__entryContent .wp-caption:hover .wp-caption-text, .m-artistProfile__entryContent .wp-caption:hover .wp-caption-text, .m-event__entryContent .wp-caption:hover .wp-caption-text {
   -webkit-transform: translateY(0);
           transform: translateY(0);
   visibility: visible;
   z-index: 102; }
 
-.e-entryContent .wp-caption-text, .m-article__entryContent .wp-caption-text, .m-artistProfile__entryContent .wp-caption-text {
+.e-entryContent .wp-caption-text, .m-article__entryContent .wp-caption-text, .m-artistProfile__entryContent .wp-caption-text, .m-event__entryContent .wp-caption-text {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -641,45 +647,62 @@ h2 {
   transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
   visibility: hidden; }
 
-.e-entryContent, .m-article__entryContent, .m-artistProfile__entryContent {
+.e-entryContent, .m-article__entryContent, .m-artistProfile__entryContent, .m-event__entryContent {
   font-size: 1.25em;
   font-family: "freight-text-pro", serif; }
   @media (min-width: 768px) {
-    .e-entryContent, .m-article__entryContent, .m-artistProfile__entryContent {
+    .e-entryContent, .m-article__entryContent, .m-artistProfile__entryContent, .m-event__entryContent {
       font-size: 1.375em; } }
 
-.e-entryContent p:first-child, .m-article__entryContent p:first-child, .m-artistProfile__entryContent p:first-child {
+.e-entryContent p:first-child, .m-article__entryContent p:first-child, .m-artistProfile__entryContent p:first-child, .m-event__entryContent p:first-child {
   margin-top: 0; }
 
-.e-entryContent a, .m-article__entryContent a, .m-artistProfile__entryContent a {
+.e-entryContent > p:first-of-type::first-letter, .m-article__entryContent > p:first-of-type::first-letter, .m-artistProfile__entryContent > p:first-of-type::first-letter, .m-event__entryContent > p:first-of-type::first-letter {
+  float: left;
+  padding: 0 0.25em;
+  line-height: 1.2;
+  font-size: 2.5em;
+  color: #ec008c; }
+  @media (min-width: 768px) {
+    .e-entryContent > p:first-of-type::first-letter, .m-article__entryContent > p:first-of-type::first-letter, .m-artistProfile__entryContent > p:first-of-type::first-letter, .m-event__entryContent > p:first-of-type::first-letter {
+      padding: 0 0.25em;
+      font-size: 3.5em;
+      line-height: .83; } }
+  @media (min-width: 1200px) {
+    .e-entryContent > p:first-of-type::first-letter, .m-article__entryContent > p:first-of-type::first-letter, .m-artistProfile__entryContent > p:first-of-type::first-letter, .m-event__entryContent > p:first-of-type::first-letter {
+      font-size: 5em;
+      padding-top: 0.0625em;
+      line-height: .73; } }
+
+.e-entryContent a, .m-article__entryContent a, .m-artistProfile__entryContent a, .m-event__entryContent a {
   color: #ec008c; }
 
-.e-entryContent p, .m-article__entryContent p, .m-artistProfile__entryContent p, .e-entryContent ul, .m-article__entryContent ul, .m-artistProfile__entryContent ul, .e-entryContent ol, .m-article__entryContent ol, .m-artistProfile__entryContent ol {
+.e-entryContent p, .m-article__entryContent p, .m-artistProfile__entryContent p, .m-event__entryContent p, .e-entryContent ul, .m-article__entryContent ul, .m-artistProfile__entryContent ul, .m-event__entryContent ul, .e-entryContent ol, .m-article__entryContent ol, .m-artistProfile__entryContent ol, .m-event__entryContent ol {
   line-height: 1.55;
   color: #616161; }
 
-.e-entryContent p + .wp-caption, .m-article__entryContent p + .wp-caption, .m-artistProfile__entryContent p + .wp-caption,
-.e-entryContent p + .m-entryCollection, .m-article__entryContent p + .m-entryCollection, .m-artistProfile__entryContent p + .m-entryCollection,
-.e-entryContent p + .m-article__iframe, .m-article__entryContent p + .m-article__iframe, .m-artistProfile__entryContent p + .m-article__iframe, .e-entryContent ul + .wp-caption, .m-article__entryContent ul + .wp-caption, .m-artistProfile__entryContent ul + .wp-caption,
-.e-entryContent ul + .m-entryCollection, .m-article__entryContent ul + .m-entryCollection, .m-artistProfile__entryContent ul + .m-entryCollection,
-.e-entryContent ul + .m-article__iframe, .m-article__entryContent ul + .m-article__iframe, .m-artistProfile__entryContent ul + .m-article__iframe, .e-entryContent ol + .wp-caption, .m-article__entryContent ol + .wp-caption, .m-artistProfile__entryContent ol + .wp-caption,
-.e-entryContent ol + .m-entryCollection, .m-article__entryContent ol + .m-entryCollection, .m-artistProfile__entryContent ol + .m-entryCollection,
-.e-entryContent ol + .m-article__iframe, .m-article__entryContent ol + .m-article__iframe, .m-artistProfile__entryContent ol + .m-article__iframe, .e-entryContent blockquote + .wp-caption, .m-article__entryContent blockquote + .wp-caption, .m-artistProfile__entryContent blockquote + .wp-caption,
-.e-entryContent blockquote + .m-entryCollection, .m-article__entryContent blockquote + .m-entryCollection, .m-artistProfile__entryContent blockquote + .m-entryCollection,
-.e-entryContent blockquote + .m-article__iframe, .m-article__entryContent blockquote + .m-article__iframe, .m-artistProfile__entryContent blockquote + .m-article__iframe {
+.e-entryContent p + .wp-caption, .m-article__entryContent p + .wp-caption, .m-artistProfile__entryContent p + .wp-caption, .m-event__entryContent p + .wp-caption,
+.e-entryContent p + .m-entryCollection, .m-article__entryContent p + .m-entryCollection, .m-artistProfile__entryContent p + .m-entryCollection, .m-event__entryContent p + .m-entryCollection,
+.e-entryContent p + .m-article__iframe, .m-article__entryContent p + .m-article__iframe, .m-artistProfile__entryContent p + .m-article__iframe, .m-event__entryContent p + .m-article__iframe, .e-entryContent ul + .wp-caption, .m-article__entryContent ul + .wp-caption, .m-artistProfile__entryContent ul + .wp-caption, .m-event__entryContent ul + .wp-caption,
+.e-entryContent ul + .m-entryCollection, .m-article__entryContent ul + .m-entryCollection, .m-artistProfile__entryContent ul + .m-entryCollection, .m-event__entryContent ul + .m-entryCollection,
+.e-entryContent ul + .m-article__iframe, .m-article__entryContent ul + .m-article__iframe, .m-artistProfile__entryContent ul + .m-article__iframe, .m-event__entryContent ul + .m-article__iframe, .e-entryContent ol + .wp-caption, .m-article__entryContent ol + .wp-caption, .m-artistProfile__entryContent ol + .wp-caption, .m-event__entryContent ol + .wp-caption,
+.e-entryContent ol + .m-entryCollection, .m-article__entryContent ol + .m-entryCollection, .m-artistProfile__entryContent ol + .m-entryCollection, .m-event__entryContent ol + .m-entryCollection,
+.e-entryContent ol + .m-article__iframe, .m-article__entryContent ol + .m-article__iframe, .m-artistProfile__entryContent ol + .m-article__iframe, .m-event__entryContent ol + .m-article__iframe, .e-entryContent blockquote + .wp-caption, .m-article__entryContent blockquote + .wp-caption, .m-artistProfile__entryContent blockquote + .wp-caption, .m-event__entryContent blockquote + .wp-caption,
+.e-entryContent blockquote + .m-entryCollection, .m-article__entryContent blockquote + .m-entryCollection, .m-artistProfile__entryContent blockquote + .m-entryCollection, .m-event__entryContent blockquote + .m-entryCollection,
+.e-entryContent blockquote + .m-article__iframe, .m-article__entryContent blockquote + .m-article__iframe, .m-artistProfile__entryContent blockquote + .m-article__iframe, .m-event__entryContent blockquote + .m-article__iframe {
   margin-top: 3rem; }
 
-.e-entryContent ul, .m-article__entryContent ul, .m-artistProfile__entryContent ul, .e-entryContent ol, .m-article__entryContent ol, .m-artistProfile__entryContent ol {
+.e-entryContent ul, .m-article__entryContent ul, .m-artistProfile__entryContent ul, .m-event__entryContent ul, .e-entryContent ol, .m-article__entryContent ol, .m-artistProfile__entryContent ol, .m-event__entryContent ol {
   margin: 2em 0;
   padding: 0 0 0 1.5em; }
 
-.e-entryContent h2, .m-article__entryContent h2, .m-artistProfile__entryContent h2 {
+.e-entryContent h2, .m-article__entryContent h2, .m-artistProfile__entryContent h2, .m-event__entryContent h2 {
   font-size: 1.25em;
   border-bottom: 1px solid #ec008c;
   font-weight: 700;
   margin-bottom: 0.25em; }
 
-.e-entryContent h1, .m-article__entryContent h1, .m-artistProfile__entryContent h1, .e-entryContent h2, .m-article__entryContent h2, .m-artistProfile__entryContent h2, .e-entryContent h3, .m-article__entryContent h3, .m-artistProfile__entryContent h3, .e-entryContent h4, .m-article__entryContent h4, .m-artistProfile__entryContent h4, .e-entryContent h5, .m-article__entryContent h5, .m-artistProfile__entryContent h5, .e-entryContent h6, .m-article__entryContent h6, .m-artistProfile__entryContent h6 {
+.e-entryContent h1, .m-article__entryContent h1, .m-artistProfile__entryContent h1, .m-event__entryContent h1, .e-entryContent h2, .m-article__entryContent h2, .m-artistProfile__entryContent h2, .m-event__entryContent h2, .e-entryContent h3, .m-article__entryContent h3, .m-artistProfile__entryContent h3, .m-event__entryContent h3, .e-entryContent h4, .m-article__entryContent h4, .m-artistProfile__entryContent h4, .m-event__entryContent h4, .e-entryContent h5, .m-article__entryContent h5, .m-artistProfile__entryContent h5, .m-event__entryContent h5, .e-entryContent h6, .m-article__entryContent h6, .m-artistProfile__entryContent h6, .m-event__entryContent h6 {
   color: #212121; }
 
 .m-entryCollection {
@@ -1156,17 +1179,6 @@ h2 {
   @media (min-width: 1200px) {
     .m-article__video {
       width: 80vw; } }
-
-.m-article__entryContent > p:first-of-type::first-letter {
-  float: left;
-  padding: 0 0.25em;
-  line-height: 1.25;
-  font-size: 2.5em;
-  color: #ec008c; }
-  @media (min-width: 768px) {
-    .m-article__entryContent > p:first-of-type::first-letter {
-      font-size: 3em;
-      line-height: 1; } }
 
 .m-article .m-entryContent__gallery {
   margin: 3em 0; }
@@ -2114,6 +2126,25 @@ h2 {
   .m-siteMenu a:hover::before {
     -webkit-transform: translateY(-50%) scaleX(1);
             transform: translateY(-50%) scaleX(1); }
+
+.m-event {
+  width: 100%; }
+
+.m-event__hero {
+  width: 100%;
+  height: calc(100vh - 50px);
+  margin: 0;
+  padding: 0;
+  background: #616161; }
+  .m-event__hero img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    -o-object-fit: contain;
+       object-fit: contain; }
+
+.m-event__entryContent {
+  padding: 0 1em; }
 
 .is-activeMenu {
   overflow: hidden; }

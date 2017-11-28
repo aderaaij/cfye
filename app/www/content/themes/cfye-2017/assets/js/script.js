@@ -7983,15 +7983,18 @@ var pageHome = document.querySelector('[data-namespace=home]');
  */
 function initPageSingle() {
     var heroImage = pageSingle.querySelector('.m-article__heroImage');
-    var imageUrl = heroImage.getAttribute('data-src-large');
-    var imgLoad = new Image();
-    document.body.classList.remove('is-loading');
-    imgLoad.onload = function () {
-        heroImage.style.backgroundImage = 'url(' + imageUrl + ')';
-        document.body.classList.remove('is-loadingInit');
-        document.body.classList.remove('is-loadingBar');
-    };
-    imgLoad.src = imageUrl;
+
+    if (heroImage) {
+        var imageUrl = heroImage.getAttribute('data-src-large');
+        var imgLoad = new Image();
+        document.body.classList.remove('is-loading');
+        imgLoad.onload = function () {
+            heroImage.style.backgroundImage = 'url(' + imageUrl + ')';
+            document.body.classList.remove('is-loadingInit');
+            document.body.classList.remove('is-loadingBar');
+        };
+        imgLoad.src = imageUrl;
+    }
 }
 
 /**

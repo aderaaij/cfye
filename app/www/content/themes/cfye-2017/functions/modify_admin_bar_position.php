@@ -2,11 +2,9 @@
 function modify_admin_bar_position() {
 	if ( is_user_logged_in() ) { ?>
 	<style type="text/css">
-		body {
-			
+		body {			
 			margin-top: -32px;
-			padding-bottom: 32px;
-			
+			padding-bottom: 32px;			
 		}
 		body.admin-bar #wphead {
 			padding-top: 0;
