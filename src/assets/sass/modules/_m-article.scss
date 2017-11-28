@@ -160,22 +160,6 @@
         & {
            @extend .e-entryContent;
         }
-
-        > p {
-            &:first-of-type {
-                &::first-letter {
-                    float: left;
-                    padding: 0 0.25em;
-                    line-height: 1.25;
-                    font-size: 2.5em;
-                    color: $colorPrimary;
-                    @include breakpoint($bpSmall) {
-                        font-size: 3em;
-                        line-height: 1;
-                    }                    
-                }
-            }
-        }
     }
 
     .m-entryContent__gallery {
