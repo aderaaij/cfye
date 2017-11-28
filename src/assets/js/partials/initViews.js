@@ -6,15 +6,18 @@ const pageHome = document.querySelector('[data-namespace=home]');
  */
 function initPageSingle() {
     const heroImage = pageSingle.querySelector('.m-article__heroImage');
-    const imageUrl = heroImage.getAttribute('data-src-large');
-    const imgLoad = new Image();
-    document.body.classList.remove('is-loading');
-    imgLoad.onload = () => {
-        heroImage.style.backgroundImage = `url(${imageUrl})`;
-        document.body.classList.remove('is-loadingInit');
-        document.body.classList.remove('is-loadingBar');
-    };
-    imgLoad.src = imageUrl;
+    
+    if (heroImage) {
+        const imageUrl = heroImage.getAttribute('data-src-large');
+        const imgLoad = new Image();
+        document.body.classList.remove('is-loading');
+        imgLoad.onload = () => {
+            heroImage.style.backgroundImage = `url(${imageUrl})`;
+            document.body.classList.remove('is-loadingInit');
+            document.body.classList.remove('is-loadingBar');
+        };
+        imgLoad.src = imageUrl;
+    }
 }
 
 /**
