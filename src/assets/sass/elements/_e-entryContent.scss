@@ -15,6 +15,30 @@
         }
     }
 
+    > p {
+        &:first-of-type {
+            &::first-letter {
+                float: left;
+                padding: 0 0.25em;
+                line-height: 1.2;
+                font-size: 2.5em;
+                color: $colorPrimary;
+                
+                @include breakpoint($bpSmall) {                    
+                    padding: 0 0.25em;
+                    font-size: 3.5em;
+                    line-height: .83;
+                }  
+                
+                @include breakpoint($bpDesktop) {
+                    font-size: 5em;
+                    padding-top: 0.0625em;
+                    line-height: .73
+                }
+            }
+        }
+    }
+
     a {
         color: $colorPrimary;
     }
@@ -38,7 +62,6 @@
     }
 
     h2 {
-        // font-size: em;
         font-size: 1.25em;
         border-bottom: 1px solid $colorPrimary;
         font-weight: 700;
