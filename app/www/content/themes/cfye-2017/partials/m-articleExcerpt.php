@@ -23,13 +23,7 @@
                 class="m-articleExcerpt__image b-lazy"
             >
             </div>
-            <noscript>
-                <div
-                    title="<?php the_title() ?>" 
-                    class="m-articleExcerpt__image"
-                    style="background-image: url(<?php echo $thumb_large[0] ?>);">
-                </div>
-            </noscript>
+          
         </div>
         
         <div class='m-articleExcerpt__content'>
