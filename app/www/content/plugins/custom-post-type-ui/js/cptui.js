@@ -8,6 +8,9 @@ postboxes.add_postbox_toggles(pagenow);
  */
 (function($) {
 
+	$('#cptui_select_post_type_submit').hide();
+	$('#cptui_select_taxonomy_submit').hide();
+
 	if ('edit' === getParameterByName('action')) {
 		// Store our original slug on page load for edit checking.
 		var original_slug = $('#name').val();
@@ -23,11 +26,28 @@ postboxes.add_postbox_toggles(pagenow);
 	});
 
 	// Confirm our deletions
-	$('#cpt_submit_delete').on('click',function() {
-		if ( confirm( cptui_type_data.confirm ) ) {
-			return true;
+	$('.cptui-delete-top, .cptui-delete-bottom').on('click',function(e) {
+		e.preventDefault();
+		var msg = '';
+		if (typeof cptui_type_data !== 'undefined') {
+			msg = cptui_type_data.confirm;
+		} else if (typeof cptui_tax_data !== 'undefined') {
+			msg = cptui_tax_data.confirm;
 		}
-		return false;
+		var submit_delete_warning = $('<div class="cptui-submit-delete-dialog">' + msg + '</div>').appendTo('#poststuff').dialog({
+			'dialogClass'   : 'wp-dialog',
+			'modal'         : true,
+			'autoOpen'      : true,
+			'buttons'       : {
+				"OK": function() {
+					var form = $(e.target).closest('form');
+					$(e.target).unbind('click').click();
+				},
+				"Cancel": function() {
+					$(this).dialog('close');
+				}
+			}
+		});
 	});
 
 	// Toggles help/support accordions.
@@ -58,17 +78,33 @@ postboxes.add_postbox_toggles(pagenow);
 			value = transliterate(value);
 			value = replaceSpecialCharacters(value);
 			if ( value !== original_value ) {
-				$(this).attr('value', value);
+				$(this).prop('value', value);
 			}
 		}
 
 		//Displays a message if slug changes.
-		if(undefined != original_slug) {
+		if(typeof original_slug !== 'undefined') {
 			var $slugchanged = $('#slugchanged');
 			if(value != original_slug) {
 				$slugchanged.removeClass('hidemessage');
 			} else {
 				$slugchanged.addClass('hidemessage');
+			}
+		}
+
+		var $slugexists = $('#slugexists');
+		if ( typeof cptui_type_data != 'undefined' ) {
+			if (cptui_type_data.existing_post_types.hasOwnProperty(value) && value !== original_slug) {
+				$slugexists.removeClass('hidemessage');
+			} else {
+				$slugexists.addClass('hidemessage');
+			}
+		}
+		if ( typeof cptui_tax_data != 'undefined' ) {
+			if (cptui_tax_data.existing_taxonomies.hasOwnProperty(value) && value !== original_slug) {
+				$slugexists.removeClass('hidemessage');
+			} else {
+				$slugexists.addClass('hidemessage');
 			}
 		}
 	});
@@ -95,10 +131,23 @@ postboxes.add_postbox_toggles(pagenow);
 	}
 
 	function replaceSpecialCharacters(s) {
-
-		s = s.replace(/[^a-z0-9\s]/gi, '_');
+		if ( 'cpt-ui_page_cptui_manage_post_types' === window.pagenow ) {
+			s = s.replace(/[^a-z0-9\s-]/gi, '_');
+		} else {
+			s = s.replace(/[^a-z0-9\s]/gi, '_');
+		}
 
 		return s;
+	}
+
+	function composePreviewContent(value) {
+		if (!value) {
+			return '';
+		} else if (0 === value.indexOf('dashicons-')) {
+			return $('<div class="dashicons-before"><br></div>').addClass(value);
+		} else {
+			return $('<img />').attr('src', value);
+		}
 	}
 
 	var cyrillic = {
@@ -134,7 +183,7 @@ postboxes.add_postbox_toggles(pagenow);
 		_custom_media = true;
 		wp.media.editor.send.attachment = function (props, attachment) {
 			if (_custom_media) {
-				$("#" + id).val(attachment.url);
+				$("#" + id).val(attachment.url).change();
 			} else {
 				return _orig_send_attachment.apply(this, [props, attachment]);
 			}
@@ -144,22 +193,11 @@ postboxes.add_postbox_toggles(pagenow);
 		return false;
 	});
 
-	$('#togglelabels').on('click',function(e){
-		e.preventDefault();
-		$('#labels_expand').toggleClass('toggledclosed');
+	$('#menu_icon').on('change', function () {
+		var value = $(this).val().trim();
+		$('#menu_icon_preview').html(composePreviewContent(value));
 	});
-	$('#togglesettings').on('click',function(e) {
-		e.preventDefault();
-		$('#settings_expand').toggleClass('toggledclosed');
-	});
-	$('#labels_expand,#settings_expand').on('focus',function(e) {
-		if ( $(this).hasClass('toggledclosed') ) {
-			$(this).toggleClass('toggledclosed');
-		}
-	});
-	$('#labels_expand legend,#settings_expand legend').on('click',function(e){
-		$(this).parent().toggleClass('toggledclosed');
-	});
+
 	$('.cptui-help').on('click',function(e){
 		e.preventDefault();
 	});
@@ -167,7 +205,52 @@ postboxes.add_postbox_toggles(pagenow);
 	$('.cptui-taxonomy-submit').on('click',function(e){
 		if ( $('.cptui-table :checkbox:checked').length == 0 ) {
 			e.preventDefault();
-			alert( cptui_tax_data.no_associated_type );
+			var no_associated_type_warning = $('<div class="cptui-taxonomy-empty-types-dialog">' + cptui_tax_data.no_associated_type + '</div>').appendTo('#poststuff').dialog({
+				'dialogClass'   : 'wp-dialog',
+				'modal'         : true,
+				'autoOpen'      : true,
+				'buttons'       : {
+					"OK": function() {
+						$(this).dialog('close');
+					}
+				}
+			});
 		}
 	});
+
+	$('#auto-populate').on( 'click tap', function(e){
+		e.preventDefault();
+
+		var slug     = $('#name').val();
+		var plural   = $('#label').val();
+		var singular = $('#singular_label').val();
+		var fields   = $('.cptui-labels input[type="text"]');
+
+		if ( '' === slug ) {
+			return;
+		}
+		if ( '' === plural ) {
+			plural = slug;
+		}
+		if ( '' === singular ) {
+			singular = slug;
+		}
+
+		$(fields).each( function( i, el ) {
+			var newval = $( el ).data( 'label' );
+			var plurality = $( el ).data( 'plurality' );
+			if ( 'undefined' !== newval ) {
+				// "slug" is our placeholder from the labels.
+				if ( 'plural' === plurality ) {
+					newval = newval.replace(/item/gi, plural);
+				} else {
+					newval = newval.replace(/item/gi, singular);
+				}
+				if ( $( el ).val() === '' ) {
+					$(el).val(newval);
+				}
+			}
+		} );
+	});
+
 })(jQuery);

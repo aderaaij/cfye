@@ -13,8 +13,7 @@ if ( ! function_exists( 'add_action' ) ) {
 
 <div id="poststuff" class="ui-sortable meta-box-sortables">
 	<div class="postbox">
-		<div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'adminimize' ); ?>"><br /></div>
-		<h3 class="hndle" id="dashboard_options"><?php esc_attr_e( 'Dashboard options', 'adminimize' ); ?></h3>
+		<h3 class="hndle ui-sortable-handle" title="<?php esc_attr_e( 'Click to toggle', 'adminimize' ); ?>" id="dashboard_options"><?php esc_attr_e( 'Dashboard options', 'adminimize' ); ?></h3>
 
 		<div class="inside">
 			<br class="clear" />
@@ -205,7 +204,7 @@ if ( ! function_exists( 'add_action' ) ) {
 			<?php } // end if else $widgets ?>
 
 			<p>
-				<a class="alignright button" href="javascript:void(0);" onclick="window.scrollTo(0,0);" style="margin:3px 0 0 30px;"><?php esc_attr_e(
+                <a class="alignright button adminimize-scroltop" href="#" style="margin:3px 0 0 30px;"><?php esc_attr_e(
 						'scroll to top', 'adminimize'
 					); ?></a><br class="clear" /></p>
 

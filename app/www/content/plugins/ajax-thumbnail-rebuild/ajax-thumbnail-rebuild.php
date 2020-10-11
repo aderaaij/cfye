@@ -1,28 +1,16 @@
 <?php
-/*
-	Plugin name: AJAX Thumbnail Rebuild
-	Plugin URI: http://breiti.cc/wordpress/ajax-thumbnail-rebuild
-	Author: junkcoder
-	Author URI: http://breiti.cc
-	Version: 1.2.1
-	Description: Rebuild all thumbnails
-	Tested up to: 4.8.2
-	Text Domain: ajax-thumbnail-rebuild
-
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation; either version 2 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+/**
+ * Plugin name: AJAX Thumbnail Rebuild
+ * Plugin URI: https://wordpress.org/plugins/ajax-thumbnail-rebuild/
+ * Author: junkcoder, ristoniinemets
+ * Version: 1.13
+ * Description: AJAX Thumbnail Rebuild allows you to rebuild all thumbnails on your site.
+ * Tested up to: 4.9.8
+ * Text Domain: ajax-thumbnail-rebuild
+ * License: GPL2
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Domain Path: /languages
+ */
 
 class AjaxThumbnailRebuild {
 
@@ -133,7 +121,8 @@ class AjaxThumbnailRebuild {
 						return;
 					}
 
-					function regenItem() {
+					function regenItem(throttling) {
+
 						if (curr >= list.length) {
 							jQuery("#ajax_thumbnail_rebuild").prop("disabled", false);
 							setMessage("<?php _e('Done.', 'ajax-thumbnail-rebuild') ?>");
@@ -152,12 +141,27 @@ class AjaxThumbnailRebuild {
 									jQuery("#thumb").show();
 									jQuery("#thumb-img").attr("src",result);
 								}
-								regenItem();
+								setTimeout(function() {
+									regenItem(throttling);
+								}, throttling * 1000);
+							},
+							error: function(request, status, error) {
+								if ((request.status == 503 && 60 <= throttling) || (20 <= throttling)) {
+									console.log('ajax-thumbnail-rebuild gave up on "' + curr + '" after too many errors!');
+									// skip this image (most likely malformed or oom_reaper)
+									curr = curr + 1;
+									throttling = Math.round(throttling / 2);
+								} else {
+									throttling = throttling + 1;
+								}
+								setTimeout(function() {
+									regenItem(throttling);
+								}, throttling * 1000);
 							}
 						});
 					}
 
-					regenItem();
+					regenItem(0);
 				},
 				error: function(request, status, error) {
 					setMessage("<?php _e( 'Error', 'ajax-thumbnail-rebuild' ) ?>" + request.status);
@@ -227,7 +231,7 @@ class AjaxThumbnailRebuild {
 		<div id="thumb" style="display:none;"><h4><?php _e( 'Last image', 'ajax-thumbnail-rebuild' ); ?>:</h4><img id="thumb-img" /></div>
 
 		<p style="clear:both; padding-top:2em;">
-			<?php printf( __( 'If you find this plugin useful, I\'d be happy to read your comments on the %splugin homepage%s. If you experience any problems, feel free to leave a comment too.', 'ajax-thumbnail-rebuild' ), '<a href="http://breiti.cc/wordpress/ajax-thumbnail-rebuild" target="_blank">', '</a>'); ?>
+			<?php printf( __( 'If you find this plugin useful, I\'d be happy to read your comments on the %splugin homepage%s. If you experience any problems, feel free to leave a comment too.', 'ajax-thumbnail-rebuild' ), '<a href="https://wordpress.org/plugins/ajax-thumbnail-rebuild/" target="_blank">', '</a>'); ?>
 		</p>
 		<?php
 	}
@@ -294,7 +298,11 @@ function ajax_thumbnail_rebuild_ajax() {
 }
 add_action( 'wp_ajax_ajax_thumbnail_rebuild', 'ajax_thumbnail_rebuild_ajax' );
 
-add_action( 'plugins_loaded', create_function( '', 'global $AjaxThumbnailRebuild; $AjaxThumbnailRebuild = new AjaxThumbnailRebuild();' ) );
+add_action( 'plugins_loaded', function() {
+	global $ajax_thumbnail_rebuild;
+
+	$ajax_thumbnail_rebuild = new AjaxThumbnailRebuild();
+});
 
 function ajax_thumbnail_rebuild_get_sizes() {
 	global $_wp_additional_image_sizes;
@@ -393,4 +401,3 @@ function wp_generate_attachment_metadata_custom( $attachment_id, $file, $thumbna
 }
 
 load_plugin_textdomain( 'ajax-thumbnail-rebuild', false, basename( dirname( __FILE__ ) ) . '/languages' );
-

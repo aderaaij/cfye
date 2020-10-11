@@ -1,29 +1,42 @@
 <?php
+
 defined('ABSPATH') or die;
+
 $post_revisions = 0; $drafted = 0; $trashed = 0; $comments = 0; $trackbacks = 0; $transients = 0;
-if (is_multisite()) {
-    $sites = get_sites();
-    foreach ($sites as $site) {
-        switch_to_blog($site->blog_id);
-        $post_revisions += (int)Breeze_Configuration::getElementToClean('revisions');
-        $drafted        += (int)Breeze_Configuration::getElementToClean('drafted');
-	    $trashed        += (int)Breeze_Configuration::getElementToClean('trash');
-	    $comments       += (int)Breeze_Configuration::getElementToClean('comments');
-	    $trackbacks     += (int)Breeze_Configuration::getElementToClean('trackbacks');
-	    $transients     += (int)Breeze_Configuration::getElementToClean('transient');
-    }
-    restore_current_blog();
+
+if ( is_multisite() && is_network_admin() ) {
+	// Count items from all network sites.
+	$sites = get_sites(
+		array(
+			'fields' => 'ids',
+		)
+	);
+
+	foreach ( $sites as $blog_id ) {
+		switch_to_blog( $blog_id );
+		$post_revisions += (int) Breeze_Configuration::getElementToClean( 'revisions' );
+		$drafted        += (int) Breeze_Configuration::getElementToClean( 'drafted' );
+		$trashed        += (int) Breeze_Configuration::getElementToClean( 'trash' );
+		$comments       += (int) Breeze_Configuration::getElementToClean( 'comments' );
+		$trackbacks     += (int) Breeze_Configuration::getElementToClean( 'trackbacks' );
+		$transients     += (int) Breeze_Configuration::getElementToClean( 'transient' );
+		restore_current_blog();
+	}
 } else {
-    $post_revisions = (int)Breeze_Configuration::getElementToClean('revisions');
-    $drafted        = (int)Breeze_Configuration::getElementToClean('drafted');
-	$trashed        = (int)Breeze_Configuration::getElementToClean('trash');
-	$comments       = (int)Breeze_Configuration::getElementToClean('comments');
-	$trackbacks     = (int)Breeze_Configuration::getElementToClean('trackbacks');
-	$transients     = (int)Breeze_Configuration::getElementToClean('transient');
+	// Count items from the current site.
+	$post_revisions = (int) Breeze_Configuration::getElementToClean( 'revisions' );
+	$drafted        = (int) Breeze_Configuration::getElementToClean( 'drafted' );
+	$trashed        = (int) Breeze_Configuration::getElementToClean( 'trash' );
+	$comments       = (int) Breeze_Configuration::getElementToClean( 'comments' );
+	$trackbacks     = (int) Breeze_Configuration::getElementToClean( 'trackbacks' );
+	$transients     = (int) Breeze_Configuration::getElementToClean( 'transient' );
 }
+
+$is_optimize_disabled = is_multisite() && ! is_network_admin() && '0' !== get_option( 'breeze_inherit_settings' );
+
 ?>
 <div class="breeze-top-notice">
-    <label class="breeze_tool_tip"><?php _e('Important: Backup your databases before using the following options!','breeze')?></label>
+    <p class="breeze_tool_tip"><?php _e('Important: Backup your databases before using the following options!','breeze')?></p>
 </div>
 <table cellspacing="15">
     <tr>
@@ -32,7 +45,7 @@ if (is_multisite()) {
         </td>
         <td>
             <input type="checkbox" id="data0" name="all_control" value="all_data"/>
-            <label class="breeze_tool_tip"><?php _e('Select all following options. Click Optimize to perform actions.','breeze')?></label>
+            <span class="breeze_tool_tip"><?php _e('Select all following options. Click Optimize to perform actions.','breeze')?></span>
         </td>
     </tr>
     <tr>
@@ -41,7 +54,7 @@ if (is_multisite()) {
         </td>
         <td>
             <input type="checkbox" id="data1" name="clean[]" class="clean-data" value="revisions"/>
-            <label class="breeze_tool_tip"><?php _e('Use this option to delete all post revisions from the WordPress database.','breeze')?></label>
+            <span class="breeze_tool_tip"><?php _e('Use this option to delete all post revisions from the WordPress database.','breeze')?></span>
         </td>
     </tr>
     <tr>
@@ -50,7 +63,7 @@ if (is_multisite()) {
         </td>
         <td>
             <input type="checkbox" id="data2" name="clean[]" class="clean-data" value="drafted"/>
-            <label class="breeze_tool_tip"><?php _e('Use this option to delete auto saved drafts from the WordPress database.','breeze')?></label>
+            <span class="breeze_tool_tip"><?php _e('Use this option to delete auto saved drafts from the WordPress database.','breeze')?></span>
         </td>
     </tr>
     <tr>
@@ -59,7 +72,7 @@ if (is_multisite()) {
         </td>
         <td>
             <input type="checkbox" id="data3" name="clean[]" class="clean-data" value="trash"/>
-            <label class="breeze_tool_tip"><?php _e('Use this option to delete all trashed content from the WordPress database.','breeze')?></label>
+            <span class="breeze_tool_tip"><?php _e('Use this option to delete all trashed content from the WordPress database.','breeze')?></span>
 
         </td>
     </tr>
@@ -69,7 +82,7 @@ if (is_multisite()) {
         </td>
         <td>
             <input type="checkbox" id="data4" name="clean[]" class="clean-data" value="comments"/>
-            <label class="breeze_tool_tip"><?php _e('Use this option to delete trash and spam comments from the WordPress database.','breeze')?></label>
+            <span class="breeze_tool_tip"><?php _e('Use this option to delete trash and spam comments from the WordPress database.','breeze')?></span>
         </td>
     </tr>
     <tr>
@@ -78,7 +91,7 @@ if (is_multisite()) {
         </td>
         <td>
             <input type="checkbox" id="data5" name="clean[]" class="clean-data" value="trackbacks"/>
-            <label class="breeze_tool_tip"><?php _e('Use this option to delete Trackbacks and Pingbacks from the WordPress database.','breeze')?></label>
+            <span class="breeze_tool_tip"><?php _e('Use this option to delete Trackbacks and Pingbacks from the WordPress database.','breeze')?></span>
         </td>
     </tr>
     <tr>
@@ -87,7 +100,13 @@ if (is_multisite()) {
         </td>
         <td>
             <input type="checkbox" id="data6" name="clean[]" class="clean-data" value="transient"/>
-            <label class="breeze_tool_tip"><?php _e('Delete expired and active transients from the WordPress database.','breeze')?></label>
+            <span class="breeze_tool_tip"><?php _e('Delete expired and active transients from the WordPress database.','breeze')?></span>
         </td>
-    </tr>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input type="submit" id="breeze-database-optimize" class="button button-primary" <?php echo $is_optimize_disabled ? ' disabled="disabled"' : ''; ?> value="<?php esc_attr_e( 'Optimize' ); ?>">
+		</td>
+	</tr>
 </table>

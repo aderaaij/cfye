@@ -1,8 +1,28 @@
 jQuery(document).ready(function ($) {
+
+    var $compatibility_warning = $('#breeze-plugins-notice');
+    if ($compatibility_warning.length) {
+        $(document).on('click tap', '.notice-dismiss', function () {
+            $.ajax({
+                type: "POST",
+                url: ajaxurl,
+                data: {action: "compatibility_warning_close", 'breeze_close_warning': '1'},
+                dataType: "json", // xml, html, script, json, jsonp, text
+                success: function (data) {
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                },
+                // called when the request finishes (after success and error callbacks are executed)
+                complete: function (jqXHR, textStatus) {
+
+                }
+            });
+        });
+    }
+
     // Topbar action
-    $('#wp-admin-bar-breeze-purge-all').click(function () {
-        window.location.href = breeze_token_name.purge_all_href;
-    });
     $('#wp-admin-bar-breeze-purge-varnish-group').click(function(){
         breeze_purgeVarnish_callAjax();
     });
@@ -22,6 +42,7 @@ jQuery(document).ready(function ($) {
             method:'POST',
             data:{
                 action:'breeze_purge_varnish',
+				is_network: $('body').hasClass( 'network-admin' ),
                 security : breeze_token_name.breeze_purge_varnish
             },
             success : function(res){
@@ -73,7 +94,7 @@ jQuery(document).ready(function ($) {
     var url = location.href;
     var fileClean = parseFloat(getParameterByName('file',url) );
 
-    $( window ).load(function() {
+    $( window ).on('load',function() {
         var patt = /wp-admin/i;
         if(patt.test(url)){
             //backend
@@ -103,4 +124,18 @@ jQuery(document).ready(function ($) {
     $('#breeze-hide-install-msg').unbind('click').click(function () {
         $(this).closest('div.notice').fadeOut();
     })
+
+
+    function current_url_clean() {
+        var query_search = location.search;
+        if (query_search.indexOf('breeze_purge=1') !== -1 && query_search.indexOf('_wpnonce') !== -1) {
+            var params = new URLSearchParams(location.search);
+            params.delete('breeze_purge')
+            params.delete('_wpnonce')
+            history.replaceState(null, '', '?' + params + location.hash)
+        }
+    }
+
+    current_url_clean();
+
 });

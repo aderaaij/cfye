@@ -8,12 +8,19 @@ if ( ! function_exists( 'add_action' ) ) {
 	echo "Hi there!  I'm just a part of plugin, not much I can do when called directly.";
 	exit;
 }
+
+if ( ! isset( $user_roles ) ) {
+	$user_roles = _mw_adminimize_get_all_user_roles();
+}
+
+if ( ! isset( $user_roles_names ) ) {
+	$user_roles_names = _mw_adminimize_get_all_user_roles_names();
+}
 ?>
 
 <div id="poststuff" class="ui-sortable meta-box-sortables">
 	<div class="postbox">
-		<div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'adminimize' ); ?>"><br /></div>
-		<h3 class="hndle" id="config_edit_post" title="<?php esc_attr_e( 'Click to toggle', 'adminimize' ); ?>"><?php
+		<h3 class="hndle ui-sortable-handle" title="<?php esc_attr_e( 'Click to toggle', 'adminimize' ); ?>" id="config_edit_post" title="<?php esc_attr_e( 'Click to toggle', 'adminimize' ); ?>"><?php
 			esc_attr_e( 'Write options - Post', 'adminimize' ); ?></h3>
 
 		<div class="inside">
@@ -34,8 +41,7 @@ if ( ! function_exists( 'add_action' ) ) {
 					<th><?php esc_attr_e( 'Write options - Post', 'adminimize' ); ?></th>
 					<?php
 					foreach ( (array) $user_roles_names as $role_name ) { ?>
-						<th><?php esc_attr_e( 'Deactivate for', 'adminimize' );
-							echo '<br/>' . $role_name; ?></th>
+						<th><?php esc_attr_e( 'Deactivate for', 'adminimize' ); echo '<br/>' . $role_name; ?></th>
 					<?php } ?>
 				</tr>
 				<tr>
@@ -43,7 +49,7 @@ if ( ! function_exists( 'add_action' ) ) {
 					<?php
 					foreach ( (array) $user_roles as $role_slug ) {
 						echo '<td class="num"><input id="select_all" class="write_post_options_'
-						     . esc_attr( $role_slug ) . '" type="checkbox" name="" value="" /></td>' . "\n";
+							 . esc_attr( $role_slug ) . '" type="checkbox" name="" value="" /></td>' . "\n";
 					} ?>
 				</tr>
 				</thead>
@@ -124,15 +130,15 @@ if ( ! function_exists( 'add_action' ) ) {
 				$metaboxes       = array_merge( $metaboxes, $quickedit_areas );
 
 				$metaboxes_names = array(
-					esc_attr__( 'Help' ),
-					esc_attr__( 'Screen Options' ),
-					esc_attr__( 'Add New' ),
+					esc_attr__( 'Help', 'adminimize' ),
+					esc_attr__( 'Screen Options', 'adminimize' ),
+					esc_attr__( 'Add New', 'adminimize' ),
 					esc_attr__( 'Title', 'adminimize' ),
 					esc_attr__( 'Permalink', 'adminimize' ),
 					esc_attr__( 'Tags', 'adminimize' ),
 					esc_attr__( 'Categories', 'adminimize' ),
 					esc_attr__( 'Add New Category', 'adminimize' ),
-					esc_attr__( 'Date' ),
+					esc_attr__( 'Date', 'adminimize' ),
 					esc_attr__( 'Password Protect This Post', 'adminimize' ),
 					esc_attr__( 'Related, Shortcuts', 'adminimize' ),
 					esc_attr__( 'Messages', 'adminimize' ),
@@ -141,8 +147,8 @@ if ( ! function_exists( 'add_action' ) ) {
 					esc_attr__( 'Word count', 'adminimize' ),
 					esc_attr__( 'Post Slug', 'adminimize' ),
 					esc_attr__( 'Publish Actions', 'adminimize' ),
-					esc_attr__( 'Discussion' ),
-					esc_attr__( 'HTML Editor Button' )
+					esc_attr__( 'Discussion', 'adminimize' ),
+					esc_attr__( 'HTML Editor Button', 'adminimize' )
 				);
 
 				foreach ( $GLOBALS[ '_wp_post_type_features' ][ $post_type ] as $post_type_support => $key ) {
@@ -273,7 +279,7 @@ if ( ! function_exists( 'add_action' ) ) {
 			</p>
 
 			<p>
-				<a class="alignright button" href="javascript:void(0);" onclick="window.scrollTo(0,0);" style="margin:3px 0 0 30px;"><?php esc_attr_e(
+                <a class="alignright button adminimize-scroltop" href="#" style="margin:3px 0 0 30px;"><?php esc_attr_e(
 						'scroll to top', 'adminimize'
 					); ?></a><br class="clear" /></p>
 

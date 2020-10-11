@@ -26,11 +26,17 @@ class Breeze_PurgeCacheTime {
     protected $varnishcache = 0;
     public function __construct($settings = null)
     {
-        $this->timettl = $settings['breeze-ttl'];
+	    if ( isset( $settings['breeze-ttl'] ) ) {
+		    $this->timettl = $settings['breeze-ttl'];
+	    }
 
-        $this->normalcache = (int)$settings['breeze-active'];
+	    if ( isset( $settings['breeze-active'] ) ) {
+		    $this->normalcache = (int) $settings['breeze-active'];
+	    }
 
-        $this->varnishcache = (int)$settings['breeze-varnish-purge'];
+	    if ( isset( $settings['breeze-varnish-purge'] ) ) {
+		    $this->varnishcache = (int) $settings['breeze-varnish-purge'];
+	    }
 
         add_action( 'breeze_purge_cache', array( $this, 'schedule_varnish' ) );
         add_action( 'init', array( $this, 'schedule_events' ) );
@@ -101,8 +107,8 @@ class Breeze_PurgeCacheTime {
     }
 }
 
-$basic = get_option('breeze_basic_settings');
-$varnish = get_option('breeze_varnish_cache');
+$basic = breeze_get_option( 'basic_settings' );
+$varnish = breeze_get_option( 'varnish_cache' );
 //Enabled auto purge the varnish caching by time life
 $params = array(
     'breeze-active' => (isset($basic['breeze-active'])?(int)$basic['breeze-active']:0),
@@ -113,4 +119,3 @@ $params = array(
 if($params['breeze-active'] || $params['breeze-varnish-purge']){
     $purgeTime = new Breeze_PurgeCacheTime($params);
 }
-
