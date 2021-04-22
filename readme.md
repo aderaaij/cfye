@@ -1,4 +1,8 @@
-# 🌅 WP-Dawn - A WordPress starter Repo
+# CFYE.com based on WP-DAWN
+
+This is the repository used for https://cfye.com
+
+---
 
 A WordPress starter package to make WordPress theming fun! 
 
